@@ -1,2 +1,2 @@
-# spring-security-advanced
-Sample of advanced level for Spring Security
+# Account Manager Server
+Server for AccountManagerApp
