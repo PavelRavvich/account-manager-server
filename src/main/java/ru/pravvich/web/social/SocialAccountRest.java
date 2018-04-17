@@ -15,6 +15,12 @@ public class SocialAccountRest {
     @JsonProperty("id")
     private int id;
 
+    @JsonProperty("vdsId")
+    private int vdsId;
+
+    @JsonProperty("status")
+    private String status;
+
     @JsonProperty("socialType")
     private String socialType;
 
@@ -31,8 +37,6 @@ public class SocialAccountRest {
     private String phone;
 
     @JsonProperty("regDate")
-    private LocalDate regDate;
+    private long regDate;
 
-    @JsonProperty("status")
-    private String status;
 }

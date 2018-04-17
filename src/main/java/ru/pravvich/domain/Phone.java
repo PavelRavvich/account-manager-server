@@ -24,6 +24,8 @@ public class Phone {
 
     private String number;
 
+    private String isActive;
+
     private String operatorType;
 
     private String operatorUrl;

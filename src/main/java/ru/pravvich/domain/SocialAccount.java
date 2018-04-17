@@ -18,6 +18,10 @@ public class SocialAccount {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private int vdsId;
+
+    private String phoneNumber;
+
 //    @ManyToOne
 //    @JoinColumn(name = "vds_id")
     private Vds vds;

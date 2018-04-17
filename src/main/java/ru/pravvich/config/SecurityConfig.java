@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and().authorizeRequests()
-                .antMatchers("/users", "/rest/vds/get_all").permitAll()
+                .antMatchers("/users", "/rest/vds/get_all", "/rest/social_account/get_all", "/rest/phone/get_all").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().successHandler(authenticationSuccessHandler)
                 .and().logout();

@@ -24,7 +24,7 @@ public class VdsController {
     private VdsService vdsService;
 
     @GetMapping("/get")
-    public VdsRest getById(@RequestParam(name = "id") int id) {
+    public VdsRest get(@RequestParam(name = "id") int id) {
         return toRest(vdsService.getVdsById(id));
     }
 

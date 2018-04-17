@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -15,7 +16,10 @@ public class PhoneRest {
     @JsonProperty("id")
     private int id;
 
-    @JsonProperty("number")
+    @JsonProperty("isActive")
+    private String isActive;
+
+    @JsonProperty("num")
     private String number;
 
     @JsonProperty("operatorType")
@@ -28,12 +32,12 @@ public class PhoneRest {
     private long regDate;
 
     @JsonProperty("socialAccountIds")
-    private int[] socialAccountIds;
+    private List<Integer> socialAccountIds;
 
     @JsonProperty("operatorAccLogin")
     private String operatorAccLogin;
 
-    @JsonProperty("operatorAccPassword")
+    @JsonProperty("operatorAccPass")
     private String operatorAccPassword;
 
 }

@@ -1,21 +1,34 @@
 package ru.pravvich.service;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.pravvich.domain.Vds;
 
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.Collection;
+import java.util.Set;
+import java.util.stream.IntStream;
 
 @Service
 public class VdsService {
 
+    @Autowired
+    private SocialAccountService socialAccountService;
+
     public Vds getVdsById(int id) {
-        return new Vds();
+        System.out.println("GET VDS BY ID: " + id);
+        return createMockVDS();
     }
 
     public Collection<Vds> getVdsList() {
-        return Lists.newArrayList(createMockVDS());
+        Set<Vds> result = Sets.newHashSet();
+        IntStream.range(0, 30).forEach(i -> {
+            Vds mockVDS = createMockVDS();
+            mockVDS.setId(i + 1);
+            result.add(mockVDS);
+        });
+        return result;
     }
 
     public Vds add(Vds vds) {
@@ -30,14 +43,14 @@ public class VdsService {
         return true;
     }
 
-    private Vds createMockVDS() {
+    public Vds createMockVDS() {
         Vds vds = new Vds();
-        vds.setId(1);
         vds.setIp("123.456.67.89");
         vds.setLogin("test_login");
         vds.setPassword("test_password");
         vds.setActivatedDate(new Timestamp(System.currentTimeMillis() - 86400000));
         vds.setDeactivatedDate(new Timestamp(System.currentTimeMillis()));
+        vds.setAccounts(Sets.newHashSet(socialAccountService.getMockSocialAccount()));
         return vds;
     }
 }
