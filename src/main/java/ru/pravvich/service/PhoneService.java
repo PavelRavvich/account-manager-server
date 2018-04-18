@@ -5,9 +5,13 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.pravvich.domain.Phone;
+import ru.pravvich.domain.SocialAccount;
 import ru.pravvich.repository.PhoneRepository;
+import ru.pravvich.repository.SocialAccountRepository;
 
 import java.util.Collection;
+
+import static java.util.Objects.nonNull;
 
 @Service
 public class PhoneService {
@@ -16,18 +20,19 @@ public class PhoneService {
     private PhoneRepository phoneRepository;
 
     public Phone get(int id) {
-        return phoneRepository.findOne(id);
+        Phone phone = phoneRepository.findOne(id);
+        return nonNull(phone) ? phone : new Phone();
     }
 
     public Collection<Phone> list() {
         return Lists.newArrayList(phoneRepository.findAll());
     }
 
-    public Phone createOrUpdate(@NonNull Phone phone) {
+    public Phone saveOrUpdate(@NonNull Phone phone) {
         return phoneRepository.save(phone);
     }
 
-    public void delete(int id) {
-        phoneRepository.delete(id);
+    public void delete(Phone phone) {
+        phoneRepository.delete(phone.getId());
     }
 }

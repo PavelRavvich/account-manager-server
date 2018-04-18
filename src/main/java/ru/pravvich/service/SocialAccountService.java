@@ -1,9 +1,13 @@
 package ru.pravvich.service;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.pravvich.domain.SocialAccount;
+import ru.pravvich.repository.PhoneRepository;
+import ru.pravvich.repository.SocialAccountRepository;
 import ru.pravvich.web.social.SocialAccountRest;
 
 import java.sql.Timestamp;
@@ -11,47 +15,31 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.IntStream;
 
+import static java.util.Objects.nonNull;
+
 @Service
 public class SocialAccountService {
-    public SocialAccountRest getSocialAccountById(int id) {
-        System.out.println(id);
-        return new SocialAccountRest();
-    }
+
+    @Autowired
+    private SocialAccountRepository socialAccountRepository;
+
+    @Autowired
+    private PhoneRepository phoneRepository;
 
     public Collection<SocialAccount> list() {
-        Set<SocialAccount> result = Sets.newHashSet();
-        IntStream.range(0, 30).forEach(i -> {
-            SocialAccount mockSocialAccount = getMockSocialAccount();
-            mockSocialAccount.setId(i + 1);
-            mockSocialAccount.setVdsId(i + 2);
-            result.add(mockSocialAccount);
-        });
-        return result;
+        return Lists.newArrayList(socialAccountRepository.findAll());
     }
 
-    public SocialAccount create(@NonNull SocialAccount account) {
-        System.out.println(account);
-        return account;
+    public SocialAccount get(int id) {
+        SocialAccount account = socialAccountRepository.findOne(id);
+        return nonNull(account) ? account : new SocialAccount();
     }
 
-    public SocialAccount update(@NonNull SocialAccount account) {
-        System.out.println(account);
-        return account;
+    public SocialAccount saveOrUpdate(@NonNull SocialAccount account) {
+        return socialAccountRepository.save(account);
     }
 
     public void delete(int id) {
-        System.out.println(id);
-    }
-
-    public SocialAccount getMockSocialAccount() {
-        SocialAccount socialAccount = new SocialAccount();
-        socialAccount.setId(1);
-        socialAccount.setLogin("test_login");
-        socialAccount.setPassword("test_pass");
-        socialAccount.setNote("some note");
-        socialAccount.setRegDate(new Timestamp(System.currentTimeMillis()));
-        socialAccount.setStatus("Active");
-        socialAccount.setSocialType("YouTube");
-        return socialAccount;
+        socialAccountRepository.delete(id);
     }
 }

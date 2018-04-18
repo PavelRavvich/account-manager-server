@@ -1,18 +1,16 @@
 package ru.pravvich.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "social_account")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "social_account")
+@ToString(exclude = {"vds", "phone"})
 @EqualsAndHashCode(exclude = {"vds", "phone"})
 public class SocialAccount {
 
@@ -22,6 +20,9 @@ public class SocialAccount {
 
     @Column(name = "vds_id")
     private int vdsId;
+
+    @Column(name = "phone_id")
+    private int phoneId;
 
     @ManyToOne
     @JoinColumn(name = "vds_id", insertable = false, updatable = false)
@@ -40,7 +41,7 @@ public class SocialAccount {
     private String note;
 
     @ManyToOne
-    @JoinColumn(name = "phone_id")
+    @JoinColumn(name = "phone_id", insertable = false, updatable = false)
     private Phone phone;
 
     @Column(name = "reg_date")

@@ -1,19 +1,17 @@
 package ru.pravvich.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
 
 @Entity
-@Table(name = "phone")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "phone")
+@ToString(exclude = {"accounts"})
 @EqualsAndHashCode(exclude = {"accounts"})
 public class Phone {
 

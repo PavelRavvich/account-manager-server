@@ -1,7 +1,6 @@
 package ru.pravvich.web.phone;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,6 @@ import ru.pravvich.service.PhoneService;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
@@ -27,7 +25,7 @@ public class PhoneController {
     private PhoneService phoneService;
 
     @GetMapping("/list")
-    public List<PhoneRest> list() {
+    public Collection<PhoneRest> list() {
         return collectionToRest(phoneService.list());
     }
 
@@ -36,26 +34,26 @@ public class PhoneController {
         return toRest(phoneService.get(id));
     }
 
-    @PostMapping("/create")
-    public PhoneRest create(@RequestBody() PhoneRest phone) {
+    @PostMapping("/save")
+    public PhoneRest save(@RequestBody() PhoneRest phone) {
         Phone entity = toEntity(phone);
-        Phone create = phoneService.createOrUpdate(entity);
-        return toRest(create);
+        Phone saved = phoneService.saveOrUpdate(entity);
+        return toRest(saved);
     }
 
     @PostMapping("/update")
     public PhoneRest update(@RequestBody() PhoneRest phone) {
         Phone entity = toEntity(phone);
-        Phone update = phoneService.createOrUpdate(entity);
+        Phone update = phoneService.saveOrUpdate(entity);
         return toRest(update);
     }
 
     @PostMapping("/delete")
     public void delete(@RequestBody() PhoneRest phone) {
-        phoneService.delete(phone.getId());
+        phoneService.delete(toEntity(phone));
     }
 
-    private List<PhoneRest> collectionToRest(@NonNull Collection<Phone> phones) {
+    private Collection<PhoneRest> collectionToRest(@NonNull Collection<Phone> phones) {
         return phones.stream().map(this::toRest).collect(Collectors.toList());
     }
 
