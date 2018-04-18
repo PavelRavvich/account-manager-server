@@ -41,4 +41,5 @@ public class Vds {
 
     @Column(name = "note")
     private String note;
+
 }
