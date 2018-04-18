@@ -15,9 +15,6 @@ public class PhoneService {
     @Autowired
     private PhoneRepository phoneRepository;
 
-    @Autowired
-    private SocialAccountService socialAccountService;
-
     public Phone get(int id) {
         return phoneRepository.findOne(id);
     }

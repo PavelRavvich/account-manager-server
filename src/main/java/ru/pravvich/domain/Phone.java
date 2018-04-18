@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.Collection;
 
 @Entity
 @Table(name = "phone")
@@ -22,7 +22,7 @@ public class Phone {
     private int id;
 
     @OneToMany(mappedBy = "phone", cascade = CascadeType.DETACH)
-    private Set<SocialAccount> accounts;
+    private Collection<SocialAccount> accounts;
 
     @Column(name = "reg_date")
     private Timestamp regDate;

@@ -55,8 +55,8 @@ public class PhoneController {
         phoneService.delete(phone.getId());
     }
 
-    private List<PhoneRest> collectionToRest(@NonNull Collection<Phone> vdsSet) {
-        return vdsSet.stream().map(this::toRest).collect(Collectors.toList());
+    private List<PhoneRest> collectionToRest(@NonNull Collection<Phone> phones) {
+        return phones.stream().map(this::toRest).collect(Collectors.toList());
     }
 
     private PhoneRest toRest(@NonNull Phone entity) {
@@ -89,7 +89,7 @@ public class PhoneController {
         entity.setOperatorAccPassword(rest.getOperatorAccPassword());
         entity.setRegDate(rest.getRegDate() != 0 ? new Timestamp(rest.getRegDate()) : null);
         if (nonNull(rest.getSocialAccountIds()) && !rest.getSocialAccountIds().isEmpty()) {
-            Set<SocialAccount> accounts = Sets.newHashSet();
+            List<SocialAccount> accounts = Lists.newArrayList();
             rest.getSocialAccountIds().forEach(id -> {
                 SocialAccount account = new SocialAccount();
                 account.setId(id);

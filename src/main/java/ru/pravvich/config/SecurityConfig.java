@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         if (securityIsDisable) {
             http.authorizeRequests().antMatchers("/rest/vds/list", "/rest/social_account/list", "/rest/phone/list",
-                    "/rest/phone/get", "/rest/phone/createOrUpdate","/rest/phone/update", "/rest/phone/delete").permitAll();
+                    "/rest/phone/get", "/rest/phone/create","/rest/phone/update", "/rest/phone/delete").permitAll();
         }
 
         http.csrf().disable().exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint)
