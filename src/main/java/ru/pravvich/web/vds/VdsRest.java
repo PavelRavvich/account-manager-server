@@ -21,6 +21,9 @@ public class VdsRest {
     @JsonProperty("ip")
     private String ip;
 
+    @JsonProperty("note")
+    private String note;
+
     @JsonProperty("login")
     private String login;
 

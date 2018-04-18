@@ -23,14 +23,14 @@ public class SocialAccountController {
     @Autowired
     private SocialAccountService socialAccountService;
 
-    @GetMapping("/get_all")
-    public List<SocialAccountRest> getAll() {
-        return collectionToRest(socialAccountService.getList());
-    }
-
     @GetMapping("/get")
     public SocialAccountRest get(@RequestParam(name = "id") int id) {
         return socialAccountService.getSocialAccountById(id);
+    }
+
+    @GetMapping("/list")
+    public List<SocialAccountRest> list() {
+        return collectionToRest(socialAccountService.list());
     }
 
     @PostMapping("/create")
@@ -52,34 +52,33 @@ public class SocialAccountController {
         return vdsSet.stream().map(this::toRest).collect(Collectors.toList());
     }
 
-    private SocialAccountRest toRest(@NonNull SocialAccount account) {
-        SocialAccountRest result = new SocialAccountRest();
-        result.setStatus(account.getStatus());
-        result.setId(account.getId());
-        result.setVdsId(account.getVdsId());
-        result.setNotes(account.getNotes());
-        result.setLogin(account.getLogin());
-        result.setPassword(account.getPassword());
-        result.setPhone(account.getPhoneNumber());
-        result.setSocialType(account.getSocialType());
-        result.setRegDate(account.getRegDate() != null ? account.getRegDate().getTime() : -1);
-        return result;
+    private SocialAccountRest toRest(@NonNull SocialAccount entity) {
+        SocialAccountRest rest = new SocialAccountRest();
+        rest.setStatus(entity.getStatus());
+        rest.setId(entity.getId());
+        rest.setVdsId(entity.getVdsId());
+        rest.setNote(entity.getNote());
+        rest.setLogin(entity.getLogin());
+        rest.setPassword(entity.getPassword());
+        rest.setSocialType(entity.getSocialType());
+        rest.setRegDate(entity.getRegDate() != null ? entity.getRegDate().getTime() : -1);
+        return rest;
     }
 
-    private SocialAccount toEntity(@NonNull SocialAccountRest account) {
-        SocialAccount result = new SocialAccount();
-        result.setStatus(account.getStatus());
-        result.setNotes(account.getNotes());
-        result.setLogin(account.getLogin());
-        result.setVdsId(account.getVdsId());
-        result.setPassword(account.getPassword());
-        result.setSocialType(account.getSocialType());
-        result.setRegDate(account.getRegDate() != 0 ? new Timestamp(account.getRegDate()) : null);
-        if (nonNull(account.getPhone())) {
+    private SocialAccount toEntity(@NonNull SocialAccountRest rest) {
+        SocialAccount entity = new SocialAccount();
+        entity.setStatus(rest.getStatus());
+        entity.setNote(rest.getNote());
+        entity.setLogin(rest.getLogin());
+        entity.setVdsId(rest.getVdsId());
+        entity.setPassword(rest.getPassword());
+        entity.setSocialType(rest.getSocialType());
+        entity.setRegDate(rest.getRegDate() != 0 ? new Timestamp(rest.getRegDate()) : null);
+        if (nonNull(rest.getPhone())) {
             Phone phone = new Phone();
-            phone.setNumber(account.getPhone());
-            result.setPhone(phone);
+            phone.setNumber(rest.getPhone());
+            entity.setPhone(phone);
         }
-        return result;
+        return entity;
     }
 }

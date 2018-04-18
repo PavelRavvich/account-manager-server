@@ -2,6 +2,7 @@ package ru.pravvich.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,6 +17,9 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Value("${spring.security.is.disable}")
+    private boolean securityIsDisable;
 
     @Autowired
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
@@ -37,9 +41,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        if (securityIsDisable) {
+            http.authorizeRequests().antMatchers("/rest/vds/list", "/rest/social_account/list", "/rest/phone/list",
+                    "/rest/phone/get", "/rest/phone/createOrUpdate","/rest/phone/update", "/rest/phone/delete").permitAll();
+        }
+
         http.csrf().disable().exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and().authorizeRequests()
-                .antMatchers("/users", "/rest/vds/get_all", "/rest/social_account/get_all", "/rest/phone/get_all").permitAll()
+                .antMatchers("/users").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().successHandler(authenticationSuccessHandler)
                 .and().logout();
@@ -54,6 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public MySavedRequestAwareAuthenticationSuccessHandler mySuccessHandler(){
         return new MySavedRequestAwareAuthenticationSuccessHandler();
     }
+
     @Bean
     public SimpleUrlAuthenticationFailureHandler myFailureHandler(){
         return new SimpleUrlAuthenticationFailureHandler();

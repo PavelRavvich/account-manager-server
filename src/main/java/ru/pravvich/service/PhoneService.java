@@ -1,9 +1,12 @@
 package ru.pravvich.service;
 
+import com.google.common.collect.Lists;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.pravvich.domain.Phone;
 import ru.pravvich.domain.SocialAccount;
+import ru.pravvich.repo.PhoneRepository;
 import ru.pravvich.web.phone.PhoneRest;
 
 import java.sql.Timestamp;
@@ -17,51 +20,24 @@ import java.util.stream.IntStream;
 public class PhoneService {
 
     @Autowired
+    private PhoneRepository phoneRepository;
+
+    @Autowired
     private SocialAccountService socialAccountService;
 
-    private Phone getMockPhone() {
-        Phone phone = new Phone();
-        phone.setId(1);
-        phone.setOperatorAccLogin("test_login");
-        phone.setOperatorAccPassword("test_pass");
-        phone.setOperatorUrl("test.com");
-        phone.setOperatorType("TEST OPERATOR");
-        phone.setNumber("+12345678090");
-        phone.setIsActive("Active");
-        phone.setRegDate(new Timestamp(System.currentTimeMillis()));
-        SocialAccount mockSocialAccount = socialAccountService.getMockSocialAccount();
-        HashSet<SocialAccount> socialAccounts = new HashSet<>();
-        socialAccounts.add(mockSocialAccount);
-        phone.setAccounts(socialAccounts);
-        return phone;
+    public Phone getPhone(int id) {
+        return phoneRepository.findOne(id);
     }
 
-    public PhoneRest getPhone(int id) {
-        System.out.println(id);
-        return new PhoneRest();
+    public Collection<Phone> list() {
+        return Lists.newArrayList(phoneRepository.findAll());
     }
 
-    public Collection<Phone> getList() {
-        List<Phone> phones = new ArrayList<>();
-        IntStream.range(0, 30).forEach(i -> {
-            Phone mockPhone = getMockPhone();
-            mockPhone.setId(i + 1);
-            phones.add(mockPhone);
-        });
-        return phones;
-    }
-
-    public Phone create(Phone phone) {
-        System.out.println(phone);
-        return phone;
-    }
-
-    public Phone update(Phone phone) {
-        System.out.println(phone);
-        return phone;
+    public Phone createOrUpdate(@NonNull Phone phone) {
+        return phoneRepository.save(phone);
     }
 
     public void delete(int id) {
-        System.out.println(id);
+        phoneRepository.delete(id);
     }
 }

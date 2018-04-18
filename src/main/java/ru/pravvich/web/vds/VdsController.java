@@ -28,11 +28,16 @@ public class VdsController {
         return toRest(vdsService.getVdsById(id));
     }
 
+    @GetMapping("/list")
+    public List<VdsRest> list() {
+        return collectionToRest(vdsService.list());
+    }
+
     @PostMapping("/create")
-    public VdsRest create(@RequestBody() VdsRest vdsRest) {
-        Vds entity = toEntity(vdsRest);
-        Vds add = vdsService.add(entity);
-        return toRest(add);
+    public VdsRest create(@RequestBody() VdsRest vds) {
+        Vds entity = toEntity(vds);
+        Vds create = vdsService.create(entity);
+        return toRest(create);
     }
 
     @PostMapping("/update")
@@ -43,38 +48,34 @@ public class VdsController {
     }
 
     @PostMapping("/delete")
-    public boolean delete(@RequestBody() int id) {
-        return vdsService.delete(id);
-    }
-
-    @GetMapping("/get_all")
-    public List<VdsRest> getAll() {
-        return collectionToRest(vdsService.getVdsList());
+    public void delete(@RequestBody() int id) {
+        vdsService.delete(id);
     }
 
     private List<VdsRest> collectionToRest(Collection<Vds> vdsSet) {
         return vdsSet.stream().map(this::toRest).collect(Collectors.toList());
     }
 
-    private VdsRest toRest(@NonNull Vds vds) {
-        return new VdsRest(
-                vds.getId(),
-                vds.getIp(),
-                vds.getLogin(),
-                vds.getPassword(),
-                nonNull(vds.getActivatedDate()) ? vds.getActivatedDate().getTime() : null,
-                nonNull(vds.getDeactivatedDate()) ? vds.getDeactivatedDate().getTime() : null
-        );
+    private VdsRest toRest(@NonNull Vds entity) {
+        VdsRest rest = new VdsRest();
+        rest.setId(entity.getId());
+        rest.setIp(entity.getIp());
+        rest.setNote(entity.getNote());
+        rest.setLogin(entity.getLogin());
+        rest.setPassword(entity.getPassword());
+        rest.setActivatedDate(nonNull(entity.getActivatedDate()) ? entity.getActivatedDate().getTime() : null);
+        rest.setDeactivatedDate(nonNull(entity.getDeactivatedDate()) ? entity.getDeactivatedDate().getTime() : null);
+        return rest;
     }
 
-    private Vds toEntity(@NonNull VdsRest vds) {
-        final Vds result = new Vds();
-        result.setId(vds.getId());
-        result.setIp(vds.getIp());
-        result.setLogin(vds.getLogin());
-        result.setPassword(vds.getPassword());
-        result.setActivatedDate(vds.getActivatedDate() != 0 ? new Timestamp(vds.getActivatedDate()) : null);
-        result.setDeactivatedDate(vds.getDeactivatedDate() != 0 ? new Timestamp(vds.getDeactivatedDate()) : null);
-        return result;
+    private Vds toEntity(@NonNull VdsRest rest) {
+        Vds entity = new Vds();
+        entity.setId(rest.getId());
+        entity.setIp(rest.getIp());
+        entity.setLogin(rest.getLogin());
+        entity.setPassword(rest.getPassword());
+        entity.setActivatedDate(rest.getActivatedDate() != 0 ? new Timestamp(rest.getActivatedDate()) : null);
+        entity.setDeactivatedDate(rest.getDeactivatedDate() != 0 ? new Timestamp(rest.getDeactivatedDate()) : null);
+        return entity;
     }
 }

@@ -18,13 +18,12 @@ public class SocialAccountService {
         return new SocialAccountRest();
     }
 
-    public Collection<SocialAccount> getList() {
+    public Collection<SocialAccount> list() {
         Set<SocialAccount> result = Sets.newHashSet();
         IntStream.range(0, 30).forEach(i -> {
             SocialAccount mockSocialAccount = getMockSocialAccount();
             mockSocialAccount.setId(i + 1);
             mockSocialAccount.setVdsId(i + 2);
-            mockSocialAccount.setPhoneNumber("+1234567890");
             result.add(mockSocialAccount);
         });
         return result;
@@ -49,7 +48,7 @@ public class SocialAccountService {
         socialAccount.setId(1);
         socialAccount.setLogin("test_login");
         socialAccount.setPassword("test_pass");
-        socialAccount.setNotes("some notes");
+        socialAccount.setNote("some note");
         socialAccount.setRegDate(new Timestamp(System.currentTimeMillis()));
         socialAccount.setStatus("Active");
         socialAccount.setSocialType("YouTube");

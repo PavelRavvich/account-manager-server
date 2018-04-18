@@ -16,13 +16,13 @@ public class PhoneRest {
     @JsonProperty("id")
     private int id;
 
-    @JsonProperty("isActive")
+    @JsonProperty("status")
     private String isActive;
 
     @JsonProperty("num")
     private String number;
 
-    @JsonProperty("operatorType")
+    @JsonProperty("operatorName")
     private String operatorType;
 
     @JsonProperty("operatorUrl")
@@ -39,5 +39,8 @@ public class PhoneRest {
 
     @JsonProperty("operatorAccPass")
     private String operatorAccPassword;
+
+    @JsonProperty("note")
+    private String note;
 
 }

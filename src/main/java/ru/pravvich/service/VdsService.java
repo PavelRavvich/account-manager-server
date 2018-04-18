@@ -21,7 +21,7 @@ public class VdsService {
         return createMockVDS();
     }
 
-    public Collection<Vds> getVdsList() {
+    public Collection<Vds> list() {
         Set<Vds> result = Sets.newHashSet();
         IntStream.range(0, 30).forEach(i -> {
             Vds mockVDS = createMockVDS();
@@ -31,7 +31,7 @@ public class VdsService {
         return result;
     }
 
-    public Vds add(Vds vds) {
+    public Vds create(Vds vds) {
         return vds;
     }
 
@@ -39,8 +39,7 @@ public class VdsService {
         return vds;
     }
 
-    public boolean delete(int id) {
-        return true;
+    public void delete(int id) {
     }
 
     public Vds createMockVDS() {

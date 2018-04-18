@@ -30,8 +30,8 @@ public class SocialAccountRest {
     @JsonProperty("password")
     private String password;
 
-    @JsonProperty("notes")
-    private String notes;
+    @JsonProperty("note")
+    private String note;
 
     @JsonProperty("phone")
     private String phone;

@@ -4,9 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.pravvich.config.api.RestApi;
 import ru.pravvich.domain.Phone;
 import ru.pravvich.domain.SocialAccount;
@@ -28,47 +26,71 @@ public class PhoneController {
     @Autowired
     private PhoneService phoneService;
 
-    @GetMapping("/get_all")
-    public List<PhoneRest> getAll() {
-        return collectionToRest(phoneService.getList());
+    @GetMapping("/list")
+    public List<PhoneRest> list() {
+        return collectionToRest(phoneService.list());
     }
 
+    @GetMapping("/get")
+    public PhoneRest get(@RequestParam(name = "id") int id) {
+        return toRest(phoneService.getPhone(id));
+    }
 
+    @PostMapping("/create")
+    public PhoneRest create(@RequestBody() PhoneRest phone) {
+        Phone entity = toEntity(phone);
+        Phone create = phoneService.createOrUpdate(entity);
+        return toRest(create);
+    }
+
+    @PostMapping("/update")
+    public PhoneRest update(@RequestBody() PhoneRest phone) {
+        Phone entity = toEntity(phone);
+        Phone update = phoneService.createOrUpdate(entity);
+        return toRest(update);
+    }
+
+    @PostMapping("/delete")
+    public void delete(@RequestBody() PhoneRest phone) {
+        phoneService.delete(phone.getId());
+    }
 
     private List<PhoneRest> collectionToRest(@NonNull Collection<Phone> vdsSet) {
         return vdsSet.stream().map(this::toRest).collect(Collectors.toList());
     }
 
-    private PhoneRest toRest(@NonNull Phone phone) {
+    private PhoneRest toRest(@NonNull Phone entity) {
         PhoneRest rest = new PhoneRest();
-        rest.setId(phone.getId());
-        rest.setNumber(phone.getNumber());
-        rest.setIsActive(phone.getIsActive());
-        rest.setOperatorUrl(phone.getOperatorUrl());
-        rest.setOperatorType(phone.getOperatorType());
-        rest.setOperatorAccLogin(phone.getOperatorAccLogin());
-        rest.setOperatorAccPassword(phone.getOperatorAccPassword());
-        rest.setRegDate(phone.getRegDate() != null ? phone.getRegDate().getTime() : -1);
+        rest.setId(entity.getId());
+        rest.setNote(entity.getNote());
+        rest.setNumber(entity.getNumber());
+        rest.setIsActive(entity.getStatus());
+        rest.setOperatorUrl(entity.getOperatorUrl());
+        rest.setOperatorType(entity.getOperatorName());
+        rest.setOperatorAccLogin(entity.getOperatorAccLogin());
+        rest.setOperatorAccPassword(entity.getOperatorAccPassword());
+        rest.setRegDate(entity.getRegDate() != null ? entity.getRegDate().getTime() : -1);
         rest.setSocialAccountIds(
-                nonNull(phone.getAccounts())
-                        ? phone.getAccounts().stream().map(SocialAccount::getId).collect(Collectors.toList())
+                nonNull(entity.getAccounts())
+                        ? entity.getAccounts().stream().map(SocialAccount::getId).collect(Collectors.toList())
                         : Lists.newArrayList());
         return rest;
     }
 
-    private Phone toEntity(@NonNull PhoneRest phone) {
+    private Phone toEntity(@NonNull PhoneRest rest) {
         Phone entity = new Phone();
-        entity.setId(phone.getId());
-        entity.setNumber(phone.getNumber());
-        entity.setIsActive(phone.getIsActive());
-        entity.setOperatorUrl(phone.getOperatorUrl());
-        entity.setOperatorType(phone.getOperatorType());
-        entity.setOperatorAccLogin(phone.getOperatorAccLogin());
-        entity.setOperatorAccPassword(entity.getOperatorAccPassword());
-        entity.setRegDate(phone.getRegDate() != 0 ? new Timestamp(phone.getRegDate()) : null);
-        if (nonNull(phone.getSocialAccountIds()) && !phone.getSocialAccountIds().isEmpty()) {
+        entity.setId(rest.getId());
+        entity.setNote(rest.getNote());
+        entity.setNumber(rest.getNumber());
+        entity.setStatus(rest.getIsActive());
+        entity.setOperatorUrl(rest.getOperatorUrl());
+        entity.setOperatorName(rest.getOperatorType());
+        entity.setOperatorAccLogin(rest.getOperatorAccLogin());
+        entity.setOperatorAccPassword(rest.getOperatorAccPassword());
+        entity.setRegDate(rest.getRegDate() != 0 ? new Timestamp(rest.getRegDate()) : null);
+        if (nonNull(rest.getSocialAccountIds()) && !rest.getSocialAccountIds().isEmpty()) {
             Set<SocialAccount> accounts = Sets.newHashSet();
-            phone.getSocialAccountIds().forEach(id -> {
+            rest.getSocialAccountIds().forEach(id -> {
                 SocialAccount account = new SocialAccount();
                 account.setId(id);
                 accounts.add(account);
