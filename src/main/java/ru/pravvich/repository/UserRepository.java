@@ -1,4 +1,4 @@
-package ru.pravvich.repo;
+package ru.pravvich.repository;
 
 public interface UserRepository {
 }

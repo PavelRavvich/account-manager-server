@@ -33,7 +33,7 @@ public class PhoneController {
 
     @GetMapping("/get")
     public PhoneRest get(@RequestParam(name = "id") int id) {
-        return toRest(phoneService.getPhone(id));
+        return toRest(phoneService.get(id));
     }
 
     @PostMapping("/create")

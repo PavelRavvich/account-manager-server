@@ -1,4 +1,4 @@
-package ru.pravvich.repo;
+package ru.pravvich.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

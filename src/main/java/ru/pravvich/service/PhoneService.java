@@ -5,16 +5,9 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.pravvich.domain.Phone;
-import ru.pravvich.domain.SocialAccount;
-import ru.pravvich.repo.PhoneRepository;
-import ru.pravvich.web.phone.PhoneRest;
+import ru.pravvich.repository.PhoneRepository;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.stream.IntStream;
 
 @Service
 public class PhoneService {
@@ -25,7 +18,7 @@ public class PhoneService {
     @Autowired
     private SocialAccountService socialAccountService;
 
-    public Phone getPhone(int id) {
+    public Phone get(int id) {
         return phoneRepository.findOne(id);
     }
 
