@@ -45,8 +45,8 @@ public class SocialAccountController {
     }
 
     @PostMapping("/delete")
-    public void delete(@RequestBody SocialAccountRest account) {
-        socialAccountService.delete(account.getId());
+    public void delete(@RequestBody int id) {
+        socialAccountService.delete(id);
     }
 
     private List<SocialAccountRest> collectionToRest(@NonNull Collection<SocialAccount> vdsSet) {

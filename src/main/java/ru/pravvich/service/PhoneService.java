@@ -34,8 +34,8 @@ public class PhoneService {
         return phoneRepository.save(phone);
     }
 
-    public void delete(@NonNull Phone phone) {
-        socialAccountRepository.setPhoneId(null, phone.getId());
-        phoneRepository.delete(phone.getId());
+    public void delete(int id) {
+        socialAccountRepository.setPhone(null, id);
+        phoneRepository.delete(id);
     }
 }

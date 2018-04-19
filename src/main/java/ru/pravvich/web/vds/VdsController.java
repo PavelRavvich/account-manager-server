@@ -46,8 +46,8 @@ public class VdsController {
     }
 
     @PostMapping("/delete")
-    public void delete(@RequestBody() VdsRest vds) {
-        vdsService.delete(toEntity(vds));
+    public void delete(@RequestBody() int id) {
+        vdsService.delete(id);
     }
 
     private Collection<VdsRest> collectionToRest(@NonNull Collection<Vds> vds) {

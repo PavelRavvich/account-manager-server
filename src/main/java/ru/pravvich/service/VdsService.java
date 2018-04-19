@@ -34,9 +34,9 @@ public class VdsService {
         return vdsRepository.save(vds);
     }
 
-    public void delete(@NonNull Vds vds) {
-        socialAccountRepository.setVdsId(null, vds.getId());
-        vdsRepository.delete(vds.getId());
+    public void delete(int id) {
+        socialAccountRepository.setVds(null, id);
+        vdsRepository.delete(id);
     }
 
 }

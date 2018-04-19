@@ -10,17 +10,16 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.pravvich.domain.SocialAccount;
 
 @Repository
-public interface SocialAccountRepository extends
-        JpaRepository<SocialAccount, Integer>, CrudRepository<SocialAccount, Integer> {
+public interface SocialAccountRepository extends JpaRepository<SocialAccount, Integer>, CrudRepository<SocialAccount, Integer> {
 
     @Modifying
     @Transactional
     @Query("UPDATE SocialAccount acc set acc.phoneId = ?1 WHERE acc.phoneId = ?2")
-    void setPhoneId(@NonNull Integer newPhoneId, @NonNull Integer oldPhoneId);
+    void setPhone(@NonNull Integer arg, @NonNull Integer old);
 
     @Modifying
     @Transactional
     @Query("UPDATE SocialAccount acc set acc.vdsId = ?1 WHERE acc.vdsId = ?2")
-    void setVdsId(@NonNull Integer newVdsId, @NonNull Integer oldVdsId);
+    void setVds(@NonNull Integer arg, @NonNull Integer old);
 
 }

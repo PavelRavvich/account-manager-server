@@ -48,8 +48,8 @@ public class PhoneController {
     }
 
     @PostMapping("/delete")
-    public void delete(@RequestBody() PhoneRest phone) {
-        phoneService.delete(toEntity(phone));
+    public void delete(@RequestBody() int id) {
+        phoneService.delete(id);
     }
 
     private Collection<PhoneRest> collectionToRest(@NonNull Collection<Phone> phones) {

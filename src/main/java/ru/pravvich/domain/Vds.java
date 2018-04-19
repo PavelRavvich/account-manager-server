@@ -4,7 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.Collection;
 
 @Entity
 @Data
@@ -18,6 +18,9 @@ public class Vds {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @OneToMany(mappedBy = "vds", cascade = CascadeType.DETACH)
+    private Collection<SocialAccount> accounts;
 
     @Column(name = "ip")
     private String ip;
@@ -33,9 +36,6 @@ public class Vds {
 
     @Column(name = "deactivated")
     private Timestamp deactivatedDate;
-
-    @OneToMany(mappedBy = "vds", cascade = CascadeType.DETACH)
-    private Set<SocialAccount> accounts;
 
     @Column(name = "note")
     private String note;
