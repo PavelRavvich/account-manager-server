@@ -5,7 +5,6 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.pravvich.domain.Phone;
-import ru.pravvich.domain.SocialAccount;
 import ru.pravvich.repository.PhoneRepository;
 import ru.pravvich.repository.SocialAccountRepository;
 
@@ -18,6 +17,9 @@ public class PhoneService {
 
     @Autowired
     private PhoneRepository phoneRepository;
+
+    @Autowired
+    private SocialAccountRepository socialAccountRepository;
 
     public Phone get(int id) {
         Phone phone = phoneRepository.findOne(id);
@@ -32,7 +34,8 @@ public class PhoneService {
         return phoneRepository.save(phone);
     }
 
-    public void delete(Phone phone) {
+    public void delete(@NonNull Phone phone) {
+        socialAccountRepository.setPhoneId(null, phone.getId());
         phoneRepository.delete(phone.getId());
     }
 }

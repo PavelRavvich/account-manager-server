@@ -4,17 +4,13 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.pravvich.config.api.RestApi;
-import ru.pravvich.domain.Phone;
 import ru.pravvich.domain.SocialAccount;
-import ru.pravvich.domain.Vds;
 import ru.pravvich.service.SocialAccountService;
 
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.util.Objects.nonNull;
 
 @RestApi
 @RestController
@@ -49,8 +45,8 @@ public class SocialAccountController {
     }
 
     @PostMapping("/delete")
-    public void delete(@RequestBody int id) {
-        socialAccountService.delete(id);
+    public void delete(@RequestBody SocialAccountRest account) {
+        socialAccountService.delete(account.getId());
     }
 
     private List<SocialAccountRest> collectionToRest(@NonNull Collection<SocialAccount> vdsSet) {

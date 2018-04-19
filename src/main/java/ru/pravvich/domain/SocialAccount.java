@@ -24,10 +24,6 @@ public class SocialAccount {
     @Column(name = "phone_id")
     private int phoneId;
 
-    @ManyToOne
-    @JoinColumn(name = "vds_id", insertable = false, updatable = false)
-    private Vds vds;
-
     @Column(name = "social_type")
     private String socialType;
 
@@ -40,14 +36,18 @@ public class SocialAccount {
     @Column(name = "note")
     private String note;
 
-    @ManyToOne
-    @JoinColumn(name = "phone_id", insertable = false, updatable = false)
-    private Phone phone;
-
     @Column(name = "reg_date")
     private Timestamp regDate;
 
     @Column(name = "status")
     private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "vds_id", insertable = false, updatable = false)
+    private Vds vds;
+
+    @ManyToOne
+    @JoinColumn(name = "phone_id", insertable = false, updatable = false)
+    private Phone phone;
 
 }

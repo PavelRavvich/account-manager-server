@@ -11,7 +11,6 @@ import ru.pravvich.service.PhoneService;
 
 import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
@@ -86,14 +85,13 @@ public class PhoneController {
         entity.setOperatorAccLogin(rest.getOperatorAccLogin());
         entity.setOperatorAccPassword(rest.getOperatorAccPassword());
         entity.setRegDate(rest.getRegDate() != 0 ? new Timestamp(rest.getRegDate()) : null);
-        if (nonNull(rest.getSocialAccountIds()) && !rest.getSocialAccountIds().isEmpty()) {
-            List<SocialAccount> accounts = Lists.newArrayList();
+        entity.setAccounts(Lists.newArrayList());
+        if (nonNull(rest.getSocialAccountIds())) {
             rest.getSocialAccountIds().forEach(id -> {
                 SocialAccount account = new SocialAccount();
                 account.setId(id);
-                accounts.add(account);
+                entity.getAccounts().add(account);
             });
-            entity.setAccounts(accounts);
         }
         return entity;
     }
