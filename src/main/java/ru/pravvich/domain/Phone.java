@@ -17,7 +17,7 @@ public class Phone {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @OneToMany(mappedBy = "phone", cascade = CascadeType.DETACH)
     private Collection<SocialAccount> accounts;

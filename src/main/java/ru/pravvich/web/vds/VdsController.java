@@ -7,11 +7,8 @@ import ru.pravvich.config.api.RestApi;
 import ru.pravvich.domain.Vds;
 import ru.pravvich.service.VdsService;
 
-import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.stream.Collectors;
-
-import static java.util.Objects.nonNull;
 
 @RestApi
 @RestController
@@ -61,8 +58,8 @@ public class VdsController {
         rest.setNote(entity.getNote());
         rest.setLogin(entity.getLogin());
         rest.setPassword(entity.getPassword());
-        rest.setActivatedDate(nonNull(entity.getActivatedDate()) ? entity.getActivatedDate().getTime() : 0);
-        rest.setDeactivatedDate(nonNull(entity.getDeactivatedDate()) ? entity.getDeactivatedDate().getTime() : 0);
+        rest.setActivatedDate(entity.getActivatedDate());
+        rest.setDeactivatedDate(entity.getDeactivatedDate());
         return rest;
     }
 
@@ -73,8 +70,8 @@ public class VdsController {
         entity.setNote(rest.getNote());
         entity.setLogin(rest.getLogin());
         entity.setPassword(rest.getPassword());
-        entity.setActivatedDate(rest.getActivatedDate() != 0 ? new Timestamp(rest.getActivatedDate()) : null);
-        entity.setDeactivatedDate(rest.getDeactivatedDate() != 0 ? new Timestamp(rest.getDeactivatedDate()) : null);
+        entity.setActivatedDate(rest.getActivatedDate());
+        entity.setDeactivatedDate(rest.getDeactivatedDate());
         return entity;
     }
 }

@@ -1,10 +1,13 @@
 package ru.pravvich.web.social;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
@@ -39,7 +42,8 @@ public class SocialAccountRest {
     @JsonProperty("phone")
     private String phone;
 
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER, pattern = "s")
     @JsonProperty("regDate")
-    private long regDate;
+    private Timestamp regDate;
 
 }

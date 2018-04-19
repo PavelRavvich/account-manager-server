@@ -7,7 +7,6 @@ import ru.pravvich.config.api.RestApi;
 import ru.pravvich.domain.SocialAccount;
 import ru.pravvich.service.SocialAccountService;
 
-import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,29 +54,29 @@ public class SocialAccountController {
 
     private SocialAccountRest toRest(@NonNull SocialAccount entity) {
         SocialAccountRest rest = new SocialAccountRest();
+        rest.setSocialType(entity.getSocialType());
+        rest.setPassword(entity.getPassword());
+        rest.setRegDate(entity.getRegDate());
         rest.setPhoneId(entity.getPhoneId());
         rest.setStatus(entity.getStatus());
-        rest.setId(entity.getId());
-        rest.setNote(entity.getNote());
         rest.setVdsId(entity.getVdsId());
         rest.setLogin(entity.getLogin());
-        rest.setPassword(entity.getPassword());
-        rest.setSocialType(entity.getSocialType());
-        rest.setRegDate(entity.getRegDate() != null ? entity.getRegDate().getTime() : 0);
+        rest.setNote(entity.getNote());
+        rest.setId(entity.getId());
         return rest;
     }
 
     private SocialAccount toEntity(@NonNull SocialAccountRest rest) {
         SocialAccount entity = new SocialAccount();
+        entity.setSocialType(rest.getSocialType());
+        entity.setPassword(rest.getPassword());
+        entity.setPhoneId(rest.getPhoneId());
+        entity.setRegDate(rest.getRegDate());
         entity.setStatus(rest.getStatus());
-        entity.setId(rest.getId());
-        entity.setNote(rest.getNote());
         entity.setLogin(rest.getLogin());
         entity.setVdsId(rest.getVdsId());
-        entity.setPhoneId(rest.getPhoneId());
-        entity.setPassword(rest.getPassword());
-        entity.setSocialType(rest.getSocialType());
-        entity.setRegDate(rest.getRegDate() != 0 ? new Timestamp(rest.getRegDate()) : null);
+        entity.setNote(rest.getNote());
+        entity.setId(rest.getId());
         return entity;
     }
 }

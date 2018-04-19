@@ -16,13 +16,13 @@ public class SocialAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "vds_id")
-    private int vdsId;
+    private Integer vdsId;
 
     @Column(name = "phone_id")
-    private int phoneId;
+    private Integer phoneId;
 
     @Column(name = "social_type")
     private String socialType;
