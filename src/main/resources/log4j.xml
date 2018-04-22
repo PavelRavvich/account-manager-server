@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!--
+       DEVELOPMENT SPECIFIC LOGGING CONFIGURATION
+
+       To use a test env or a prod env specific configuration please override the "log4jConfigLocation"
+
+   -->
+
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{dd-MM_HH:mm:ss.SSS}|%p|%m|%C{1}|%X{sessionId}|%X{userId}%n" />
+        </layout>
+    </appender>
+
+    <logger name="eu.acengineering.sample.querybyspec" additivity="false">
+        <level value="WARN"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <root>
+        <level value="WARN"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</log4j:configuration>

@@ -3,6 +3,7 @@ package ru.pravvich.web.phone;
 import com.google.common.collect.Lists;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 import ru.pravvich.config.api.RestApi;
@@ -25,31 +26,35 @@ public class PhoneController {
     private PhoneService phoneService;
 
     @GetMapping("/list")
-    public Collection<PhoneRest> list(
+    public PhoneListRest list(
             @RequestParam(name = "pageSize") Integer pageSize,
             @RequestParam(name = "pageNumber") Integer pageNumber,
             @RequestParam(name = "id", required = false) Integer id,
             @RequestParam(name = "note", required = false) String note,
             @RequestParam(name = "num", required = false) String number,
-            @RequestParam(name = "login", required = false) String login,
-            @RequestParam(name = "password", required = false) String password,
+            @RequestParam(name = "opLogin", required = false) String opLogin,
+            @RequestParam(name = "opPassword", required = false) String opPassword,
+            @RequestParam(name = "opName", required = false) String opName,
             @RequestParam(name = "status", required = false) String status,
-            @RequestParam(name = "operatorName", required = false) String operatorName,
             @RequestParam(name = "regFrom", required = false) Long regFrom,
             @RequestParam(name = "regTo", required = false) Long regTo) {
 
-        PhoneService.Filter filter = new PhoneService.Filter();
+        PageRequest pageable = new PageRequest(pageNumber, pageSize);
+        PhoneService.PhoneFilter filter = new PhoneService.PhoneFilter();
+        filter.setId(id);
+        filter.setNote(note);
         filter.setStatus(status);
         filter.setNumber(number);
-        filter.setNote(note);
-        filter.setId(id);
-        filter.setLogin(login);
-        filter.setPassword(password);
-        filter.setOperatorName(operatorName);
-        filter.setRegTo(new Timestamp(regTo));
-        filter.setRegFrom(new Timestamp(regFrom));
-        filter.setPageRequest(new PageRequest(pageNumber, pageSize));
-        return collectionToRest(phoneService.list(filter));
+        filter.setOpName(opName);
+        filter.setOpLogin(opLogin);
+        filter.setPageable(pageable);
+        filter.setOpPassword(opPassword);
+        filter.setRegTo(nonNull(regTo) ? new Timestamp(regTo) : null);
+        filter.setRegFrom(nonNull(regFrom) ? new Timestamp(regFrom) : null);
+
+        Page<Phone> page = phoneService.list(filter);
+        Collection<PhoneRest> phones = toRest(page.getContent());
+        return new PhoneListRest(pageNumber, pageSize, page.getTotalPages(), phones);
     }
 
     @GetMapping("/get")
@@ -76,7 +81,7 @@ public class PhoneController {
         phoneService.delete(id);
     }
 
-    private Collection<PhoneRest> collectionToRest(@NonNull Collection<Phone> phones) {
+    private Collection<PhoneRest> toRest(@NonNull Collection<Phone> phones) {
         return phones.stream().map(this::toRest).collect(Collectors.toList());
     }
 

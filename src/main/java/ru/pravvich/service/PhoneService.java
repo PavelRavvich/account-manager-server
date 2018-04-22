@@ -3,18 +3,18 @@ package ru.pravvich.service;
 import lombok.Data;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.pravvich.domain.Phone;
 import ru.pravvich.repository.PhoneRepository;
 import ru.pravvich.repository.SocialAccountRepository;
 
 import java.sql.Timestamp;
-import java.util.Collection;
 
 import static java.util.Objects.nonNull;
 import static org.springframework.data.jpa.domain.Specifications.where;
-import static ru.pravvich.repository.PhoneRepository.Specifications.*;
+import static ru.pravvich.repository.PhoneRepository.PhoneSpecification;
 
 @Service
 public class PhoneService {
@@ -30,16 +30,9 @@ public class PhoneService {
         return nonNull(phone) ? phone : new Phone();
     }
 
-    public Collection<Phone> list(@NonNull Filter filter) {
-        return phoneRepository.findAll(where(equal("id", filter.getId()))
-                .or(contain("operatorAccPassword", filter.getPassword()))
-                .or(isBetween("regDate", filter.getRegFrom(), filter.getRegTo()))
-                .or(contain("operatorName", filter.getOperatorName()))
-                .or(contain("operatorAccLogin", filter.getLogin()))
-                .or(contain("number", filter.getNumber()))
-                .or(equal("status", filter.getStatus()))
-                .or(contain("note", filter.getNote()))
-        );
+    public Page<Phone> list(@NonNull PhoneFilter filter) {
+        PhoneSpecification specification = new PhoneSpecification(filter);
+        return phoneRepository.findAll(where(specification), filter.getPageable());
     }
 
     public Phone saveOrUpdate(@NonNull Phone phone) {
@@ -52,9 +45,9 @@ public class PhoneService {
     }
 
     @Data
-    public static class Filter {
+    public static class PhoneFilter {
 
-        private PageRequest pageRequest;
+        private Pageable pageable;
 
         private Integer id;
 
@@ -64,11 +57,11 @@ public class PhoneService {
 
         private String number;
 
-        private String login;
+        private String opLogin;
 
-        private String password;
+        private String opPassword;
 
-        private String operatorName;
+        private String opName;
 
         private String status;
 
