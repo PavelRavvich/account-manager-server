@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
+import static ru.pravvich.repository.PhoneRepository.PhoneFilter;
 
 @RestApi
 @RestController
@@ -40,7 +41,7 @@ public class PhoneController {
             @RequestParam(name = "regTo", required = false) Long regTo) {
 
         PageRequest pageable = new PageRequest(pageNumber, pageSize);
-        PhoneService.PhoneFilter filter = new PhoneService.PhoneFilter();
+        PhoneFilter filter = new PhoneFilter();
         filter.setId(id);
         filter.setNote(note);
         filter.setStatus(status);
