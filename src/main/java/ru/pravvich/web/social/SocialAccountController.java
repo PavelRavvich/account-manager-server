@@ -44,8 +44,8 @@ public class SocialAccountController {
             @RequestParam(name = "socialType", required = false) String socialType,
             @RequestParam(name = "phoneId", required = false) Integer phoneId,
             @RequestParam(name = "vdsId", required = false) Integer vdsId,
-            @RequestParam(name = "from", required = false) Long regFrom,
-            @RequestParam(name = "to", required = false) Long regTo) {
+            @RequestParam(name = "from", required = false) Long from,
+            @RequestParam(name = "to", required = false) Long to) {
 
         Pageable pageable = new PageRequest(pageNumber, pageSize);
         SocialAccountFilter filter = new SocialAccountFilter(pageable);
@@ -57,8 +57,8 @@ public class SocialAccountController {
         filter.setPhoneId(phoneId);
         filter.setPassword(password);
         filter.setSocialType(socialType);
-        filter.setTo(nonNull(regTo) ? new Timestamp(regTo) : null);
-        filter.setFrom(nonNull(regFrom) ? new Timestamp(regFrom) : null);
+        filter.setTo(nonNull(to) ? new Timestamp(to) : null);
+        filter.setFrom(nonNull(from) ? new Timestamp(from) : null);
 
         Page<SocialAccount> page = socialAccountService.list(filter);
         List<SocialAccountRest> accounts = toRest(page.getContent());

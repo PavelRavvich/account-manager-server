@@ -39,8 +39,8 @@ public class PhoneController {
             @RequestParam(name = "password", required = false) String opPassword,
             @RequestParam(name = "opName", required = false) String opName,
             @RequestParam(name = "status", required = false) String status,
-            @RequestParam(name = "from", required = false) Long regFrom,
-            @RequestParam(name = "to", required = false) Long regTo) {
+            @RequestParam(name = "from", required = false) Long from,
+            @RequestParam(name = "to", required = false) Long to) {
 
         Pageable pageable = new PageRequest(pageNumber, pageSize);
         PhoneFilter filter = new PhoneFilter(pageable);
@@ -51,8 +51,8 @@ public class PhoneController {
         filter.setOpName(opName);
         filter.setLogin(opLogin);
         filter.setPassword(opPassword);
-        filter.setTo(nonNull(regTo) ? new Timestamp(regTo) : null);
-        filter.setFrom(nonNull(regFrom) ? new Timestamp(regFrom) : null);
+        filter.setTo(nonNull(to) ? new Timestamp(to) : null);
+        filter.setFrom(nonNull(from) ? new Timestamp(from) : null);
 
         Page<Phone> page = phoneService.list(filter);
         Collection<PhoneRest> phones = toRest(page.getContent());
