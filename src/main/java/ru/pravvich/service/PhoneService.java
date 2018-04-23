@@ -3,6 +3,7 @@ package ru.pravvich.service;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.pravvich.domain.Phone;
 import ru.pravvich.repository.PhoneRepository;
@@ -28,7 +29,7 @@ public class PhoneService {
     }
 
     public Page<Phone> list(@NonNull PhoneFilter filter) {
-        PhoneSpecification specs = new PhoneSpecification(filter);
+        Specification<Phone> specs = new PhoneSpecification(filter);
         return phoneRepository.findAll(where(specs), filter.getPageable());
     }
 

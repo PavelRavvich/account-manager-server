@@ -2,14 +2,21 @@ package ru.pravvich.web.social;
 
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import ru.pravvich.config.api.RestApi;
 import ru.pravvich.domain.SocialAccount;
+import ru.pravvich.repository.SocialAccountRepository.SocialAccountFilter;
 import ru.pravvich.service.SocialAccountService;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.util.Objects.nonNull;
 
 @RestApi
 @RestController
@@ -25,8 +32,37 @@ public class SocialAccountController {
     }
 
     @GetMapping("/list")
-    public List<SocialAccountRest> list() {
-        return collectionToRest(socialAccountService.list());
+    public SocialAccountListRest list(
+            @RequestParam(name = "pageSize") Integer pageSize,
+            @RequestParam(name = "pageNumber") Integer pageNumber,
+            @RequestParam(name = "id", required = false) Integer id,
+            @RequestParam(name = "note", required = false) String note,
+            @RequestParam(name = "login", required = false) String login,
+            @RequestParam(name = "status", required = false) String status,
+            @RequestParam(name = "password", required = false) String password,
+            @RequestParam(name = "socialType", required = false) String socialType,
+            @RequestParam(name = "phoneId", required = false) Integer phoneId,
+            @RequestParam(name = "vdsId", required = false) Integer vdsId,
+            @RequestParam(name = "regFrom", required = false) Long regFrom,
+            @RequestParam(name = "regTo", required = false) Long regTo) {
+
+        Pageable pageable = new PageRequest(pageNumber, pageSize);
+        SocialAccountFilter filter = new SocialAccountFilter();
+        filter.setId(id);
+        filter.setNote(note);
+        filter.setVdsId(vdsId);
+        filter.setLogin(login);
+        filter.setStatus(status);
+        filter.setPhoneId(phoneId);
+        filter.setPassword(password);
+        filter.setPageable(pageable);
+        filter.setSocialType(socialType);
+        filter.setRegTo(nonNull(regTo) ? new Timestamp(regTo) : null);
+        filter.setRegFrom(nonNull(regFrom) ? new Timestamp(regFrom) : null);
+
+        Page<SocialAccount> page = socialAccountService.list(filter);
+        List<SocialAccountRest> accounts = toRest(page.getContent());
+        return new SocialAccountListRest(pageNumber, pageSize, page.getTotalPages(), accounts);
     }
 
     @PostMapping("/save")
@@ -48,7 +84,7 @@ public class SocialAccountController {
         socialAccountService.delete(id);
     }
 
-    private List<SocialAccountRest> collectionToRest(@NonNull Collection<SocialAccount> vdsSet) {
+    private List<SocialAccountRest> toRest(@NonNull Collection<SocialAccount> vdsSet) {
         return vdsSet.stream().map(this::toRest).collect(Collectors.toList());
     }
 
@@ -57,12 +93,13 @@ public class SocialAccountController {
         rest.setSocialType(entity.getSocialType());
         rest.setPassword(entity.getPassword());
         rest.setRegDate(entity.getRegDate());
-        rest.setPhoneId(entity.getPhoneId());
         rest.setStatus(entity.getStatus());
-        rest.setVdsId(entity.getVdsId());
         rest.setLogin(entity.getLogin());
         rest.setNote(entity.getNote());
         rest.setId(entity.getId());
+        rest.setVdsId(nonNull(entity.getVdsId()) ? entity.getVdsId() : null);
+        rest.setPhoneId(nonNull(entity.getPhoneId()) ? entity.getPhoneId() : null);
+        rest.setPhone(nonNull(entity.getPhone()) ? entity.getPhone().getNumber() : null);
         return rest;
     }
 

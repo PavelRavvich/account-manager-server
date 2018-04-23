@@ -16,13 +16,13 @@ import java.sql.Timestamp;
 public class SocialAccountRest {
 
     @JsonProperty("id")
-    private int id;
+    private Integer id;
 
     @JsonProperty("vdsId")
-    private int vdsId;
+    private Integer vdsId;
 
     @JsonProperty("phoneId")
-    private int phoneId;
+    private Integer phoneId;
 
     @JsonProperty("status")
     private String status;

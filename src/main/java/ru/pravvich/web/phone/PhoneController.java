@@ -5,6 +5,7 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import ru.pravvich.config.api.RestApi;
 import ru.pravvich.domain.Phone;
@@ -40,7 +41,7 @@ public class PhoneController {
             @RequestParam(name = "regFrom", required = false) Long regFrom,
             @RequestParam(name = "regTo", required = false) Long regTo) {
 
-        PageRequest pageable = new PageRequest(pageNumber, pageSize);
+        Pageable pageable = new PageRequest(pageNumber, pageSize);
         PhoneFilter filter = new PhoneFilter();
         filter.setId(id);
         filter.setNote(note);

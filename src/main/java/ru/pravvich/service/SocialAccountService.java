@@ -1,15 +1,17 @@
 package ru.pravvich.service;
 
-import com.google.common.collect.Lists;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.pravvich.domain.SocialAccount;
 import ru.pravvich.repository.SocialAccountRepository;
-
-import java.util.Collection;
+import ru.pravvich.repository.SocialAccountRepository.SocialAccountFilter;
 
 import static java.util.Objects.nonNull;
+import static org.springframework.data.jpa.domain.Specifications.where;
+import static ru.pravvich.repository.SocialAccountRepository.SocialAccountSpecification;
 
 @Service
 public class SocialAccountService {
@@ -17,8 +19,9 @@ public class SocialAccountService {
     @Autowired
     private SocialAccountRepository socialAccountRepository;
 
-    public Collection<SocialAccount> list() {
-        return Lists.newArrayList(socialAccountRepository.findAll());
+    public Page<SocialAccount> list(@NonNull SocialAccountFilter filter) {
+        Specification<SocialAccount> specs = new SocialAccountSpecification(filter);
+        return socialAccountRepository.findAll(where(specs), filter.getPageable());
     }
 
     public SocialAccount get(int id) {
