@@ -39,7 +39,7 @@ public interface SocialAccountRepository extends JpaRepository<SocialAccount, In
     @AllArgsConstructor
     class SocialAccountSpecification implements Specification<SocialAccount> {
 
-        private final SocialAccountFilter filter;
+        private final @NonNull SocialAccountFilter filter;
 
         @Override
         public Predicate toPredicate(Root<SocialAccount> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
