@@ -1,10 +1,11 @@
-package ru.pravvich.web.social;
+package ru.pravvich.web.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.util.Collection;
 
@@ -12,17 +13,21 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SocialAccountListRest {
+public class RestList<T> {
 
+    @NonNull
     @JsonProperty("pageNumber")
-    private int pageNumber;
+    private Integer pageNumber;
 
+    @NonNull
     @JsonProperty("pageSize")
-    private int pageSize;
+    private Integer pageSize;
 
+    @NonNull
     @JsonProperty("total")
-    private int total;
+    private Integer total;
 
-    @JsonProperty("socialAccounts")
-    private Collection<SocialAccountRest> accounts;
+    @NonNull
+    @JsonProperty("data")
+    private Collection<T> data;
 }

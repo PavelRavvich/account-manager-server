@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PhoneRest {
+class PhoneRest {
 
     @JsonProperty("id")
     private int id;

@@ -44,32 +44,32 @@ public interface SocialAccountRepository extends JpaRepository<SocialAccount, In
         @Override
         public Predicate toPredicate(Root<SocialAccount> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
             Predicate predicate = cb.conjunction();
-            if (nonNull(filter.getId())) {
-                predicate.getExpressions().add(cb.equal(root.get("id"), filter.getId()));
+            if (nonNull(filter.id)) {
+                predicate.getExpressions().add(cb.equal(root.get("id"), filter.id));
             }
-            if (nonNull(filter.getNote())) {
-                predicate.getExpressions().add(cb.like(root.get("note"), toLike(filter.getNote(), ANY)));
+            if (nonNull(filter.note)) {
+                predicate.getExpressions().add(cb.like(root.get("note"), toLike(filter.note, ANY)));
             }
-            if (nonNull(filter.getStatus())) {
-                predicate.getExpressions().add(cb.like(root.get("status"), toLike(filter.getStatus(), ANY)));
+            if (nonNull(filter.status)) {
+                predicate.getExpressions().add(cb.like(root.get("status"), toLike(filter.status, ANY)));
             }
-            if (nonNull(filter.getSocialType())) {
-                predicate.getExpressions().add(cb.like(root.get("socialType"), toLike(filter.getSocialType(), ANY)));
+            if (nonNull(filter.socialType)) {
+                predicate.getExpressions().add(cb.like(root.get("socialType"), toLike(filter.socialType, ANY)));
             }
-            if (nonNull(filter.getLogin())) {
-                predicate.getExpressions().add(cb.like(root.get("login"), toLike(filter.getLogin(), ANY)));
+            if (nonNull(filter.login)) {
+                predicate.getExpressions().add(cb.like(root.get("login"), toLike(filter.login, ANY)));
             }
-            if (nonNull(filter.getPassword())) {
-                predicate.getExpressions().add(cb.like(root.get("password"), toLike(filter.getPassword(), ANY)));
+            if (nonNull(filter.password)) {
+                predicate.getExpressions().add(cb.like(root.get("password"), toLike(filter.password, ANY)));
             }
-            if (nonNull(filter.getRegFrom()) && nonNull(filter.getRegTo())) {
-                predicate.getExpressions().add(cb.between(root.get("regDate"), filter.getRegFrom(), filter.getRegTo()));
+            if (nonNull(filter.from) && nonNull(filter.to)) {
+                predicate.getExpressions().add(cb.between(root.get("regDate"), filter.from, filter.to));
             }
-            if (nonNull(filter.getPhoneId())) {
-                predicate.getExpressions().add(cb.equal(root.get("phoneId"), filter.getPhoneId()));
+            if (nonNull(filter.phoneId)) {
+                predicate.getExpressions().add(cb.equal(root.get("phoneId"), filter.phoneId));
             }
-            if (nonNull(filter.getVdsId())) {
-                predicate.getExpressions().add(cb.equal(root.get("vdsId"), filter.getVdsId()));
+            if (nonNull(filter.vdsId)) {
+                predicate.getExpressions().add(cb.equal(root.get("vdsId"), filter.vdsId));
             }
             return predicate;
         }
@@ -78,7 +78,7 @@ public interface SocialAccountRepository extends JpaRepository<SocialAccount, In
     @Data
     class SocialAccountFilter {
 
-        private Pageable pageable;
+        private @NonNull Pageable pageable;
 
         private Integer id;
 
@@ -92,9 +92,9 @@ public interface SocialAccountRepository extends JpaRepository<SocialAccount, In
 
         private String password;
 
-        private Timestamp regFrom;
+        private Timestamp from;
 
-        private Timestamp regTo;
+        private Timestamp to;
 
         private Integer phoneId;
 

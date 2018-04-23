@@ -11,6 +11,7 @@ import ru.pravvich.config.api.RestApi;
 import ru.pravvich.domain.Phone;
 import ru.pravvich.domain.SocialAccount;
 import ru.pravvich.service.PhoneService;
+import ru.pravvich.web.common.RestList;
 
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -28,35 +29,34 @@ public class PhoneController {
     private PhoneService phoneService;
 
     @GetMapping("/list")
-    public PhoneListRest list(
+    public RestList list(
             @RequestParam(name = "pageSize") Integer pageSize,
             @RequestParam(name = "pageNumber") Integer pageNumber,
             @RequestParam(name = "id", required = false) Integer id,
             @RequestParam(name = "note", required = false) String note,
             @RequestParam(name = "num", required = false) String number,
-            @RequestParam(name = "opLogin", required = false) String opLogin,
-            @RequestParam(name = "opPassword", required = false) String opPassword,
+            @RequestParam(name = "login", required = false) String opLogin,
+            @RequestParam(name = "password", required = false) String opPassword,
             @RequestParam(name = "opName", required = false) String opName,
             @RequestParam(name = "status", required = false) String status,
-            @RequestParam(name = "regFrom", required = false) Long regFrom,
-            @RequestParam(name = "regTo", required = false) Long regTo) {
+            @RequestParam(name = "from", required = false) Long regFrom,
+            @RequestParam(name = "to", required = false) Long regTo) {
 
         Pageable pageable = new PageRequest(pageNumber, pageSize);
-        PhoneFilter filter = new PhoneFilter();
+        PhoneFilter filter = new PhoneFilter(pageable);
         filter.setId(id);
         filter.setNote(note);
         filter.setStatus(status);
         filter.setNumber(number);
         filter.setOpName(opName);
-        filter.setOpLogin(opLogin);
-        filter.setPageable(pageable);
-        filter.setOpPassword(opPassword);
-        filter.setRegTo(nonNull(regTo) ? new Timestamp(regTo) : null);
-        filter.setRegFrom(nonNull(regFrom) ? new Timestamp(regFrom) : null);
+        filter.setLogin(opLogin);
+        filter.setPassword(opPassword);
+        filter.setTo(nonNull(regTo) ? new Timestamp(regTo) : null);
+        filter.setFrom(nonNull(regFrom) ? new Timestamp(regFrom) : null);
 
         Page<Phone> page = phoneService.list(filter);
         Collection<PhoneRest> phones = toRest(page.getContent());
-        return new PhoneListRest(pageNumber, pageSize, page.getTotalPages(), phones);
+        return new RestList<>(pageNumber, pageSize, page.getTotalPages(), phones);
     }
 
     @GetMapping("/get")

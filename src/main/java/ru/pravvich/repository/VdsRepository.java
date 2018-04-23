@@ -40,7 +40,7 @@ public interface VdsRepository extends JpaRepository<Vds, Integer>, JpaSpecifica
             if (nonNull(filter.login)) {
                 predicate.getExpressions().add(cb.like(root.get("login"), toLike(filter.login, ANY)));
             }
-            if (nonNull(filter.getPassword())) {
+            if (nonNull(filter.password)) {
                 predicate.getExpressions().add(cb.like(root.get("login"), toLike(filter.getPassword(), ANY)));
             }
             if (nonNull(filter.from) && nonNull(filter.to)) {

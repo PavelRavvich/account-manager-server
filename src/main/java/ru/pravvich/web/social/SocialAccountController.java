@@ -10,6 +10,7 @@ import ru.pravvich.config.api.RestApi;
 import ru.pravvich.domain.SocialAccount;
 import ru.pravvich.repository.SocialAccountRepository.SocialAccountFilter;
 import ru.pravvich.service.SocialAccountService;
+import ru.pravvich.web.common.RestList;
 
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -32,7 +33,7 @@ public class SocialAccountController {
     }
 
     @GetMapping("/list")
-    public SocialAccountListRest list(
+    public RestList list(
             @RequestParam(name = "pageSize") Integer pageSize,
             @RequestParam(name = "pageNumber") Integer pageNumber,
             @RequestParam(name = "id", required = false) Integer id,
@@ -43,11 +44,11 @@ public class SocialAccountController {
             @RequestParam(name = "socialType", required = false) String socialType,
             @RequestParam(name = "phoneId", required = false) Integer phoneId,
             @RequestParam(name = "vdsId", required = false) Integer vdsId,
-            @RequestParam(name = "regFrom", required = false) Long regFrom,
-            @RequestParam(name = "regTo", required = false) Long regTo) {
+            @RequestParam(name = "from", required = false) Long regFrom,
+            @RequestParam(name = "to", required = false) Long regTo) {
 
         Pageable pageable = new PageRequest(pageNumber, pageSize);
-        SocialAccountFilter filter = new SocialAccountFilter();
+        SocialAccountFilter filter = new SocialAccountFilter(pageable);
         filter.setId(id);
         filter.setNote(note);
         filter.setVdsId(vdsId);
@@ -55,14 +56,13 @@ public class SocialAccountController {
         filter.setStatus(status);
         filter.setPhoneId(phoneId);
         filter.setPassword(password);
-        filter.setPageable(pageable);
         filter.setSocialType(socialType);
-        filter.setRegTo(nonNull(regTo) ? new Timestamp(regTo) : null);
-        filter.setRegFrom(nonNull(regFrom) ? new Timestamp(regFrom) : null);
+        filter.setTo(nonNull(regTo) ? new Timestamp(regTo) : null);
+        filter.setFrom(nonNull(regFrom) ? new Timestamp(regFrom) : null);
 
         Page<SocialAccount> page = socialAccountService.list(filter);
         List<SocialAccountRest> accounts = toRest(page.getContent());
-        return new SocialAccountListRest(pageNumber, pageSize, page.getTotalPages(), accounts);
+        return new RestList<>(pageNumber, pageSize, page.getTotalPages(), accounts);
     }
 
     @PostMapping("/save")

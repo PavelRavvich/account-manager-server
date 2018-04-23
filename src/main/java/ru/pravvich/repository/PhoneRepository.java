@@ -29,29 +29,29 @@ public interface PhoneRepository extends JpaRepository<Phone, Integer>, JpaSpeci
         @Override
         public Predicate toPredicate(Root<Phone> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
             Predicate predicate = cb.conjunction();
-            if (nonNull(filter.getId())) {
-                predicate.getExpressions().add(cb.equal(root.get("id"), filter.getId()));
+            if (nonNull(filter.id)) {
+                predicate.getExpressions().add(cb.equal(root.get("id"), filter.id));
             }
-            if (nonNull(filter.getNote())) {
-                predicate.getExpressions().add(cb.like(root.get("note"), toLike(filter.getNote(), ANY)));
+            if (nonNull(filter.note)) {
+                predicate.getExpressions().add(cb.like(root.get("note"), toLike(filter.note, ANY)));
             }
-            if (nonNull(filter.getNumber())) {
-                predicate.getExpressions().add(cb.like(root.get("number"), toLike(filter.getNumber(), ANY)));
+            if (nonNull(filter.number)) {
+                predicate.getExpressions().add(cb.like(root.get("number"), toLike(filter.number, ANY)));
             }
-            if (nonNull(filter.getStatus())) {
-                predicate.getExpressions().add(cb.like(root.get("status"), toLike(filter.getStatus(), ANY)));
+            if (nonNull(filter.status)) {
+                predicate.getExpressions().add(cb.like(root.get("status"), toLike(filter.status, ANY)));
             }
-            if (nonNull(filter.getOpName())) {
-                predicate.getExpressions().add(cb.like(root.get("operatorName"), toLike(filter.getOpName(), ANY)));
+            if (nonNull(filter.opName)) {
+                predicate.getExpressions().add(cb.like(root.get("operatorName"), toLike(filter.opName, ANY)));
             }
-            if (nonNull(filter.getOpLogin())) {
-                predicate.getExpressions().add(cb.like(root.get("operatorAccLogin"), toLike(filter.getOpLogin(), ANY)));
+            if (nonNull(filter.login)) {
+                predicate.getExpressions().add(cb.like(root.get("operatorAccLogin"), toLike(filter.login, ANY)));
             }
-            if (nonNull(filter.getOpPassword())) {
-                predicate.getExpressions().add(cb.like(root.get("operatorAccPassword"), toLike(filter.getOpPassword(), ANY)));
+            if (nonNull(filter.password)) {
+                predicate.getExpressions().add(cb.like(root.get("operatorAccPassword"), toLike(filter.password, ANY)));
             }
-            if (nonNull(filter.getRegFrom()) && nonNull(filter.getRegTo())) {
-                predicate.getExpressions().add(cb.between(root.get("regDate"), filter.getRegFrom(), filter.getRegTo()));
+            if (nonNull(filter.from) && nonNull(filter.to)) {
+                predicate.getExpressions().add(cb.between(root.get("regDate"), filter.from, filter.to));
             }
             return predicate;
         }
@@ -60,19 +60,19 @@ public interface PhoneRepository extends JpaRepository<Phone, Integer>, JpaSpeci
     @Data
     class PhoneFilter {
 
-        private Pageable pageable;
+        private @NonNull Pageable pageable;
 
         private Integer id;
 
-        private Timestamp regFrom;
+        private Timestamp from;
 
-        private Timestamp regTo;
+        private Timestamp to;
 
         private String number;
 
-        private String opLogin;
+        private String login;
 
-        private String opPassword;
+        private String password;
 
         private String opName;
 

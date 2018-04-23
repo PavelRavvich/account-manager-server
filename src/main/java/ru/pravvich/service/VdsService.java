@@ -22,21 +22,21 @@ public class VdsService {
     @Autowired
     private SocialAccountRepository socialAccountRepository;
 
-    public Page<Vds> list(@NonNull VdsFilter filter) {
+    public Page<Vds> list(@NonNull final VdsFilter filter) {
         VdsSpecification specs = new VdsSpecification(filter);
         return vdsRepository.findAll(where(specs), filter.getPageable());
     }
 
-    public Vds get(int id) {
+    public Vds get(final int id) {
         Vds vds = vdsRepository.findOne(id);
         return nonNull(vds) ? vds : new Vds();
     }
 
-    public Vds saveOrUpdate(@NonNull Vds vds) {
+    public Vds saveOrUpdate(@NonNull final Vds vds) {
         return vdsRepository.save(vds);
     }
 
-    public void delete(int id) {
+    public void delete(final int id) {
         socialAccountRepository.setVds(null, id);
         vdsRepository.delete(id);
     }

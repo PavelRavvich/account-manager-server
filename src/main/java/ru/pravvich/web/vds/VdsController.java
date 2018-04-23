@@ -10,6 +10,7 @@ import ru.pravvich.config.api.RestApi;
 import ru.pravvich.domain.Vds;
 import ru.pravvich.repository.VdsRepository.VdsFilter;
 import ru.pravvich.service.VdsService;
+import ru.pravvich.web.common.RestList;
 
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -26,7 +27,7 @@ public class VdsController {
     private VdsService vdsService;
 
     @GetMapping("/list")
-    public VdsListRest list(
+    public RestList list(
             @RequestParam(name = "pageSize") Integer pageSize,
             @RequestParam(name = "pageNumber") Integer pageNumber,
             @RequestParam(name = "ip", required = false) String ip,
@@ -35,8 +36,8 @@ public class VdsController {
             @RequestParam(name = "login", required = false) String login,
             @RequestParam(name = "password", required = false) String password,
             @RequestParam(name = "password", required = false) Boolean isActivatedDate,
-            @RequestParam(name = "regFrom", required = false) Long from,
-            @RequestParam(name = "regTo", required = false) Long to) {
+            @RequestParam(name = "from", required = false) Long from,
+            @RequestParam(name = "to", required = false) Long to) {
 
         Pageable pageable = new PageRequest(pageNumber, pageSize);
         VdsFilter filter = new VdsFilter(pageable);
@@ -51,7 +52,7 @@ public class VdsController {
 
         Page<Vds> page = vdsService.list(filter);
         Collection<VdsRest> vds = toRest(page.getContent());
-        return new VdsListRest(pageNumber, pageSize, page.getTotalPages(), vds);
+        return new RestList<>(pageNumber, pageSize, page.getTotalPages(), vds);
     }
 
     @GetMapping("/get")

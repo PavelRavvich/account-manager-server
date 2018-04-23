@@ -19,21 +19,21 @@ public class SocialAccountService {
     @Autowired
     private SocialAccountRepository socialAccountRepository;
 
-    public Page<SocialAccount> list(@NonNull SocialAccountFilter filter) {
+    public Page<SocialAccount> list(@NonNull final SocialAccountFilter filter) {
         Specification<SocialAccount> specs = new SocialAccountSpecification(filter);
         return socialAccountRepository.findAll(where(specs), filter.getPageable());
     }
 
-    public SocialAccount get(int id) {
+    public SocialAccount get(final int id) {
         SocialAccount account = socialAccountRepository.findOne(id);
         return nonNull(account) ? account : new SocialAccount();
     }
 
-    public SocialAccount saveOrUpdate(@NonNull SocialAccount account) {
+    public SocialAccount saveOrUpdate(@NonNull final SocialAccount account) {
         return socialAccountRepository.save(account);
     }
 
-    public void delete(int id) {
+    public void delete(final int id) {
         socialAccountRepository.delete(id);
     }
 }

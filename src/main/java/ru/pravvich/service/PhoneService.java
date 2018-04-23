@@ -23,21 +23,21 @@ public class PhoneService {
     @Autowired
     private SocialAccountRepository socialAccountRepository;
 
-    public Phone get(int id) {
+    public Phone get(final int id) {
         Phone phone = phoneRepository.findOne(id);
         return nonNull(phone) ? phone : new Phone();
     }
 
-    public Page<Phone> list(@NonNull PhoneFilter filter) {
+    public Page<Phone> list(@NonNull final PhoneFilter filter) {
         Specification<Phone> specs = new PhoneSpecification(filter);
         return phoneRepository.findAll(where(specs), filter.getPageable());
     }
 
-    public Phone saveOrUpdate(@NonNull Phone phone) {
+    public Phone saveOrUpdate(@NonNull final Phone phone) {
         return phoneRepository.save(phone);
     }
 
-    public void delete(int id) {
+    public void delete(final int id) {
         socialAccountRepository.setPhone(null, id);
         phoneRepository.delete(id);
     }

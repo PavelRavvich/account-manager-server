@@ -18,13 +18,11 @@ public class RestApiConfig {
             @Override
             public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
                 return new RequestMappingHandlerMapping() {
-                    private final static String API_BASE_PATH = "/rest";
-
                     @Override
                     protected void registerHandlerMethod(Object handler, Method method, RequestMappingInfo mapping) {
                         Class<?> beanType = method.getDeclaringClass();
                         if (AnnotationUtils.findAnnotation(beanType, RestApi.class) != null) {
-                            PatternsRequestCondition apiPattern = new PatternsRequestCondition(API_BASE_PATH)
+                            PatternsRequestCondition apiPattern = new PatternsRequestCondition("/rest")
                                     .combine(mapping.getPatternsCondition());
 
                             mapping = new RequestMappingInfo(mapping.getName(), apiPattern,
