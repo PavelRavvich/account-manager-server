@@ -31,11 +31,11 @@ public class VdsRest {
     private String password;
 
     @JsonFormat(shape = JsonFormat.Shape.NUMBER, pattern = "s")
-    @JsonProperty("activatedDate")
-    private Timestamp activatedDate;
+    @JsonProperty("activated")
+    private Timestamp activated;
 
     @JsonFormat(shape = JsonFormat.Shape.NUMBER, pattern = "s")
-    @JsonProperty("deactivatedDate")
-    private Timestamp deactivatedDate;
+    @JsonProperty("deactivated")
+    private Timestamp deactivated;
 
 }

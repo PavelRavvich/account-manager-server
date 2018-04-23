@@ -2,13 +2,20 @@ package ru.pravvich.web.vds;
 
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import ru.pravvich.config.api.RestApi;
 import ru.pravvich.domain.Vds;
+import ru.pravvich.repository.VdsRepository.VdsFilter;
 import ru.pravvich.service.VdsService;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.stream.Collectors;
+
+import static java.util.Objects.nonNull;
 
 @RestApi
 @RestController
@@ -19,8 +26,32 @@ public class VdsController {
     private VdsService vdsService;
 
     @GetMapping("/list")
-    public Collection<VdsRest> list() {
-        return collectionToRest(vdsService.list());
+    public VdsListRest list(
+            @RequestParam(name = "pageSize") Integer pageSize,
+            @RequestParam(name = "pageNumber") Integer pageNumber,
+            @RequestParam(name = "ip", required = false) String ip,
+            @RequestParam(name = "id", required = false) Integer id,
+            @RequestParam(name = "note", required = false) String note,
+            @RequestParam(name = "login", required = false) String login,
+            @RequestParam(name = "password", required = false) String password,
+            @RequestParam(name = "password", required = false) Boolean isActivatedDate,
+            @RequestParam(name = "regFrom", required = false) Long from,
+            @RequestParam(name = "regTo", required = false) Long to) {
+
+        Pageable pageable = new PageRequest(pageNumber, pageSize);
+        VdsFilter filter = new VdsFilter(pageable);
+        filter.setId(id);
+        filter.setIp(ip);
+        filter.setNote(note);
+        filter.setLogin(login);
+        filter.setPassword(password);
+        filter.setIsActivatedDate(isActivatedDate);
+        filter.setTo(nonNull(to) ? new Timestamp(to) : null);
+        filter.setFrom(nonNull(from) ? new Timestamp(from) : null);
+
+        Page<Vds> page = vdsService.list(filter);
+        Collection<VdsRest> vds = toRest(page.getContent());
+        return new VdsListRest(pageNumber, pageSize, page.getTotalPages(), vds);
     }
 
     @GetMapping("/get")
@@ -47,7 +78,7 @@ public class VdsController {
         vdsService.delete(id);
     }
 
-    private Collection<VdsRest> collectionToRest(@NonNull Collection<Vds> vds) {
+    private Collection<VdsRest> toRest(@NonNull Collection<Vds> vds) {
         return vds.stream().map(this::toRest).collect(Collectors.toList());
     }
 
@@ -58,8 +89,8 @@ public class VdsController {
         rest.setNote(entity.getNote());
         rest.setLogin(entity.getLogin());
         rest.setPassword(entity.getPassword());
-        rest.setActivatedDate(entity.getActivatedDate());
-        rest.setDeactivatedDate(entity.getDeactivatedDate());
+        rest.setActivated(entity.getActivated());
+        rest.setDeactivated(entity.getDeactivated());
         return rest;
     }
 
@@ -70,8 +101,8 @@ public class VdsController {
         entity.setNote(rest.getNote());
         entity.setLogin(rest.getLogin());
         entity.setPassword(rest.getPassword());
-        entity.setActivatedDate(rest.getActivatedDate());
-        entity.setDeactivatedDate(rest.getDeactivatedDate());
+        entity.setActivated(rest.getActivated());
+        entity.setDeactivated(rest.getDeactivated());
         return entity;
     }
 }

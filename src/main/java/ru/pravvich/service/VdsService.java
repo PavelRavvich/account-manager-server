@@ -1,16 +1,17 @@
 package ru.pravvich.service;
 
-import com.google.common.collect.Lists;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import ru.pravvich.domain.Vds;
 import ru.pravvich.repository.SocialAccountRepository;
 import ru.pravvich.repository.VdsRepository;
-
-import java.util.Collection;
+import ru.pravvich.repository.VdsRepository.VdsFilter;
+import ru.pravvich.repository.VdsRepository.VdsSpecification;
 
 import static java.util.Objects.nonNull;
+import static org.springframework.data.jpa.domain.Specifications.where;
 
 @Service
 public class VdsService {
@@ -21,8 +22,9 @@ public class VdsService {
     @Autowired
     private SocialAccountRepository socialAccountRepository;
 
-    public Collection<Vds> list() {
-        return Lists.newArrayList(vdsRepository.findAll());
+    public Page<Vds> list(@NonNull VdsFilter filter) {
+        VdsSpecification specs = new VdsSpecification(filter);
+        return vdsRepository.findAll(where(specs), filter.getPageable());
     }
 
     public Vds get(int id) {

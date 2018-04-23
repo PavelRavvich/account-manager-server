@@ -32,10 +32,10 @@ public class Vds {
     private String password;
 
     @Column(name = "activated")
-    private Timestamp activatedDate;
+    private Timestamp activated;
 
     @Column(name = "deactivated")
-    private Timestamp deactivatedDate;
+    private Timestamp deactivated;
 
     @Column(name = "note")
     private String note;
