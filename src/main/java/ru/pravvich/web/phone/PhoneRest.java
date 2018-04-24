@@ -25,26 +25,26 @@ class PhoneRest {
     @JsonProperty("num")
     private String number;
 
-    @JsonProperty("operatorName")
-    private String operatorType;
+    @JsonProperty("opLogin")
+    private String opLogin;
 
-    @JsonProperty("operatorUrl")
-    private String operatorUrl;
+    @JsonProperty("opPassword")
+    private String opPassword;
+
+    @JsonProperty("opName")
+    private String opType;
+
+    @JsonProperty("opUrl")
+    private String opUrl;
+
+    @JsonProperty("note")
+    private String note;
+
+    @JsonProperty("socialAccIds")
+    private List<Integer> socialAccIds;
 
     @JsonProperty("regDate")
     @JsonFormat(shape = JsonFormat.Shape.NUMBER, pattern = "s")
     private Timestamp regDate;
-
-    @JsonProperty("socialAccountIds")
-    private List<Integer> socialAccountIds;
-
-    @JsonProperty("operatorAccLogin")
-    private String operatorAccLogin;
-
-    @JsonProperty("operatorAccPass")
-    private String operatorAccPassword;
-
-    @JsonProperty("note")
-    private String note;
 
 }

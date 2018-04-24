@@ -93,13 +93,12 @@ public class PhoneController {
         rest.setNote(entity.getNote());
         rest.setNumber(entity.getNumber());
         rest.setIsActive(entity.getStatus());
-        rest.setOperatorUrl(entity.getOperatorUrl());
-        rest.setOperatorType(entity.getOperatorName());
-        rest.setOperatorAccLogin(entity.getOperatorAccLogin());
-        rest.setOperatorAccPassword(entity.getOperatorAccPassword());
         rest.setRegDate(entity.getRegDate());
-        rest.setSocialAccountIds(
-                nonNull(entity.getAccounts())
+        rest.setOpUrl(entity.getOperatorUrl());
+        rest.setOpType(entity.getOperatorName());
+        rest.setOpLogin(entity.getOperatorAccLogin());
+        rest.setOpPassword(entity.getOperatorAccPassword());
+        rest.setSocialAccIds(nonNull(entity.getAccounts())
                         ? entity.getAccounts().stream().map(SocialAccount::getId).collect(Collectors.toList())
                         : Lists.newArrayList());
         return rest;
@@ -111,14 +110,14 @@ public class PhoneController {
         entity.setNote(rest.getNote());
         entity.setNumber(rest.getNumber());
         entity.setStatus(rest.getIsActive());
-        entity.setOperatorUrl(rest.getOperatorUrl());
-        entity.setOperatorName(rest.getOperatorType());
-        entity.setOperatorAccLogin(rest.getOperatorAccLogin());
-        entity.setOperatorAccPassword(rest.getOperatorAccPassword());
+        entity.setOperatorUrl(rest.getOpUrl());
+        entity.setOperatorName(rest.getOpType());
+        entity.setOperatorAccLogin(rest.getOpLogin());
+        entity.setOperatorAccPassword(rest.getOpPassword());
         entity.setRegDate(rest.getRegDate());
         entity.setAccounts(Lists.newArrayList());
-        if (nonNull(rest.getSocialAccountIds())) {
-            rest.getSocialAccountIds().forEach(id -> {
+        if (nonNull(rest.getSocialAccIds())) {
+            rest.getSocialAccIds().forEach(id -> {
                 SocialAccount account = new SocialAccount();
                 account.setId(id);
                 entity.getAccounts().add(account);
