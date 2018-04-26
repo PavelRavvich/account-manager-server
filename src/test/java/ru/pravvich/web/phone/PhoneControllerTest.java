@@ -7,10 +7,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import ru.pravvich.domain.Phone;
+import ru.pravvich.repository.PhoneRepository.PhoneFilter;
 import ru.pravvich.service.PhoneService;
+import ru.pravvich.web.common.RestList;
 
 import java.sql.Timestamp;
 
@@ -31,6 +35,8 @@ public class PhoneControllerTest {
 
     private Phone phone;
 
+    private PhoneFilter filter;
+
     @Before
     public void before() {
         phone = new Phone();
@@ -44,6 +50,7 @@ public class PhoneControllerTest {
         phone.setStatus("test_status");
         phone.setNote("teat_note");
         phone.setId(1);
+        filter = new PhoneFilter(new PageRequest(0, 1));
     }
 
 
@@ -52,5 +59,12 @@ public class PhoneControllerTest {
         given(phoneService.get(1)).willReturn(phone);
         PhoneRest result = phoneController.get(1);
         assertThat(result.getId(), is(1));
+    }
+
+    @Test
+    public void whenCallListReturnData() {
+        given(phoneService.list(filter)).willReturn(new PageImpl<>(Lists.newArrayList(phone)));
+        RestList result = phoneController.list(1, 0, null, null, null, null, null, null, null, null, null);
+        assertThat(result.getData().size(), is(1));
     }
 }
