@@ -1,18 +1,22 @@
 package ru.pravvich.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-import ru.pravvich.web.user.UserRest;
+import ru.pravvich.config.security.UserDetailsServiceImpl;
+import ru.pravvich.domain.User;
 
 @Service
 public class UserService {
 
     @Autowired
-    private AuthenticationManagerBuilder auth;
+    private UserDetailsServiceImpl userDetailsServiceImpl;
 
-    public UserRest getUser(String login, String password) {
-        return new UserRest(1,"Pavel", "12345", "123@1");
+    public User getUser(String username, String password) {
+        User user = userDetailsServiceImpl.loadUserByUsername(username).getUser();
+        if (user.getPassword().equals(password)) {
+            System.out.println(password);
+        }
+        System.out.println(user);
+        return user;
     }
 }
