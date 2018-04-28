@@ -2,14 +2,13 @@ package ru.pravvich.web.user;
 
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.pravvich.config.api.RestApi;
 import ru.pravvich.domain.Role;
 import ru.pravvich.domain.User;
 import ru.pravvich.service.UserService;
+
+import javax.annotation.security.PermitAll;
 
 import static java.util.stream.Collectors.toList;
 
@@ -23,16 +22,25 @@ public class UserController {
 
     private static UserRest MOCK;
 
+    @PermitAll
+    @GetMapping("/is_logged")
+    public Boolean isLoggedIn() {
+        return userService.isCurrentUserLoggedIn();
+    }
+
+    @PermitAll
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public UserRest login(@RequestBody() UserRest user) {
-        User auth = userService.getUser(user.getUsername(), user.getPassword());
+        User auth = userService.getUserByUsername(user.getUsername());
         return toRest(auth);
     }
 
+    @PermitAll
     @RequestMapping(path = "/logout", method = RequestMethod.POST)
     public void logout(@RequestBody() UserRest user) {
     }
 
+    @PermitAll
     @RequestMapping(path = "/registration", method = RequestMethod.POST)
     public UserRest registration(@RequestBody() UserRest user) {
         return MOCK;

@@ -1,32 +1,28 @@
 package ru.pravvich.config.security;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NonNull;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.pravvich.domain.Role;
 import ru.pravvich.domain.User;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class UserPrincipalImpl implements UserDetails {
+@Data
+public class UserDetailsImpl implements UserDetails {
 
-    @Getter
-    private final @NonNull User user;
+    private @NonNull User user;
 
-    public UserPrincipalImpl(User user) {
+    private List<GrantedAuthority> authorities;
+
+    public UserDetailsImpl(User user, List<GrantedAuthority> authorities) {
         this.user = user;
+        this.authorities = authorities;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        final List<GrantedAuthority> authorities = new ArrayList<>();
-        for (final Role role: user.getRoles()) {
-            authorities.add(new SimpleGrantedAuthority(role.getRole()));
-        }
         return authorities;
     }
 

@@ -1,4 +1,4 @@
-package ru.pravvich.config;
+package ru.pravvich.config.security.handler;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -8,15 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Component("restAuthenticationEntryPoint")
-public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
-
+@Component
+public class UnauthorizedHandler implements AuthenticationEntryPoint {
     @Override
     public void commence(
             HttpServletRequest request,
             HttpServletResponse response,
             AuthenticationException authException) throws IOException {
 
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+        System.out.println(authException.getMessage());
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
     }
 }

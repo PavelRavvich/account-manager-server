@@ -1,4 +1,4 @@
-package ru.pravvich.config;
+package ru.pravvich.config.api;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
