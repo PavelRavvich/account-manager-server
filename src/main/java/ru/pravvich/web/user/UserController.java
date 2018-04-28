@@ -28,12 +28,12 @@ public class UserController {
         return userService.isCurrentUserLoggedIn();
     }
 
-    @PermitAll
-    @RequestMapping(path = "/login", method = RequestMethod.POST)
-    public UserRest login(@RequestBody() UserRest user) {
-        User auth = userService.getUserByUsername(user.getUsername());
-        return toRest(auth);
-    }
+//    @PermitAll
+//    @RequestMapping(path = "/login", method = RequestMethod.POST)
+//    public UserRest login(@RequestBody() UserRest user) {
+//        User auth = userService.getUserByUsername(user.getUsername());
+//        return toRest(auth);
+//    }
 
     @PermitAll
     @RequestMapping(path = "/logout", method = RequestMethod.POST)
