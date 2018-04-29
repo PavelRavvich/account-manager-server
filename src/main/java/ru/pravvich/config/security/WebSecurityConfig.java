@@ -67,6 +67,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
+    /**
+     * For correctly call login call POST: http://localhost:8080/rest/user/login?username=user_1&password=pass
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/rest/user/login").permitAll();
