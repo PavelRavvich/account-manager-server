@@ -16,6 +16,7 @@ public class LogoutHandler implements LogoutSuccessHandler {
             HttpServletResponse response,
             Authentication authentication) throws IOException {
 
+        response.setHeader("Access-Control-Allow-Origin", "*");
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().flush();
     }

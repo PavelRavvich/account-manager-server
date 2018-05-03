@@ -29,6 +29,7 @@ public class LogInSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException {
 
+        response.setHeader("Access-Control-Allow-Origin", "*");
         response.setStatus(HttpServletResponse.SC_OK);
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
