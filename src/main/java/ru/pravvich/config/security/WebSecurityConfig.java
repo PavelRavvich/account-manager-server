@@ -13,10 +13,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import ru.pravvich.config.security.handler.AuthFailureHandler;
 import ru.pravvich.config.security.handler.LogInSuccessHandler;
 import ru.pravvich.config.security.handler.LogoutHandler;
 import ru.pravvich.config.security.handler.UnauthorizedHandler;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -67,13 +72,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        configuration.setAllowedHeaders(Arrays.asList("content-type"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
     /**
      * For correctly call login call POST: http://localhost:8080/rest/user/login?username=user_1&password=pass
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/rest/user/login").permitAll();
-        http.csrf().disable()
+        http
+                .cors().and()
+                .csrf().disable()
                 .authenticationProvider(authenticationProvider())
                 .exceptionHandling()
                 .authenticationEntryPoint(unauthorizedHandler)
@@ -91,7 +110,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(logoutHandler)
                 .and()
                 .sessionManagement()
-                .maximumSessions(1);
+                .maximumSessions(10);
 
         http.authorizeRequests().anyRequest().authenticated();
     }
