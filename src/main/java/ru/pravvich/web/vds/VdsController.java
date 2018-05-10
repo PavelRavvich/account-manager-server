@@ -35,7 +35,7 @@ public class VdsController {
             @RequestParam(name = "note", required = false) String note,
             @RequestParam(name = "login", required = false) String login,
             @RequestParam(name = "password", required = false) String password,
-            @RequestParam(name = "password", required = false) Boolean isActivatedDate,
+            @RequestParam(name = "isActivatedDate", required = false) Boolean isActivatedDate,
             @RequestParam(name = "from", required = false) Long from,
             @RequestParam(name = "to", required = false) Long to) {
 
