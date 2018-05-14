@@ -1,7 +1,10 @@
 language: java
+jdk:
+  - oraclejdk8
 sudo: false
 services:
   - postgresql
 before_script:
   - psql -c 'create database account_manager;' -U postgres
-script: gradle check
+  - chmod a+x gradlew
+script: ./gradlew build
