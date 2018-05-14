@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - Class ru.pravvich.web.phone.PhoneControllerTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>Class ru.pravvich.web.phone.PhoneControllerTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/ru.pravvich.web.phone.html">ru.pravvich.web.phone</a> &gt; PhoneControllerTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">7</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.082s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">whenCallGetThenThenGotPhone</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">whenCallListWithRegDateNonNullThenReturnData</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">whenCallListWithRegDateNullThenReturnData</td>
+<td class="success">0.016s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">whenDelete</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">whenEquals</td>
+<td class="success">0.017s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">whenSavePhoneThenReturnSamePhone</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">whenUpdatePhoneThenReturnSamePhone</td>
+<td class="success">0.017s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2018-05-14 15:59:31.716  INFO 8432 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [ru.pravvich.web.phone.PhoneControllerTest], using SpringBootContextLoader
+2018-05-14 15:59:31.717  INFO 8432 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [ru.pravvich.web.phone.PhoneControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2018-05-14 15:59:31.718  INFO 8432 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [ru.pravvich.web.phone.PhoneControllerTest]: PhoneControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2018-05-14 15:59:31.747  INFO 8432 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ru.pravvich.Application for test class ru.pravvich.web.phone.PhoneControllerTest
+2018-05-14 15:59:31.752  INFO 8432 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+2018-05-14 15:59:31.757  INFO 8432 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@727ce019, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@2aee3d09, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@41845526, org.springframework.test.context.support.DirtiesContextTestExecutionListener@559bc736, org.springframework.test.context.transaction.TransactionalTestExecutionListener@40f289b4, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@1b2fe2d6, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@78e1a9f0, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@734863ad, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@27a3eb59, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@43fe9429, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@36a50b8f, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@64053fd]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v1.5.9.RELEASE)
+
+2018-05-14 15:59:31.844  INFO 8432 --- [    Test worker] r.p.web.phone.PhoneControllerTest        : Starting PhoneControllerTest on Mac-mini-Pavel.local with PID 8432 (started by pavel in /Users/pavel/GitHub/account-manager-server)
+2018-05-14 15:59:31.845  INFO 8432 --- [    Test worker] r.p.web.phone.PhoneControllerTest        : No active profile set, falling back to default profiles: default
+2018-05-14 15:59:31.850  INFO 8432 --- [    Test worker] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@28eff3f4: startup date [Mon May 14 15:59:31 MSK 2018]; root of context hierarchy
+2018-05-14 15:59:33.533  INFO 8432 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2018-05-14 15:59:33.533  INFO 8432 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2018-05-14 15:59:33.544  INFO 8432 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2018-05-14 15:59:33.721  INFO 8432 --- [    Test worker] o.h.e.j.e.i.LobCreatorBuilderImpl        : HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+2018-05-14 15:59:33.722  INFO 8432 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@31ec1465
+2018-05-14 15:59:33.878  WARN 8432 --- [    Test worker] o.h.j.i.EntityManagerFactoryRegistry     : HHH000436: Entity manager factory name (default) is already registered.  If entity manager will be clustered or passivated, specify a unique value for property 'hibernate.ejb.entitymanager_factory_name'
+2018-05-14 15:59:33.878  INFO 8432 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2018-05-14 15:59:34.451  INFO 8432 --- [    Test worker] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2018-05-14 15:59:34.830  INFO 8432 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1c251f1e, org.springframework.security.web.context.SecurityContextPersistenceFilter@3216c3d1, org.springframework.security.web.header.HeaderWriterFilter@fd3422a, org.springframework.web.filter.CorsFilter@4fc3bbec, org.springframework.security.web.authentication.logout.LogoutFilter@512d8ecd, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@77f2feec, org.springframework.security.web.session.ConcurrentSessionFilter@6a1846cc, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@27c105ab, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@792b9902, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@25901912, org.springframework.security.web.session.SessionManagementFilter@6417546d, org.springframework.security.web.access.ExceptionTranslationFilter@4a224e90, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@66a6a274]
+2018-05-14 15:59:34.856  INFO 8432 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: org.springframework.boot.actuate.autoconfigure.ManagementWebSecurityAutoConfiguration$LazyEndpointPathRequestMatcher@40ca8d6c, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@625f446, org.springframework.security.web.context.SecurityContextPersistenceFilter@41e0cda8, org.springframework.security.web.header.HeaderWriterFilter@30705de5, org.springframework.web.filter.CorsFilter@356e02fc, org.springframework.security.web.authentication.logout.LogoutFilter@6807107, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@7d5efe60, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@327066cd, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@dd9a13, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3f4947cf, org.springframework.security.web.session.SessionManagementFilter@709ed8af, org.springframework.security.web.access.ExceptionTranslationFilter@4b270899, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6f8b8e70]
+2018-05-14 15:59:35.251  INFO 8432 --- [    Test worker] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.web.context.support.GenericWebApplicationContext@28eff3f4: startup date [Mon May 14 15:59:31 MSK 2018]; root of context hierarchy
+2018-05-14 15:59:35.323  INFO 8432 --- [    Test worker] r.pravvich.config.api.RestApiConfig$1$1  : Mapped &quot;{[/rest/phone/get],methods=[GET]}&quot; onto public ru.pravvich.web.phone.PhoneRest ru.pravvich.web.phone.PhoneController.get(int)
+2018-05-14 15:59:35.325  INFO 8432 --- [    Test worker] r.pravvich.config.api.RestApiConfig$1$1  : Mapped &quot;{[/rest/phone/update],methods=[POST]}&quot; onto public ru.pravvich.web.phone.PhoneRest ru.pravvich.web.phone.PhoneController.update(ru.pravvich.web.phone.PhoneRest)
+2018-05-14 15:59:35.326  INFO 8432 --- [    Test worker] r.pravvich.config.api.RestApiConfig$1$1  : Mapped &quot;{[/rest/phone/delete],methods=[POST]}&quot; onto public void ru.pravvich.web.phone.PhoneController.delete(int)
+2018-05-14 15:59:35.326  INFO 8432 --- [    Test worker] r.pravvich.config.api.RestApiConfig$1$1  : Mapped &quot;{[/rest/phone/list],methods=[GET]}&quot; onto public ru.pravvich.web.common.RestList ru.pravvich.web.phone.PhoneController.list(java.lang.Integer,java.lang.Integer,java.lang.Integer,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Long,java.lang.Long)
+2018-05-14 15:59:35.327  INFO 8432 --- [    Test worker] r.pravvich.config.api.RestApiConfig$1$1  : Mapped &quot;{[/rest/phone/save],methods=[POST]}&quot; onto public ru.pravvich.web.phone.PhoneRest ru.pravvich.web.phone.PhoneController.save(ru.pravvich.web.phone.PhoneRest)
+2018-05-14 15:59:35.331  INFO 8432 --- [    Test worker] r.pravvich.config.api.RestApiConfig$1$1  : Mapped &quot;{[/rest/social_account/get],methods=[GET]}&quot; onto public ru.pravvich.web.social.SocialAccountRest ru.pravvich.web.social.SocialAccountController.get(int)
+2018-05-14 15:59:35.332  INFO 8432 --- [    Test worker] r.pravvich.config.api.RestApiConfig$1$1  : Mapped &quot;{[/rest/social_account/update],methods=[POST]}&quot; onto public ru.pravvich.web.social.SocialAccountRest ru.pravvich.web.social.SocialAccountController.update(ru.pravvich.web.social.SocialAccountRest)
+2018-05-14 15:59:35.333  INFO 8432 --- [    Test worker] r.pravvich.config.api.RestApiConfig$1$1  : Mapped &quot;{[/rest/social_account/delete],methods=[POST]}&quot; onto public void ru.pravvich.web.social.SocialAccountController.delete(int)
+2018-05-14 15:59:35.334  INFO 8432 --- [    Test worker] r.pravvich.config.api.RestApiConfig$1$1  : Mapped &quot;{[/rest/social_account/list],methods=[GET]}&quot; onto public ru.pravvich.web.common.RestList ru.pravvich.web.social.SocialAccountController.list(java.lang.Integer,java.lang.Integer,java.lang.Integer,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.Integer,java.lang.Long,java.lang.Long)
+2018-05-14 15:59:35.335  INFO 8432 --- [    Test worker] r.pravvich.config.api.RestApiConfig$1$1  : Mapped &quot;{[/rest/social_account/save],methods=[POST]}&quot; onto public ru.pravvich.web.social.SocialAccountRest ru.pravvich.web.social.SocialAccountController.save(ru.pravvich.web.social.SocialAccountRest)
+2018-05-14 15:59:35.338  INFO 8432 --- [    Test worker] r.pravvich.config.api.RestApiConfig$1$1  : Mapped &quot;{[/rest/user/logout],methods=[POST]}&quot; onto public void ru.pravvich.web.user.UserController.logout(ru.pravvich.web.user.UserRest)
+2018-05-14 15:59:35.338  INFO 8432 --- [    Test worker] r.pravvich.config.api.RestApiConfig$1$1  : Mapped &quot;{[/rest/user/registration],methods=[POST]}&quot; onto public ru.pravvich.web.user.UserRest ru.pravvich.web.user.UserController.registration(ru.pravvich.web.user.UserRest)
+2018-05-14 15:59:35.339  INFO 8432 --- [    Test worker] r.pravvich.config.api.RestApiConfig$1$1  : Mapped &quot;{[/rest/user/is_logged],methods=[GET]}&quot; onto public java.lang.Boolean ru.pravvich.web.user.UserController.isLoggedIn()
+2018-05-14 15:59:35.347  INFO 8432 --- [    Test worker] r.pravvich.config.api.RestApiConfig$1$1  : Mapped &quot;{[/rest/vds/get],methods=[GET]}&quot; onto public ru.pravvich.web.vds.VdsRest ru.pravvich.web.vds.VdsController.get(int)
+2018-05-14 15:59:35.348  INFO 8432 --- [    Test worker] r.pravvich.config.api.RestApiConfig$1$1  : Mapped &quot;{[/rest/vds/update],methods=[POST]}&quot; onto public ru.pravvich.web.vds.VdsRest ru.pravvich.web.vds.VdsController.update(ru.pravvich.web.vds.VdsRest)
+2018-05-14 15:59:35.349  INFO 8432 --- [    Test worker] r.pravvich.config.api.RestApiConfig$1$1  : Mapped &quot;{[/rest/vds/delete],methods=[POST]}&quot; onto public void ru.pravvich.web.vds.VdsController.delete(int)
+2018-05-14 15:59:35.350  INFO 8432 --- [    Test worker] r.pravvich.config.api.RestApiConfig$1$1  : Mapped &quot;{[/rest/vds/list],methods=[GET]}&quot; onto public ru.pravvich.web.common.RestList ru.pravvich.web.vds.VdsController.list(java.lang.Integer,java.lang.Integer,java.lang.String,java.lang.Integer,java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean,java.lang.Long,java.lang.Long)
+2018-05-14 15:59:35.350  INFO 8432 --- [    Test worker] r.pravvich.config.api.RestApiConfig$1$1  : Mapped &quot;{[/rest/vds/save],methods=[POST]}&quot; onto public ru.pravvich.web.vds.VdsRest ru.pravvich.web.vds.VdsController.save(ru.pravvich.web.vds.VdsRest)
+2018-05-14 15:59:35.356  INFO 8432 --- [    Test worker] r.pravvich.config.api.RestApiConfig$1$1  : Mapped &quot;{[/error]}&quot; onto public org.springframework.http.ResponseEntity&lt;java.util.Map&lt;java.lang.String, java.lang.Object&gt;&gt; org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-05-14 15:59:35.358  INFO 8432 --- [    Test worker] r.pravvich.config.api.RestApiConfig$1$1  : Mapped &quot;{[/error],produces=[text/html]}&quot; onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-05-14 15:59:35.443  INFO 8432 --- [    Test worker] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-05-14 15:59:35.443  INFO 8432 --- [    Test worker] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-05-14 15:59:35.552  INFO 8432 --- [    Test worker] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-05-14 15:59:36.375  INFO 8432 --- [    Test worker] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped &quot;{[/configprops || /configprops.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}&quot; onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-05-14 15:59:36.377  INFO 8432 --- [    Test worker] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped &quot;{[/trace || /trace.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}&quot; onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-05-14 15:59:36.379  INFO 8432 --- [    Test worker] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped &quot;{[/heapdump || /heapdump.json],methods=[GET],produces=[application/octet-stream]}&quot; onto public void org.springframework.boot.actuate.endpoint.mvc.HeapdumpMvcEndpoint.invoke(boolean,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.io.IOException,javax.servlet.ServletException
+2018-05-14 15:59:36.383  INFO 8432 --- [    Test worker] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped &quot;{[/loggers/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}&quot; onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.LoggersMvcEndpoint.get(java.lang.String)
+2018-05-14 15:59:36.384  INFO 8432 --- [    Test worker] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped &quot;{[/loggers/{name:.*}],methods=[POST],consumes=[application/vnd.spring-boot.actuator.v1+json || application/json],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}&quot; onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.LoggersMvcEndpoint.set(java.lang.String,java.util.Map&lt;java.lang.String, java.lang.String&gt;)
+2018-05-14 15:59:36.385  INFO 8432 --- [    Test worker] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped &quot;{[/loggers || /loggers.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}&quot; onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-05-14 15:59:36.387  INFO 8432 --- [    Test worker] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped &quot;{[/autoconfig || /autoconfig.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}&quot; onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-05-14 15:59:36.389  INFO 8432 --- [    Test worker] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped &quot;{[/health || /health.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}&quot; onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.HealthMvcEndpoint.invoke(javax.servlet.http.HttpServletRequest,java.security.Principal)
+2018-05-14 15:59:36.391  INFO 8432 --- [    Test worker] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped &quot;{[/beans || /beans.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}&quot; onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-05-14 15:59:36.392  INFO 8432 --- [    Test worker] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped &quot;{[/auditevents || /auditevents.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}&quot; onto public org.springframework.http.ResponseEntity&lt;?&gt; org.springframework.boot.actuate.endpoint.mvc.AuditEventsMvcEndpoint.findByPrincipalAndAfterAndType(java.lang.String,java.util.Date,java.lang.String)
+2018-05-14 15:59:36.394  INFO 8432 --- [    Test worker] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped &quot;{[/mappings || /mappings.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}&quot; onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-05-14 15:59:36.396  INFO 8432 --- [    Test worker] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped &quot;{[/dump || /dump.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}&quot; onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-05-14 15:59:36.399  INFO 8432 --- [    Test worker] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped &quot;{[/env/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}&quot; onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EnvironmentMvcEndpoint.value(java.lang.String)
+2018-05-14 15:59:36.400  INFO 8432 --- [    Test worker] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped &quot;{[/env || /env.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}&quot; onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-05-14 15:59:36.402  INFO 8432 --- [    Test worker] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped &quot;{[/metrics/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}&quot; onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.MetricsMvcEndpoint.value(java.lang.String)
+2018-05-14 15:59:36.404  INFO 8432 --- [    Test worker] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped &quot;{[/metrics || /metrics.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}&quot; onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-05-14 15:59:36.406  INFO 8432 --- [    Test worker] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped &quot;{[/info || /info.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}&quot; onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-05-14 15:59:36.791  INFO 8432 --- [    Test worker] r.p.web.phone.PhoneControllerTest        : Started PhoneControllerTest in 5.019 seconds (JVM running for 27.836)
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 4.7</a> at May 14, 2018 3:59:42 PM</p>
+</div>
+</div>
+</body>
+</html>
