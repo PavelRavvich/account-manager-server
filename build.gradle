@@ -30,5 +30,5 @@ dependencies {
 }
 
 bootRun {
-    jvmArgs = ["-Dfile.encoding=UTF-8"]
+    jvmArgs = ["-Dfile.encoding=UTF-8", "-Xmx2048m", "-Xms512m"]
 }
