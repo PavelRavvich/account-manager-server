@@ -1,4 +1,4 @@
-package ru.pravvich.web.phone;
+package ru.pravvich.web.vds;
 
 import org.assertj.core.util.Lists;
 import org.junit.Before;
@@ -11,9 +11,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import ru.pravvich.domain.Phone;
-import ru.pravvich.repository.PhoneRepository.PhoneFilter;
-import ru.pravvich.service.PhoneService;
+import ru.pravvich.domain.Vds;
+import ru.pravvich.repository.VdsRepository.VdsFilter;
+import ru.pravvich.service.VdsService;
 import ru.pravvich.web.common.RestList;
 
 import java.sql.Timestamp;
@@ -27,38 +27,36 @@ import static org.mockito.Mockito.verify;
 @SpringBootTest
 @WebAppConfiguration
 @RunWith(SpringRunner.class)
-public class PhoneControllerTest {
+public class VdsControllerTest {
 
     @Autowired
-    private PhoneController phoneController;
+    private VdsController vdsController;
 
     @MockBean
-    private PhoneService phoneService;
+    private VdsService vdsService;
 
-    private Phone phone;
+    private Vds vds;
 
-    private PhoneFilter filter;
+    private VdsFilter filter;
 
     @Before
     public void before() {
-        phone = new Phone();
-        phone.setAccounts(Lists.newArrayList());
-        phone.setRegDate(new Timestamp(System.currentTimeMillis()));
-        phone.setId(1);
-        filter = new PhoneFilter(new PageRequest(0, 1));
+        vds = new Vds();
+        vds.setId(1);
+        filter = new VdsFilter(new PageRequest(0, 1));
     }
 
     @Test
-    public void whenCallGetThenThenGotPhone() {
-        given(phoneService.get(1)).willReturn(phone);
-        PhoneRest result = phoneController.get(1);
+    public void whenCallGetThenThenGotVds() {
+        given(vdsService.get(1)).willReturn(vds);
+        VdsRest result = vdsController.get(1);
         assertThat(result.getId(), is(1));
     }
 
     @Test
     public void whenCallListWithRegDateNullThenReturnData() {
-        given(phoneService.list(filter)).willReturn(new PageImpl<>(Lists.newArrayList(phone)));
-        RestList result = phoneController.list(1, 0, null, null, null, null, null, null, null, null, null);
+        given(vdsService.list(filter)).willReturn(new PageImpl<>(Lists.newArrayList(vds)));
+        RestList result = vdsController.list(1, 0, null, null, null, null, null, null, null, null);
         assertThat(result.getData().size(), is(1));
     }
 
@@ -67,45 +65,44 @@ public class PhoneControllerTest {
         long date = System.currentTimeMillis();
         filter.setFrom(new Timestamp(date));
         filter.setTo(new Timestamp(date));
-        given(phoneService.list(filter)).willReturn(new PageImpl<>(Lists.newArrayList(phone)));
-        RestList result = phoneController.list(1, 0, null, null, null, null, null, null, null, date, date);
+        given(vdsService.list(filter)).willReturn(new PageImpl<>(Lists.newArrayList(vds)));
+        RestList result = vdsController.list(1, 0, null, null, null, null, null, null,  date, date);
         assertThat(result.getData().size(), is(1));
     }
 
     @Test
     public void whenSavePhoneThenReturnSamePhone() {
-        Phone phone = new Phone();
-        phone.setId(1);
-        given(phoneService.saveOrUpdate(phone)).willReturn(phone);
-        PhoneRest phoneRest = new PhoneRest();
+        Vds vds = new Vds();
+        vds.setId(1);
+        given(vdsService.saveOrUpdate(vds)).willReturn(vds);
+        VdsRest phoneRest = new VdsRest();
         phoneRest.setId(1);
-        PhoneRest result = phoneController.save(phoneRest);
+        VdsRest result = vdsController.save(phoneRest);
         assertThat(result.getId(), is(1));
     }
 
     @Test
     public void whenUpdatePhoneThenReturnSamePhone() {
-        Phone phone = new Phone();
-        phone.setId(1);
-        given(phoneService.saveOrUpdate(phone)).willReturn(phone);
-        PhoneRest phoneRest = new PhoneRest();
-        phoneRest.setSocialAccIds(Lists.newArrayList(1));
-        phoneRest.setId(1);
-        PhoneRest result = phoneController.update(phoneRest);
+        Vds vds = new Vds();
+        vds.setId(1);
+        given(vdsService.saveOrUpdate(vds)).willReturn(vds);
+        VdsRest vdsRest = new VdsRest();
+        vdsRest.setId(1);
+        VdsRest result = vdsController.update(vdsRest);
         assertThat(result.getId(), is(1));
     }
 
     @Test
     public void whenDelete() {
-        phoneController.delete(1);
-        verify(phoneService).delete(1);
+        vdsController.delete(1);
+        verify(vdsService).delete(1);
     }
 
     @Test
     public void whenEquals() {
-        PhoneRest first = new PhoneRest();
+        VdsRest first = new VdsRest();
         first.setId(1);
-        PhoneRest second = new PhoneRest();
+        VdsRest second = new VdsRest();
         second.setId(1);
         assertEquals(first, second);
     }
