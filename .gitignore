@@ -8,6 +8,7 @@ target
 */target
 */*/target
 out
+!gradle/wrapper/gradle-wrapper.jar
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
