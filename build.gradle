@@ -1,20 +1,19 @@
-apply plugin: 'java'
-apply plugin: 'maven'
+plugins {
+    id 'java'
+    id 'idea'
+    id 'org.springframework.boot' version '1.5.9.RELEASE'
+}
 
 group = 'ru.pravvich'
 version = '1.0-SNAPSHOT'
 
-description = """"""
-
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-
-
 repositories {
-        
-     maven { url "http://repo.maven.apache.org/maven2" }
+    jcenter()
 }
+
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version:'1.5.9.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version:'1.5.9.RELEASE'
@@ -26,6 +25,10 @@ dependencies {
     compile group: 'org.jacoco', name: 'jacoco-maven-plugin', version:'0.7.7.201606060606'
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.5.9.RELEASE'
     testCompile group: 'junit', name: 'junit', version:'4.12'
-    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.9.5'
+    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
     compileOnly group: 'org.projectlombok', name: 'lombok', version:'1.16.20'
+}
+
+bootRun {
+    jvmArgs = ["-Dfile.encoding=UTF-8"]
 }
