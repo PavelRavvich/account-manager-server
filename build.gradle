@@ -4,6 +4,7 @@ plugins {
     id 'jacoco'
     id 'org.springframework.boot' version '1.5.9.RELEASE'
 }
+apply plugin: 'jacoco'
 
 group 'ru.pravvich'
 version '1.0-SNAPSHOT'
@@ -47,12 +48,15 @@ bootRun {
     jvmArgs = ["-Dfile.encoding=UTF-8", "-Xmx2048m", "-Xms512m"]
 }
 
-apply plugin: 'jacoco'
-jacocoTestReport {
+
+// Generate code coverage reports ... run with jacoco
+jacocoTestReport{
+    additionalSourceDirs = files(sourceSets.main.allJava.srcDirs)
     reports {
-        xml.enabled true
-        html.enabled false
+        xml.enabled false
+        csv.enabled false
     }
+    executionData = files('build/jacoco/test.exec')
 }
 
 check.dependsOn jacocoTestReport
