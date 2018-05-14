@@ -14,15 +14,28 @@ repositories {
     jcenter()
 }
 
+sourceSets {
+    main {
+        java {
+            srcDir 'main/java/'
+        }
+    }
+    test {
+        java {
+            srcDir 'test/java/'
+        }
+    }
+}
+
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version:'1.5.9.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version:'1.5.9.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.5.9.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:'1.5.9.RELEASE'
-    compile group: 'postgresql', name: 'postgresql', version:'9.1-901-1.jdbc4'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.5.9.RELEASE'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version:'2.9.5'
-    compile group: 'com.google.guava', name: 'guava', version:'23.0'
     compile group: 'org.jacoco', name: 'jacoco-maven-plugin', version:'0.7.7.201606060606'
+    compile group: 'postgresql', name: 'postgresql', version:'9.1-901-1.jdbc4'
+    compile group: 'com.google.guava', name: 'guava', version:'23.0'
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.5.9.RELEASE'
     testCompile group: 'junit', name: 'junit', version:'4.12'
     testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
