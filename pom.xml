@@ -8,23 +8,6 @@
     <artifactId>account-manager-server</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <scm>
-        <connection>scm:git:ssh://git@github.com:triodjangopiter/account-manager-server.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:triodjangopiter/account-manager-server.git</developerConnection>
-        <url>https://github.com/triodjangopiter/account-manager-server</url>
-    </scm>
-
-    <!--<distributionManagement>-->
-        <!--<repository>-->
-            <!--<id>packagecloud-examplecorp</id>-->
-            <!--<url>packagecloud+https://packagecloud.io/exampleCorp/core</url>-->
-        <!--</repository>-->
-        <!--<snapshotRepository>-->
-            <!--<id>packagecloud-examplecorp</id>-->
-            <!--<url>packagecloud+https://packagecloud.io/exampleCorp/core</url>-->
-        <!--</snapshotRepository>-->
-    <!--</distributionManagement>-->
-
     <build>
         <finalName>account-manager-server</finalName>
         <plugins>
