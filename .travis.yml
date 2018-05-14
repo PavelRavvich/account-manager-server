@@ -7,4 +7,11 @@ services:
 before_script:
   - psql -c 'create database account_manager;' -U postgres
   - chmod a+x gradlew
-script: ./gradlew build
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+script:
+  - ./gradlew build
+  - ./gradlew codeCoverageReport
+env:
+  global:
+    - CODECOV_TOKEN=:5cfdd1da-8008-4ee3-a440-c110a9aba6b9

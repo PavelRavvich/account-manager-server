@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'idea'
+    id 'jacoco'
     id 'org.springframework.boot' version '1.5.9.RELEASE'
 }
 
@@ -49,6 +50,15 @@ dependencies {
     testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
     compileOnly group: 'org.projectlombok', name: 'lombok', version:'1.16.20'
 }
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+check.dependsOn jacocoTestReport
 
 task wrapper(type: Wrapper) {
     gradleVersion = '4.7'
