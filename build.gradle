@@ -5,36 +5,26 @@ plugins {
     id 'org.springframework.boot' version '1.5.9.RELEASE'
 }
 
-group = 'ru.pravvich'
-version = '1.0-SNAPSHOT'
+group 'ru.pravvich'
+version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
     jcenter()
+    mavenLocal()
     mavenCentral()
+    maven { url "http://repo1.maven.org/maven2/" }
 }
 
 sourceSets {
-    main {
-        java {
-            srcDir 'main/java/'
-        }
-    }
-    test {
-        java {
-            srcDir 'test/java/'
-        }
-    }
+    main { java { srcDir 'main/java/' } }
+    test { java { srcDir 'test/java/' } }
 }
 
-ext.slf4jVersion = '1.7.6'
-
 dependencies {
-    //logging
-    compile 'org.slf4j:slf4j-api:' + slf4jVersion
-
+    compile 'org.slf4j:slf4j-api:1.7.6'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version:'1.5.9.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version:'1.5.9.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:'1.5.9.RELEASE'
@@ -49,18 +39,6 @@ dependencies {
     compileOnly group: 'org.projectlombok', name: 'lombok', version:'1.16.20'
 }
 
-apply plugin: 'java'
-apply plugin: 'jacoco'
-
-jacocoTestReport {
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
-}
-
-check.dependsOn jacocoTestReport
-
 task wrapper(type: Wrapper) {
     gradleVersion = '4.7'
 }
@@ -68,3 +46,13 @@ task wrapper(type: Wrapper) {
 bootRun {
     jvmArgs = ["-Dfile.encoding=UTF-8", "-Xmx2048m", "-Xms512m"]
 }
+
+apply plugin: 'jacoco'
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+check.dependsOn jacocoTestReport
