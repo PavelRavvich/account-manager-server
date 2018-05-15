@@ -51,12 +51,12 @@ bootRun {
 
 // Generate code coverage reports ... run with jacoco
 jacocoTestReport {
-//    additionalSourceDirs = files(sourceSets.main.allJava.srcDirs)
+    additionalSourceDirs = files(sourceSets.main.allJava.srcDirs)
     reports {
         xml.enabled false
         csv.enabled false
     }
-//    executionData = files('build/jacoco/test.exec')
+    executionData = files('build/jacoco/test.exec')
 }
 
 check.dependsOn jacocoTestReport

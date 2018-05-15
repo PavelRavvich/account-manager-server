@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ru.pravvich.config.security.WebSecurityConfigTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-05-15T00:30:09" hostname="Mac-mini-Pavel.local" time="0.022">
+<testsuite name="ru.pravvich.config.security.WebSecurityConfigTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-05-15T01:10:49" hostname="Mac-mini-Pavel.local" time="0.032">
   <properties/>
-  <testcase name="encodePassword" classname="ru.pravvich.config.security.WebSecurityConfigTest" time="0.022"/>
+  <testcase name="encodePassword" classname="ru.pravvich.config.security.WebSecurityConfigTest" time="0.032"/>
   <system-out><![CDATA[8cb2237d0679ca88db6464eac60da96345513964
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
