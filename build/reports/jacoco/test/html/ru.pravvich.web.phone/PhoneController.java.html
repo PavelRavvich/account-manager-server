@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PhoneController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">account-manager-server</a> &gt; <a href="index.source.html" class="el_package">ru.pravvich.web.phone</a> &gt; <span class="el_source">PhoneController.java</span></div><h1>PhoneController.java</h1><pre class="source lang-java linenums">package ru.pravvich.web.phone;
+
+import com.google.common.collect.Lists;
+import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
+import ru.pravvich.config.api.RestApi;
+import ru.pravvich.domain.Phone;
+import ru.pravvich.domain.SocialAccount;
+import ru.pravvich.service.PhoneService;
+import ru.pravvich.web.common.RestList;
+
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.stream.Collectors;
+
+import static java.util.Objects.nonNull;
+import static ru.pravvich.repository.PhoneRepository.PhoneFilter;
+
+@RestApi
+@RestController
+@RequestMapping(&quot;/phone&quot;)
+<span class="fc" id="L26">public class PhoneController {</span>
+
+    @Autowired
+    private PhoneService phoneService;
+
+    @GetMapping(&quot;/list&quot;)
+    public RestList list(
+            @RequestParam(name = &quot;pageSize&quot;) Integer pageSize,
+            @RequestParam(name = &quot;pageNumber&quot;) Integer pageNumber,
+            @RequestParam(name = &quot;id&quot;, required = false) Integer id,
+            @RequestParam(name = &quot;note&quot;, required = false) String note,
+            @RequestParam(name = &quot;num&quot;, required = false) String number,
+            @RequestParam(name = &quot;login&quot;, required = false) String opLogin,
+            @RequestParam(name = &quot;password&quot;, required = false) String opPassword,
+            @RequestParam(name = &quot;opName&quot;, required = false) String opName,
+            @RequestParam(name = &quot;status&quot;, required = false) String status,
+            @RequestParam(name = &quot;from&quot;, required = false) Long from,
+            @RequestParam(name = &quot;to&quot;, required = false) Long to) {
+
+<span class="fc" id="L45">        Pageable pageable = new PageRequest(pageNumber, pageSize);</span>
+<span class="fc" id="L46">        PhoneFilter filter = new PhoneFilter(pageable);</span>
+<span class="fc" id="L47">        filter.setId(id);</span>
+<span class="fc" id="L48">        filter.setNote(note);</span>
+<span class="fc" id="L49">        filter.setStatus(status);</span>
+<span class="fc" id="L50">        filter.setNumber(number);</span>
+<span class="fc" id="L51">        filter.setOpName(opName);</span>
+<span class="fc" id="L52">        filter.setLogin(opLogin);</span>
+<span class="fc" id="L53">        filter.setPassword(opPassword);</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        filter.setTo(nonNull(to) ? new Timestamp(to) : null);</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        filter.setFrom(nonNull(from) ? new Timestamp(from) : null);</span>
+
+<span class="fc" id="L57">        Page&lt;Phone&gt; page = phoneService.list(filter);</span>
+<span class="fc" id="L58">        Collection&lt;PhoneRest&gt; phones = toRest(page.getContent());</span>
+<span class="fc" id="L59">        return new RestList&lt;&gt;(pageNumber, pageSize, page.getTotalPages(), phones);</span>
+    }
+
+    @GetMapping(&quot;/get&quot;)
+    public PhoneRest get(@RequestParam(name = &quot;id&quot;) int id) {
+<span class="fc" id="L64">        return toRest(phoneService.get(id));</span>
+    }
+
+    @PostMapping(&quot;/save&quot;)
+    public PhoneRest save(@RequestBody() PhoneRest phone) {
+<span class="fc" id="L69">        Phone entity = toEntity(phone);</span>
+<span class="fc" id="L70">        Phone saved = phoneService.saveOrUpdate(entity);</span>
+<span class="fc" id="L71">        return toRest(saved);</span>
+    }
+
+    @PostMapping(&quot;/update&quot;)
+    public PhoneRest update(@RequestBody() PhoneRest phone) {
+<span class="fc" id="L76">        Phone entity = toEntity(phone);</span>
+<span class="fc" id="L77">        Phone update = phoneService.saveOrUpdate(entity);</span>
+<span class="fc" id="L78">        return toRest(update);</span>
+    }
+
+    @PostMapping(&quot;/delete&quot;)
+    public void delete(@RequestBody() int id) {
+<span class="fc" id="L83">        phoneService.delete(id);</span>
+<span class="fc" id="L84">    }</span>
+
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">    private Collection&lt;PhoneRest&gt; toRest(@NonNull Collection&lt;Phone&gt; phones) {</span>
+<span class="fc" id="L87">        return phones.stream().map(this::toRest).collect(Collectors.toList());</span>
+    }
+
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">    private PhoneRest toRest(@NonNull Phone entity) {</span>
+<span class="fc" id="L91">        PhoneRest rest = new PhoneRest();</span>
+<span class="fc" id="L92">        rest.setId(entity.getId());</span>
+<span class="fc" id="L93">        rest.setNote(entity.getNote());</span>
+<span class="fc" id="L94">        rest.setNumber(entity.getNumber());</span>
+<span class="fc" id="L95">        rest.setIsActive(entity.getStatus());</span>
+<span class="fc" id="L96">        rest.setRegDate(entity.getRegDate());</span>
+<span class="fc" id="L97">        rest.setOpUrl(entity.getOperatorUrl());</span>
+<span class="fc" id="L98">        rest.setOpType(entity.getOperatorName());</span>
+<span class="fc" id="L99">        rest.setOpLogin(entity.getOperatorAccLogin());</span>
+<span class="fc" id="L100">        rest.setOpPassword(entity.getOperatorAccPassword());</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        rest.setSocialAccIds(nonNull(entity.getAccounts())</span>
+<span class="fc" id="L102">                        ? entity.getAccounts().stream().map(SocialAccount::getId).collect(Collectors.toList())</span>
+<span class="fc" id="L103">                        : Lists.newArrayList());</span>
+<span class="fc" id="L104">        return rest;</span>
+    }
+
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">    private Phone toEntity(@NonNull PhoneRest rest) {</span>
+<span class="fc" id="L108">        Phone entity = new Phone();</span>
+<span class="fc" id="L109">        entity.setId(rest.getId());</span>
+<span class="fc" id="L110">        entity.setNote(rest.getNote());</span>
+<span class="fc" id="L111">        entity.setNumber(rest.getNumber());</span>
+<span class="fc" id="L112">        entity.setStatus(rest.getIsActive());</span>
+<span class="fc" id="L113">        entity.setOperatorUrl(rest.getOpUrl());</span>
+<span class="fc" id="L114">        entity.setOperatorName(rest.getOpType());</span>
+<span class="fc" id="L115">        entity.setOperatorAccLogin(rest.getOpLogin());</span>
+<span class="fc" id="L116">        entity.setOperatorAccPassword(rest.getOpPassword());</span>
+<span class="fc" id="L117">        entity.setRegDate(rest.getRegDate());</span>
+<span class="fc" id="L118">        entity.setAccounts(Lists.newArrayList());</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">        if (nonNull(rest.getSocialAccIds())) {</span>
+<span class="fc" id="L120">            rest.getSocialAccIds().forEach(id -&gt; {</span>
+<span class="fc" id="L121">                SocialAccount account = new SocialAccount();</span>
+<span class="fc" id="L122">                account.setId(id);</span>
+<span class="fc" id="L123">                entity.getAccounts().add(account);</span>
+<span class="fc" id="L124">            });</span>
+        }
+<span class="fc" id="L126">        return entity;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

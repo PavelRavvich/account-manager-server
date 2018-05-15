@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SocialAccountController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">account-manager-server</a> &gt; <a href="index.source.html" class="el_package">ru.pravvich.web.social</a> &gt; <span class="el_source">SocialAccountController.java</span></div><h1>SocialAccountController.java</h1><pre class="source lang-java linenums">package ru.pravvich.web.social;
+
+import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
+import ru.pravvich.config.api.RestApi;
+import ru.pravvich.domain.SocialAccount;
+import ru.pravvich.repository.SocialAccountRepository.SocialAccountFilter;
+import ru.pravvich.service.SocialAccountService;
+import ru.pravvich.web.common.RestList;
+
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.Objects.nonNull;
+
+@RestApi
+@RestController
+@RequestMapping(&quot;/social_account&quot;)
+<span class="fc" id="L25">public class SocialAccountController {</span>
+
+    @Autowired
+    private SocialAccountService socialAccountService;
+
+    @GetMapping(&quot;/get&quot;)
+    public SocialAccountRest get(@RequestParam(name = &quot;id&quot;) int id) {
+<span class="fc" id="L32">        return toRest(socialAccountService.get(id));</span>
+    }
+
+    @GetMapping(&quot;/list&quot;)
+    public RestList list(
+            @RequestParam(name = &quot;pageSize&quot;) Integer pageSize,
+            @RequestParam(name = &quot;pageNumber&quot;) Integer pageNumber,
+            @RequestParam(name = &quot;id&quot;, required = false) Integer id,
+            @RequestParam(name = &quot;note&quot;, required = false) String note,
+            @RequestParam(name = &quot;login&quot;, required = false) String login,
+            @RequestParam(name = &quot;status&quot;, required = false) String status,
+            @RequestParam(name = &quot;password&quot;, required = false) String password,
+            @RequestParam(name = &quot;socialType&quot;, required = false) String socialType,
+            @RequestParam(name = &quot;phoneId&quot;, required = false) Integer phoneId,
+            @RequestParam(name = &quot;vdsId&quot;, required = false) Integer vdsId,
+            @RequestParam(name = &quot;from&quot;, required = false) Long from,
+            @RequestParam(name = &quot;to&quot;, required = false) Long to) {
+
+<span class="fc" id="L50">        Pageable pageable = new PageRequest(pageNumber, pageSize);</span>
+<span class="fc" id="L51">        SocialAccountFilter filter = new SocialAccountFilter(pageable);</span>
+<span class="fc" id="L52">        filter.setId(id);</span>
+<span class="fc" id="L53">        filter.setNote(note);</span>
+<span class="fc" id="L54">        filter.setVdsId(vdsId);</span>
+<span class="fc" id="L55">        filter.setLogin(login);</span>
+<span class="fc" id="L56">        filter.setStatus(status);</span>
+<span class="fc" id="L57">        filter.setPhoneId(phoneId);</span>
+<span class="fc" id="L58">        filter.setPassword(password);</span>
+<span class="fc" id="L59">        filter.setSocialType(socialType);</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        filter.setTo(nonNull(to) ? new Timestamp(to) : null);</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        filter.setFrom(nonNull(from) ? new Timestamp(from) : null);</span>
+
+<span class="fc" id="L63">        Page&lt;SocialAccount&gt; page = socialAccountService.list(filter);</span>
+<span class="fc" id="L64">        List&lt;SocialAccountRest&gt; accounts = toRest(page.getContent());</span>
+<span class="fc" id="L65">        return new RestList&lt;&gt;(pageNumber, pageSize, page.getTotalPages(), accounts);</span>
+    }
+
+    @PostMapping(&quot;/save&quot;)
+    public SocialAccountRest save(@RequestBody() SocialAccountRest account) {
+<span class="fc" id="L70">        SocialAccount entity = toEntity(account);</span>
+<span class="fc" id="L71">        SocialAccount save = socialAccountService.saveOrUpdate(entity);</span>
+<span class="fc" id="L72">        return toRest(save);</span>
+    }
+
+    @PostMapping(&quot;/update&quot;)
+    public SocialAccountRest update(@RequestBody() SocialAccountRest account) {
+<span class="fc" id="L77">        SocialAccount entity = toEntity(account);</span>
+<span class="fc" id="L78">        SocialAccount update = socialAccountService.saveOrUpdate(entity);</span>
+<span class="fc" id="L79">        return toRest(update);</span>
+    }
+
+    @PostMapping(&quot;/delete&quot;)
+    public void delete(@RequestBody int id) {
+<span class="fc" id="L84">        socialAccountService.delete(id);</span>
+<span class="fc" id="L85">    }</span>
+
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">    private List&lt;SocialAccountRest&gt; toRest(@NonNull Collection&lt;SocialAccount&gt; vdsSet) {</span>
+<span class="fc" id="L88">        return vdsSet.stream().map(this::toRest).collect(Collectors.toList());</span>
+    }
+
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">    private SocialAccountRest toRest(@NonNull SocialAccount entity) {</span>
+<span class="fc" id="L92">        SocialAccountRest rest = new SocialAccountRest();</span>
+<span class="fc" id="L93">        rest.setSocialType(entity.getSocialType());</span>
+<span class="fc" id="L94">        rest.setPassword(entity.getPassword());</span>
+<span class="fc" id="L95">        rest.setRegDate(entity.getRegDate());</span>
+<span class="fc" id="L96">        rest.setStatus(entity.getStatus());</span>
+<span class="fc" id="L97">        rest.setLogin(entity.getLogin());</span>
+<span class="fc" id="L98">        rest.setNote(entity.getNote());</span>
+<span class="fc" id="L99">        rest.setId(entity.getId());</span>
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        rest.setVdsId(nonNull(entity.getVdsId()) ? entity.getVdsId() : null);</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        rest.setPhoneId(nonNull(entity.getPhoneId()) ? entity.getPhoneId() : null);</span>
+<span class="pc bpc" id="L102" title="1 of 2 branches missed.">        rest.setPhone(nonNull(entity.getPhone()) ? entity.getPhone().getNumber() : null);</span>
+<span class="fc" id="L103">        return rest;</span>
+    }
+
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">    private SocialAccount toEntity(@NonNull SocialAccountRest rest) {</span>
+<span class="fc" id="L107">        SocialAccount entity = new SocialAccount();</span>
+<span class="fc" id="L108">        entity.setSocialType(rest.getSocialType());</span>
+<span class="fc" id="L109">        entity.setPassword(rest.getPassword());</span>
+<span class="fc" id="L110">        entity.setPhoneId(rest.getPhoneId());</span>
+<span class="fc" id="L111">        entity.setRegDate(rest.getRegDate());</span>
+<span class="fc" id="L112">        entity.setStatus(rest.getStatus());</span>
+<span class="fc" id="L113">        entity.setLogin(rest.getLogin());</span>
+<span class="fc" id="L114">        entity.setVdsId(rest.getVdsId());</span>
+<span class="fc" id="L115">        entity.setNote(rest.getNote());</span>
+<span class="fc" id="L116">        entity.setId(rest.getId());</span>
+<span class="fc" id="L117">        return entity;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

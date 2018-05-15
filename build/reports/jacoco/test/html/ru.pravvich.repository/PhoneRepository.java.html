@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PhoneRepository.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">account-manager-server</a> &gt; <a href="index.source.html" class="el_package">ru.pravvich.repository</a> &gt; <span class="el_source">PhoneRepository.java</span></div><h1>PhoneRepository.java</h1><pre class="source lang-java linenums">package ru.pravvich.repository;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NonNull;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import ru.pravvich.domain.Phone;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.sql.Timestamp;
+
+import static java.util.Objects.nonNull;
+import static ru.pravvich.util.QueryValFormatter.LikeStrategy.ANY;
+import static ru.pravvich.util.QueryValFormatter.toLike;
+
+public interface PhoneRepository extends JpaRepository&lt;Phone, Integer&gt;, JpaSpecificationExecutor&lt;Phone&gt; {
+
+<span class="nc bnc" id="L24" title="All 2 branches missed.">    @AllArgsConstructor</span>
+    class PhoneSpecification implements Specification&lt;Phone&gt; {
+
+        private final @NonNull PhoneFilter filter;
+
+        @Override
+        public Predicate toPredicate(Root&lt;Phone&gt; root, CriteriaQuery&lt;?&gt; query, CriteriaBuilder cb) {
+<span class="nc" id="L31">            Predicate predicate = cb.conjunction();</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">            if (nonNull(filter.id)) {</span>
+<span class="nc" id="L33">                predicate.getExpressions().add(cb.equal(root.get(&quot;id&quot;), filter.id));</span>
+            }
+<span class="nc bnc" id="L35" title="All 2 branches missed.">            if (nonNull(filter.note)) {</span>
+<span class="nc" id="L36">                predicate.getExpressions().add(cb.like(root.get(&quot;note&quot;), toLike(filter.note, ANY)));</span>
+            }
+<span class="nc bnc" id="L38" title="All 2 branches missed.">            if (nonNull(filter.number)) {</span>
+<span class="nc" id="L39">                predicate.getExpressions().add(cb.like(root.get(&quot;number&quot;), toLike(filter.number, ANY)));</span>
+            }
+<span class="nc bnc" id="L41" title="All 2 branches missed.">            if (nonNull(filter.status)) {</span>
+<span class="nc" id="L42">                predicate.getExpressions().add(cb.like(root.get(&quot;status&quot;), toLike(filter.status, ANY)));</span>
+            }
+<span class="nc bnc" id="L44" title="All 2 branches missed.">            if (nonNull(filter.opName)) {</span>
+<span class="nc" id="L45">                predicate.getExpressions().add(cb.like(root.get(&quot;operatorName&quot;), toLike(filter.opName, ANY)));</span>
+            }
+<span class="nc bnc" id="L47" title="All 2 branches missed.">            if (nonNull(filter.login)) {</span>
+<span class="nc" id="L48">                predicate.getExpressions().add(cb.like(root.get(&quot;operatorAccLogin&quot;), toLike(filter.login, ANY)));</span>
+            }
+<span class="nc bnc" id="L50" title="All 2 branches missed.">            if (nonNull(filter.password)) {</span>
+<span class="nc" id="L51">                predicate.getExpressions().add(cb.like(root.get(&quot;operatorAccPassword&quot;), toLike(filter.password, ANY)));</span>
+            }
+<span class="nc bnc" id="L53" title="All 4 branches missed.">            if (nonNull(filter.from) &amp;&amp; nonNull(filter.to)) {</span>
+<span class="nc" id="L54">                predicate.getExpressions().add(cb.between(root.get(&quot;regDate&quot;), filter.from, filter.to));</span>
+            }
+<span class="nc" id="L56">            return predicate;</span>
+        }
+    }
+
+<span class="pc bpc" id="L60" title="62 of 90 branches missed.">    @Data</span>
+    class PhoneFilter {
+
+<span class="fc" id="L63">        private @NonNull Pageable pageable;</span>
+
+<span class="fc" id="L65">        private Integer id;</span>
+
+<span class="fc" id="L67">        private Timestamp from;</span>
+
+<span class="fc" id="L69">        private Timestamp to;</span>
+
+<span class="fc" id="L71">        private String number;</span>
+
+<span class="fc" id="L73">        private String login;</span>
+
+<span class="fc" id="L75">        private String password;</span>
+
+<span class="fc" id="L77">        private String opName;</span>
+
+<span class="fc" id="L79">        private String status;</span>
+
+<span class="fc" id="L81">        private String note;</span>
+
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

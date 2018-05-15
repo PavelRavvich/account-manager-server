@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SocialAccountService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">account-manager-server</a> &gt; <a href="index.source.html" class="el_package">ru.pravvich.service</a> &gt; <span class="el_source">SocialAccountService.java</span></div><h1>SocialAccountService.java</h1><pre class="source lang-java linenums">package ru.pravvich.service;
+
+import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+import ru.pravvich.domain.SocialAccount;
+import ru.pravvich.repository.SocialAccountRepository;
+import ru.pravvich.repository.SocialAccountRepository.SocialAccountFilter;
+
+import static java.util.Objects.nonNull;
+import static org.springframework.data.jpa.domain.Specifications.where;
+import static ru.pravvich.repository.SocialAccountRepository.SocialAccountSpecification;
+
+@Service
+<span class="fc" id="L17">public class SocialAccountService {</span>
+
+    @Autowired
+    private SocialAccountRepository socialAccountRepository;
+
+<span class="nc bnc" id="L22" title="All 2 branches missed.">    public Page&lt;SocialAccount&gt; list(@NonNull final SocialAccountFilter filter) {</span>
+<span class="nc" id="L23">        Specification&lt;SocialAccount&gt; specs = new SocialAccountSpecification(filter);</span>
+<span class="nc" id="L24">        return socialAccountRepository.findAll(where(specs), filter.getPageable());</span>
+    }
+
+    public SocialAccount get(final int id) {
+<span class="nc" id="L28">        SocialAccount account = socialAccountRepository.findOne(id);</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">        return nonNull(account) ? account : new SocialAccount();</span>
+    }
+
+<span class="nc bnc" id="L32" title="All 2 branches missed.">    public SocialAccount saveOrUpdate(@NonNull final SocialAccount account) {</span>
+<span class="nc" id="L33">        return socialAccountRepository.save(account);</span>
+    }
+
+    public void delete(final int id) {
+<span class="nc" id="L37">        socialAccountRepository.delete(id);</span>
+<span class="nc" id="L38">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

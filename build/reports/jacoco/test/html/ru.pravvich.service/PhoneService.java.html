@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PhoneService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">account-manager-server</a> &gt; <a href="index.source.html" class="el_package">ru.pravvich.service</a> &gt; <span class="el_source">PhoneService.java</span></div><h1>PhoneService.java</h1><pre class="source lang-java linenums">package ru.pravvich.service;
+
+import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+import ru.pravvich.domain.Phone;
+import ru.pravvich.repository.PhoneRepository;
+import ru.pravvich.repository.PhoneRepository.PhoneFilter;
+import ru.pravvich.repository.PhoneRepository.PhoneSpecification;
+import ru.pravvich.repository.SocialAccountRepository;
+
+import static java.util.Objects.nonNull;
+import static org.springframework.data.jpa.domain.Specifications.where;
+
+@Service
+<span class="fc" id="L18">public class PhoneService {</span>
+
+    @Autowired
+    private PhoneRepository phoneRepository;
+
+    @Autowired
+    private SocialAccountRepository socialAccountRepository;
+
+    public Phone get(final int id) {
+<span class="nc" id="L27">        Phone phone = phoneRepository.findOne(id);</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">        return nonNull(phone) ? phone : new Phone();</span>
+    }
+
+<span class="nc bnc" id="L31" title="All 2 branches missed.">    public Page&lt;Phone&gt; list(@NonNull final PhoneFilter filter) {</span>
+<span class="nc" id="L32">        Specification&lt;Phone&gt; specs = new PhoneSpecification(filter);</span>
+<span class="nc" id="L33">        return phoneRepository.findAll(where(specs), filter.getPageable());</span>
+    }
+
+<span class="nc bnc" id="L36" title="All 2 branches missed.">    public Phone saveOrUpdate(@NonNull final Phone phone) {</span>
+<span class="nc" id="L37">        return phoneRepository.save(phone);</span>
+    }
+
+    public void delete(final int id) {
+<span class="nc" id="L41">        socialAccountRepository.setPhone(null, id);</span>
+<span class="nc" id="L42">        phoneRepository.delete(id);</span>
+<span class="nc" id="L43">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>
