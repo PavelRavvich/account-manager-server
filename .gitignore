@@ -10,7 +10,7 @@ target
 out
 !gradle/wrapper/gradle-wrapper.jar
 
-
+build
 .gradle
 
 # Mobile Tools for Java (J2ME)
