@@ -50,7 +50,7 @@ bootRun {
 
 
 // Generate code coverage reports ... run with jacoco
-jacocoTestReport{
+codeCoverageReport {
     additionalSourceDirs = files(sourceSets.main.allJava.srcDirs)
     reports {
         xml.enabled false
