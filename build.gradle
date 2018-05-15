@@ -4,7 +4,6 @@ plugins {
     id 'jacoco'
     id 'org.springframework.boot' version '1.5.9.RELEASE'
 }
-apply plugin: 'jacoco'
 
 group 'ru.pravvich'
 version '1.0-SNAPSHOT'
