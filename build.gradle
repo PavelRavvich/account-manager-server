@@ -48,6 +48,7 @@ bootRun {
     jvmArgs = ["-Dfile.encoding=UTF-8", "-Xmx2048m", "-Xms512m"]
 }
 
+task codeCoverageReport
 
 // Generate code coverage reports ... run with jacoco
 jacocoTestReport {
