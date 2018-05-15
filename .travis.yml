@@ -10,5 +10,4 @@ before_script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 script:
-  - ./gradlew build
-  - ./gradlew jacocoTestReport
+  - ./gradlew build jacocoTestReport
