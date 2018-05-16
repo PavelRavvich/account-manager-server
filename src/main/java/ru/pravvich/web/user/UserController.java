@@ -20,23 +20,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    private static UserRest MOCK;
-
-    @PermitAll
-    @GetMapping("/is_logged")
-    public Boolean isLoggedIn() {
-        return userService.isCurrentUserLoggedIn();
-    }
-
-    @PermitAll
-    @RequestMapping(path = "/logout", method = RequestMethod.POST)
-    public void logout(@RequestBody() UserRest user) {
-    }
-
-    @PermitAll
     @RequestMapping(path = "/registration", method = RequestMethod.POST)
     public UserRest registration(@RequestBody() UserRest user) {
-        return MOCK;
+        return null;
     }
 
     private UserRest toRest(@NonNull User user) {
