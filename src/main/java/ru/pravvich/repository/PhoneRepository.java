@@ -2,6 +2,7 @@ package ru.pravvich.repository;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -21,6 +22,7 @@ import static ru.pravvich.util.QueryValFormatter.toLike;
 
 public interface PhoneRepository extends JpaRepository<Phone, Integer>, JpaSpecificationExecutor<Phone> {
 
+    @EqualsAndHashCode
     @AllArgsConstructor
     class PhoneSpecification implements Specification<Phone> {
 
@@ -58,6 +60,7 @@ public interface PhoneRepository extends JpaRepository<Phone, Integer>, JpaSpeci
     }
 
     @Data
+    @EqualsAndHashCode
     class PhoneFilter {
 
         private @NonNull Pageable pageable;
