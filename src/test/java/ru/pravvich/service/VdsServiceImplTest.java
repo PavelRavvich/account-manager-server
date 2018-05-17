@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import ru.pravvich.domain.Vds;
+import ru.pravvich.repository.SocialAccountRepository;
 import ru.pravvich.repository.VdsRepository;
 import ru.pravvich.repository.VdsRepository.VdsFilter;
 
@@ -33,6 +34,9 @@ public class VdsServiceImplTest {
 
     @MockBean
     private VdsRepository vdsRepository;
+
+    @MockBean
+    private SocialAccountRepository socialAccountRepository;
 
     private Vds vds;
 
@@ -70,6 +74,7 @@ public class VdsServiceImplTest {
     public void whenDeleteThenCallSocialAccountRepositoryCallDelete() {
         vdsService.delete(1);
         verify(vdsRepository, times(1)).delete(1);
+        verify(socialAccountRepository, times(1)).setVds(null, 1);
     }
 
     @Test
