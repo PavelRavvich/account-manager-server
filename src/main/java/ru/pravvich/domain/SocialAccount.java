@@ -1,6 +1,9 @@
 package ru.pravvich.domain;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -8,7 +11,6 @@ import java.sql.Timestamp;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "social_account")
 @ToString(exclude = {"vds", "phone"})
 @EqualsAndHashCode(exclude = {"vds", "phone"})
