@@ -29,12 +29,12 @@ public interface SocialAccountRepository extends JpaRepository<SocialAccount, In
     @Modifying
     @Transactional
     @Query("UPDATE SocialAccount acc set acc.phoneId = ?1 WHERE acc.phoneId = ?2")
-    void setPhone(@NonNull Integer arg, @NonNull Integer old);
+    void setPhone(@NonNull Integer actual, @NonNull Integer old);
 
     @Modifying
     @Transactional
     @Query("UPDATE SocialAccount acc set acc.vdsId = ?1 WHERE acc.vdsId = ?2")
-    void setVds(@NonNull Integer arg, @NonNull Integer old);
+    void setVds(@NonNull Integer actual, @NonNull Integer old);
 
     @AllArgsConstructor
     class SocialAccountSpecification implements Specification<SocialAccount> {
