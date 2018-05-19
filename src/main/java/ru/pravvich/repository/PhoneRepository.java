@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.stereotype.Repository;
 import ru.pravvich.domain.Phone;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -20,6 +21,10 @@ import static java.util.Objects.nonNull;
 import static ru.pravvich.util.QueryValFormatter.LikeStrategy.ANY;
 import static ru.pravvich.util.QueryValFormatter.toLike;
 
+/**
+ * @author Pavel Ravvich.
+ */
+@Repository
 public interface PhoneRepository extends JpaRepository<Phone, Integer>, JpaSpecificationExecutor<Phone> {
 
     @EqualsAndHashCode

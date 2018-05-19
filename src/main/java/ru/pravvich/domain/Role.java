@@ -4,6 +4,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @Data
 @Entity
 @Table(name = "roles")

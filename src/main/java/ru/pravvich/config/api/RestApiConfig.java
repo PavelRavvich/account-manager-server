@@ -10,6 +10,9 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 import java.lang.reflect.Method;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @Configuration
 public class RestApiConfig {
     @Bean

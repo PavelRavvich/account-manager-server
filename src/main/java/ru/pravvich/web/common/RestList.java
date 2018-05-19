@@ -9,6 +9,9 @@ import lombok.NonNull;
 
 import java.util.Collection;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

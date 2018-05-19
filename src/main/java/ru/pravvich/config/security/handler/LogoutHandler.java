@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @Component
 public class LogoutHandler implements LogoutSuccessHandler {
     @Override

@@ -12,6 +12,9 @@ import ru.pravvich.repository.UserRepository;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @SpringBootTest
 @WebAppConfiguration
 @RunWith(SpringRunner.class)

@@ -13,6 +13,9 @@ import static java.util.Objects.nonNull;
 import static org.springframework.data.jpa.domain.Specifications.where;
 import static ru.pravvich.repository.SocialAccountRepository.SocialAccountSpecification;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @Service
 public class SocialAccountServiceImpl implements SocialAccountService {
 

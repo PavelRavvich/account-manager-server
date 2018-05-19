@@ -8,6 +8,9 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @Entity
 @Data
 @NoArgsConstructor

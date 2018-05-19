@@ -24,6 +24,9 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @SpringBootTest
 @WebAppConfiguration
 @RunWith(SpringRunner.class)

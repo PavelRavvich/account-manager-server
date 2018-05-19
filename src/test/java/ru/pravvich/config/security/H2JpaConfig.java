@@ -16,6 +16,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @Configuration
 @EnableJpaRepositories(basePackages = {"ru.pravvich"})
 @PropertySource("classpath:application.properties")

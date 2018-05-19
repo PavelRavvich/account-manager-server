@@ -21,6 +21,9 @@ import java.sql.Timestamp;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = H2JpaConfig.class)
 public class SocialAccountRepositoryTest {

@@ -2,6 +2,9 @@ package ru.pravvich.util;
 
 import lombok.NonNull;
 
+/**
+ * @author Pavel Ravvich.
+ */
 public class QueryValFormatter {
 
     public enum LikeStrategy {

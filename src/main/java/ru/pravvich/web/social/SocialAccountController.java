@@ -19,6 +19,9 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @RestApi
 @RestController
 @RequestMapping("/social_account")

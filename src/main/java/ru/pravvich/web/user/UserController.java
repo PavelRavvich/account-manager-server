@@ -2,16 +2,20 @@ package ru.pravvich.web.user;
 
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import ru.pravvich.config.api.RestApi;
 import ru.pravvich.domain.Role;
 import ru.pravvich.domain.User;
 import ru.pravvich.service.UserService;
 
-import javax.annotation.security.PermitAll;
-
 import static java.util.stream.Collectors.toList;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @RestApi
 @RestController
 @RequestMapping("/user")

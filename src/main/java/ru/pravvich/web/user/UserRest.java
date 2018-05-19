@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Size;
 import java.util.List;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

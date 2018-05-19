@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @Data
 @Entity
 @NoArgsConstructor

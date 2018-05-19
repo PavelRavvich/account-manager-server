@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 import ru.pravvich.domain.User;
 import ru.pravvich.repository.UserRepository;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @Service
 public class UserServiceImpl implements UserService {
 

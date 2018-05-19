@@ -17,6 +17,9 @@ import static java.util.Objects.nonNull;
 import static ru.pravvich.util.QueryValFormatter.LikeStrategy.ANY;
 import static ru.pravvich.util.QueryValFormatter.toLike;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @Repository
 public interface VdsRepository extends JpaRepository<Vds, Integer>, JpaSpecificationExecutor<Vds> {
 

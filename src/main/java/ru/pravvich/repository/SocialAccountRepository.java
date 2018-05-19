@@ -23,6 +23,9 @@ import static java.util.Objects.nonNull;
 import static ru.pravvich.util.QueryValFormatter.LikeStrategy.ANY;
 import static ru.pravvich.util.QueryValFormatter.toLike;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @Repository
 public interface SocialAccountRepository extends JpaRepository<SocialAccount, Integer>, JpaSpecificationExecutor<SocialAccount> {
 

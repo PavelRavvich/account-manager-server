@@ -13,6 +13,9 @@ import ru.pravvich.repository.VdsRepository.VdsSpecification;
 import static java.util.Objects.nonNull;
 import static org.springframework.data.jpa.domain.Specifications.where;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @Service
 public class VdsServiceImpl implements VdsService {
 

@@ -24,6 +24,9 @@ import ru.pravvich.config.security.handler.UnauthorizedHandler;
 
 import java.util.Arrays;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {

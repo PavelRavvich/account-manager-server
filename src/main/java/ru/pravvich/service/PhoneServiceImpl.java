@@ -14,6 +14,9 @@ import ru.pravvich.repository.SocialAccountRepository;
 import static java.util.Objects.nonNull;
 import static org.springframework.data.jpa.domain.Specifications.where;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @Service
 public class PhoneServiceImpl implements PhoneService {
 

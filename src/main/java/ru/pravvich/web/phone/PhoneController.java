@@ -20,6 +20,9 @@ import java.util.stream.Collectors;
 import static java.util.Objects.nonNull;
 import static ru.pravvich.repository.PhoneRepository.PhoneFilter;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @RestApi
 @RestController
 @RequestMapping("/phone")

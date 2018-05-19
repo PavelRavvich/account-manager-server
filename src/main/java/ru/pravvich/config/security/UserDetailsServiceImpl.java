@@ -15,6 +15,9 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

@@ -9,6 +9,9 @@ import ru.pravvich.domain.User;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @Data
 public class UserDetailsImpl implements UserDetails {
 

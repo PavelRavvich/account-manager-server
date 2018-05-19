@@ -23,6 +23,9 @@ import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.verify;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @SpringBootTest
 @WebAppConfiguration
 @RunWith(SpringRunner.class)

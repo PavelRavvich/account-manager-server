@@ -14,7 +14,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import ru.pravvich.domain.Phone;
 import ru.pravvich.repository.PhoneRepository.PhoneFilter;
 import ru.pravvich.service.PhoneService;
-import ru.pravvich.service.PhoneServiceImpl;
 import ru.pravvich.web.common.RestList;
 
 import java.sql.Timestamp;
@@ -25,6 +24,9 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @SpringBootTest
 @WebAppConfiguration
 @RunWith(SpringRunner.class)

@@ -5,6 +5,9 @@ import org.springframework.data.domain.Page;
 import ru.pravvich.domain.Phone;
 import ru.pravvich.repository.PhoneRepository.PhoneFilter;
 
+/**
+ * @author Pavel Ravvich.
+ */
 public interface PhoneService {
     Phone get(final int id);
     Page<Phone> list(@NonNull final PhoneFilter filter);

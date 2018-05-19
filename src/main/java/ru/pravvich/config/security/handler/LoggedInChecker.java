@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 import ru.pravvich.config.security.UserDetailsImpl;
 import ru.pravvich.domain.User;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @Component
 public class LoggedInChecker {
     public User getLoggedInUser() {

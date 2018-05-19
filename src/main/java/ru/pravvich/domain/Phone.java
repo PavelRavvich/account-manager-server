@@ -9,6 +9,9 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @Entity
 @Data
 @NoArgsConstructor

@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
+/**
+ * @author Pavel Ravvich.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
