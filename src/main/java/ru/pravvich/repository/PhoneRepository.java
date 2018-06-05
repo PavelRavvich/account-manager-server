@@ -16,9 +16,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.sql.Timestamp;
+import java.util.Optional;
 
-import static java.util.Objects.nonNull;
-import static ru.pravvich.util.QueryValFormatter.LikeStrategy.ANY;
 import static ru.pravvich.util.QueryValFormatter.toLike;
 
 /**
@@ -36,29 +35,15 @@ public interface PhoneRepository extends JpaRepository<Phone, Integer>, JpaSpeci
         @Override
         public Predicate toPredicate(Root<Phone> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
             Predicate predicate = cb.conjunction();
-            if (nonNull(filter.id)) {
-                predicate.getExpressions().add(cb.equal(root.get("id"), filter.id));
-            }
-            if (nonNull(filter.note)) {
-                predicate.getExpressions().add(cb.like(root.get("note"), toLike(filter.note, ANY)));
-            }
-            if (nonNull(filter.number)) {
-                predicate.getExpressions().add(cb.like(root.get("number"), toLike(filter.number, ANY)));
-            }
-            if (nonNull(filter.status)) {
-                predicate.getExpressions().add(cb.like(root.get("status"), toLike(filter.status, ANY)));
-            }
-            if (nonNull(filter.opName)) {
-                predicate.getExpressions().add(cb.like(root.get("operatorName"), toLike(filter.opName, ANY)));
-            }
-            if (nonNull(filter.login)) {
-                predicate.getExpressions().add(cb.like(root.get("operatorAccLogin"), toLike(filter.login, ANY)));
-            }
-            if (nonNull(filter.password)) {
-                predicate.getExpressions().add(cb.like(root.get("operatorAccPassword"), toLike(filter.password, ANY)));
-            }
-            if (nonNull(filter.from) && nonNull(filter.to)) {
-                predicate.getExpressions().add(cb.between(root.get("regDate"), filter.from, filter.to));
+            filter.getId().ifPresent(id -> predicate.getExpressions().add(cb.equal(root.get("id"), id)));
+            filter.getNote().ifPresent(note -> predicate.getExpressions().add(cb.like(root.get("note"), toLike(note))));
+            filter.getNumber().ifPresent(num -> predicate.getExpressions().add(cb.like(root.get("number"), toLike(num))));
+            filter.getStatus().ifPresent(status -> predicate.getExpressions().add(cb.like(root.get("status"), toLike(status))));
+            filter.getOpName().ifPresent(opName -> predicate.getExpressions().add(cb.like(root.get("operatorName"), toLike(opName))));
+            filter.getLogin().ifPresent(login -> predicate.getExpressions().add(cb.like(root.get("operatorAccLogin"), toLike(login))));
+            filter.getPassword().ifPresent(pass -> predicate.getExpressions().add(cb.like(root.get("operatorAccPassword"), toLike(pass))));
+            if (filter.getFrom().isPresent() && filter.getTo().isPresent()) {
+                predicate.getExpressions().add(cb.between(root.get("regDate"), filter.getFrom().get(), filter.getTo().get()));
             }
             return predicate;
         }
@@ -88,6 +73,41 @@ public interface PhoneRepository extends JpaRepository<Phone, Integer>, JpaSpeci
 
         private String note;
 
+        public Optional<Integer> getId() {
+            return Optional.ofNullable(id);
+        }
+
+        public Optional<Timestamp> getFrom() {
+            return Optional.ofNullable(from);
+        }
+
+        public Optional<Timestamp> getTo() {
+            return Optional.ofNullable(to);
+        }
+
+        public Optional<String> getNumber() {
+            return Optional.ofNullable(number);
+        }
+
+        public Optional<String> getLogin() {
+            return Optional.ofNullable(login);
+        }
+
+        public Optional<String> getPassword() {
+            return Optional.ofNullable(password);
+        }
+
+        public Optional<String> getOpName() {
+            return Optional.ofNullable(opName);
+        }
+
+        public Optional<String> getStatus() {
+            return Optional.ofNullable(status);
+        }
+
+        public Optional<String> getNote() {
+            return Optional.ofNullable(note);
+        }
     }
 }
 

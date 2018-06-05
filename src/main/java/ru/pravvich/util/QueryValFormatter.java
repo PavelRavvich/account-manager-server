@@ -11,13 +11,13 @@ public class QueryValFormatter {
         LEFT, RIGHT, ANY
     }
 
-    public static String toLike(@NonNull String value, @NonNull LikeStrategy strategy) {
+    public static String toLike(@NonNull String value, @NonNull LikeStrategy... likeStrategy) {
         String expression;
-        if (strategy == LikeStrategy.ANY) {
+        if (likeStrategy.length == 0 || likeStrategy[0] == LikeStrategy.ANY) {
             expression = String.format("%s%s%s", "%", value, "%");
-        } else if (strategy == LikeStrategy.LEFT) {
+        } else if (likeStrategy[0] == LikeStrategy.LEFT) {
             expression = String.format("%s%s", "%", value);
-        } else if (strategy == LikeStrategy.RIGHT) {
+        } else if (likeStrategy[0] == LikeStrategy.RIGHT) {
             expression = String.format("%s%s", value, "%");
         } else {
             throw new RuntimeException("Unknown LikeStrategy. LikeStrategy must be LEFT or RIGHT or ANY");
