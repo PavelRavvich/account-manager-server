@@ -11,11 +11,9 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 import ru.pravvich.domain.Phone;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 
 import static ru.pravvich.util.QueryValFormatter.toLike;
@@ -35,15 +33,16 @@ public interface PhoneRepository extends JpaRepository<Phone, Integer>, JpaSpeci
         @Override
         public Predicate toPredicate(Root<Phone> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
             Predicate predicate = cb.conjunction();
-            filter.getId().ifPresent(id -> predicate.getExpressions().add(cb.equal(root.get("id"), id)));
-            filter.getNote().ifPresent(note -> predicate.getExpressions().add(cb.like(root.get("note"), toLike(note))));
-            filter.getNumber().ifPresent(num -> predicate.getExpressions().add(cb.like(root.get("number"), toLike(num))));
-            filter.getStatus().ifPresent(status -> predicate.getExpressions().add(cb.like(root.get("status"), toLike(status))));
-            filter.getOpName().ifPresent(opName -> predicate.getExpressions().add(cb.like(root.get("operatorName"), toLike(opName))));
-            filter.getLogin().ifPresent(login -> predicate.getExpressions().add(cb.like(root.get("operatorAccLogin"), toLike(login))));
-            filter.getPassword().ifPresent(pass -> predicate.getExpressions().add(cb.like(root.get("operatorAccPassword"), toLike(pass))));
+            List<Expression<Boolean>> expressions = predicate.getExpressions();
+            filter.getId().ifPresent(id -> expressions.add(cb.equal(root.get("id"), id)));
+            filter.getNote().ifPresent(note -> expressions.add(cb.like(root.get("note"), toLike(note))));
+            filter.getNumber().ifPresent(num -> expressions.add(cb.like(root.get("number"), toLike(num))));
+            filter.getStatus().ifPresent(status -> expressions.add(cb.like(root.get("status"), toLike(status))));
+            filter.getOpName().ifPresent(opName -> expressions.add(cb.like(root.get("operatorName"), toLike(opName))));
+            filter.getLogin().ifPresent(login -> expressions.add(cb.like(root.get("operatorAccLogin"), toLike(login))));
+            filter.getPassword().ifPresent(pass -> expressions.add(cb.like(root.get("operatorAccPassword"), toLike(pass))));
             if (filter.getFrom().isPresent() && filter.getTo().isPresent()) {
-                predicate.getExpressions().add(cb.between(root.get("regDate"), filter.getFrom().get(), filter.getTo().get()));
+                expressions.add(cb.between(root.get("regDate"), filter.getFrom().get(), filter.getTo().get()));
             }
             return predicate;
         }

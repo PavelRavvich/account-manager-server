@@ -19,8 +19,12 @@ import static ru.pravvich.repository.SocialAccountRepository.SocialAccountSpecif
 @Service
 public class SocialAccountServiceImpl implements SocialAccountService {
 
+    private final SocialAccountRepository socialAccountRepository;
+
     @Autowired
-    private SocialAccountRepository socialAccountRepository;
+    public SocialAccountServiceImpl(@NonNull SocialAccountRepository socialAccountRepository) {
+        this.socialAccountRepository = socialAccountRepository;
+    }
 
     @Override
     public Page<SocialAccount> list(@NonNull final SocialAccountFilter filter) {

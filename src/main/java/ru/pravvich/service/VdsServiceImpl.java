@@ -19,11 +19,15 @@ import static org.springframework.data.jpa.domain.Specifications.where;
 @Service
 public class VdsServiceImpl implements VdsService {
 
-    @Autowired
-    private VdsRepository vdsRepository;
+    private final VdsRepository vdsRepository;
+
+    private final SocialAccountRepository socialAccountRepository;
 
     @Autowired
-    private SocialAccountRepository socialAccountRepository;
+    public VdsServiceImpl(@NonNull VdsRepository vdsRepository, @NonNull SocialAccountRepository socialAccountRepository) {
+        this.vdsRepository = vdsRepository;
+        this.socialAccountRepository = socialAccountRepository;
+    }
 
     @Override
     public Page<Vds> list(@NonNull final VdsFilter filter) {

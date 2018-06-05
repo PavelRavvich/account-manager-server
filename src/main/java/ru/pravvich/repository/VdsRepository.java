@@ -12,6 +12,7 @@ import ru.pravvich.domain.Vds;
 
 import javax.persistence.criteria.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 
 import static ru.pravvich.util.QueryValFormatter.toLike;
@@ -30,14 +31,15 @@ public interface VdsRepository extends JpaRepository<Vds, Integer>, JpaSpecifica
         @Override
         public Predicate toPredicate(Root<Vds> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
             Predicate predicate = cb.conjunction();
-            filter.getId().ifPresent(id -> predicate.getExpressions().add(cb.equal(root.get("id"), id)));
-            filter.getIp().ifPresent(ip -> predicate.getExpressions().add(cb.like(root.get("ip"), toLike(ip))));
-            filter.getNote().ifPresent(note -> predicate.getExpressions().add(cb.like(root.get("note"), toLike(note))));
-            filter.getLogin().ifPresent(login -> predicate.getExpressions().add(cb.like(root.get("login"), toLike(login))));
-            filter.getPassword().ifPresent(pass -> predicate.getExpressions().add(cb.like(root.get("login"), toLike(pass))));
+            List<Expression<Boolean>> expressions = predicate.getExpressions();
+            filter.getId().ifPresent(id -> expressions.add(cb.equal(root.get("id"), id)));
+            filter.getIp().ifPresent(ip -> expressions.add(cb.like(root.get("ip"), toLike(ip))));
+            filter.getNote().ifPresent(note -> expressions.add(cb.like(root.get("note"), toLike(note))));
+            filter.getLogin().ifPresent(login -> expressions.add(cb.like(root.get("login"), toLike(login))));
+            filter.getPassword().ifPresent(pass -> expressions.add(cb.like(root.get("login"), toLike(pass))));
             if (filter.getFrom().isPresent() && filter.getTo().isPresent() && filter.getIsActivatedDate().isPresent()) {
                 Path<Timestamp> path = root.get(filter.getIsActivatedDate().get() ? "activated" : "deactivated");
-                predicate.getExpressions().add(cb.between(path, filter.from, filter.to));
+                expressions.add(cb.between(path, filter.from, filter.to));
             }
             return predicate;
         }

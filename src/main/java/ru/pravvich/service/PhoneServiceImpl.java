@@ -20,11 +20,15 @@ import static org.springframework.data.jpa.domain.Specifications.where;
 @Service
 public class PhoneServiceImpl implements PhoneService {
 
-    @Autowired
-    private PhoneRepository phoneRepository;
+    private final PhoneRepository phoneRepository;
+
+    private final SocialAccountRepository socialAccountRepository;
 
     @Autowired
-    private SocialAccountRepository socialAccountRepository;
+    public PhoneServiceImpl(@NonNull PhoneRepository phoneRepository, @NonNull SocialAccountRepository socialAccountRepository) {
+        this.phoneRepository = phoneRepository;
+        this.socialAccountRepository = socialAccountRepository;
+    }
 
     @Override
     public Phone get(final int id) {

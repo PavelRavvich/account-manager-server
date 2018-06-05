@@ -13,11 +13,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.pravvich.domain.SocialAccount;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 
 import static ru.pravvich.util.QueryValFormatter.toLike;
@@ -46,16 +44,17 @@ public interface SocialAccountRepository extends JpaRepository<SocialAccount, In
         @Override
         public Predicate toPredicate(Root<SocialAccount> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
             Predicate predicate = cb.conjunction();
-            filter.getId().ifPresent(id -> predicate.getExpressions().add(cb.equal(root.get("id"), id)));
-            filter.getNote().ifPresent(note -> predicate.getExpressions().add(cb.like(root.get("note"), toLike(note))));
-            filter.getStatus().ifPresent(status -> predicate.getExpressions().add(cb.like(root.get("status"), toLike(status))));
-            filter.getSocialType().ifPresent(type -> predicate.getExpressions().add(cb.like(root.get("socialType"), toLike(type))));
-            filter.getPassword().ifPresent(pass -> predicate.getExpressions().add(cb.like(root.get("password"), toLike(pass))));
-            filter.getLogin().ifPresent(login -> predicate.getExpressions().add(cb.like(root.get("login"), toLike(login))));
-            filter.getPhoneId().ifPresent(pId -> predicate.getExpressions().add(cb.equal(root.get("phoneId"), pId)));
-            filter.getVdsId().ifPresent(vId -> predicate.getExpressions().add(cb.equal(root.get("vdsId"), vId)));
+            List<Expression<Boolean>> expressions = predicate.getExpressions();
+            filter.getId().ifPresent(id -> expressions.add(cb.equal(root.get("id"), id)));
+            filter.getNote().ifPresent(note -> expressions.add(cb.like(root.get("note"), toLike(note))));
+            filter.getStatus().ifPresent(status -> expressions.add(cb.like(root.get("status"), toLike(status))));
+            filter.getSocialType().ifPresent(type -> expressions.add(cb.like(root.get("socialType"), toLike(type))));
+            filter.getPassword().ifPresent(pass -> expressions.add(cb.like(root.get("password"), toLike(pass))));
+            filter.getLogin().ifPresent(login -> expressions.add(cb.like(root.get("login"), toLike(login))));
+            filter.getPhoneId().ifPresent(pId -> expressions.add(cb.equal(root.get("phoneId"), pId)));
+            filter.getVdsId().ifPresent(vId -> expressions.add(cb.equal(root.get("vdsId"), vId)));
             if (filter.getFrom().isPresent() && filter.getTo().isPresent()) {
-                predicate.getExpressions().add(cb.between(root.get("regDate"), filter.getFrom().get(), filter.getTo().get()));
+                expressions.add(cb.between(root.get("regDate"), filter.getFrom().get(), filter.getTo().get()));
             }
             return predicate;
         }
