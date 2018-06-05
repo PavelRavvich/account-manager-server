@@ -26,8 +26,13 @@ import static java.util.Objects.nonNull;
 @RequestMapping("/vds")
 public class VdsController {
 
+    @NonNull
+    private final VdsService vdsService;
+
     @Autowired
-    private VdsService vdsService;
+    public VdsController(@NonNull VdsService vdsService) {
+        this.vdsService = vdsService;
+    }
 
     @GetMapping("/list")
     public RestList list(

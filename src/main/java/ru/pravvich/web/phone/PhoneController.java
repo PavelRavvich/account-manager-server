@@ -28,8 +28,13 @@ import static ru.pravvich.repository.PhoneRepository.PhoneFilter;
 @RequestMapping("/phone")
 public class PhoneController {
 
+    @NonNull
+    private final PhoneService phoneService;
+
     @Autowired
-    private PhoneService phoneService;
+    public PhoneController(@NonNull PhoneService phoneService) {
+        this.phoneService = phoneService;
+    }
 
     @GetMapping("/list")
     public RestList list(

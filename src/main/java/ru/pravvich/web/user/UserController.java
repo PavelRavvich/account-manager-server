@@ -21,8 +21,13 @@ import static java.util.stream.Collectors.toList;
 @RequestMapping("/user")
 public class UserController {
 
+    @NonNull
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public UserController(@NonNull UserService userService) {
+        this.userService = userService;
+    }
 
     @RequestMapping(path = "/registration", method = RequestMethod.POST)
     public UserRest registration(@RequestBody() UserRest user) {

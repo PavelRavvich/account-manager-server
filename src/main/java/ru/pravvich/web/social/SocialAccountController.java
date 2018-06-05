@@ -27,8 +27,13 @@ import static java.util.Objects.nonNull;
 @RequestMapping("/social_account")
 public class SocialAccountController {
 
+    @NonNull
+    private final SocialAccountService socialAccountService;
+
     @Autowired
-    private SocialAccountService socialAccountService;
+    public SocialAccountController(@NonNull SocialAccountService socialAccountService) {
+        this.socialAccountService = socialAccountService;
+    }
 
     @GetMapping("/get")
     public SocialAccountRest get(@RequestParam(name = "id") int id) {
