@@ -18,9 +18,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.sql.Timestamp;
+import java.util.Optional;
 
-import static java.util.Objects.nonNull;
-import static ru.pravvich.util.QueryValFormatter.LikeStrategy.ANY;
 import static ru.pravvich.util.QueryValFormatter.toLike;
 
 /**
@@ -47,32 +46,16 @@ public interface SocialAccountRepository extends JpaRepository<SocialAccount, In
         @Override
         public Predicate toPredicate(Root<SocialAccount> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
             Predicate predicate = cb.conjunction();
-            if (nonNull(filter.id)) {
-                predicate.getExpressions().add(cb.equal(root.get("id"), filter.id));
-            }
-            if (nonNull(filter.note)) {
-                predicate.getExpressions().add(cb.like(root.get("note"), toLike(filter.note, ANY)));
-            }
-            if (nonNull(filter.status)) {
-                predicate.getExpressions().add(cb.like(root.get("status"), toLike(filter.status, ANY)));
-            }
-            if (nonNull(filter.socialType)) {
-                predicate.getExpressions().add(cb.like(root.get("socialType"), toLike(filter.socialType, ANY)));
-            }
-            if (nonNull(filter.login)) {
-                predicate.getExpressions().add(cb.like(root.get("login"), toLike(filter.login, ANY)));
-            }
-            if (nonNull(filter.password)) {
-                predicate.getExpressions().add(cb.like(root.get("password"), toLike(filter.password, ANY)));
-            }
-            if (nonNull(filter.from) && nonNull(filter.to)) {
-                predicate.getExpressions().add(cb.between(root.get("regDate"), filter.from, filter.to));
-            }
-            if (nonNull(filter.phoneId)) {
-                predicate.getExpressions().add(cb.equal(root.get("phoneId"), filter.phoneId));
-            }
-            if (nonNull(filter.vdsId)) {
-                predicate.getExpressions().add(cb.equal(root.get("vdsId"), filter.vdsId));
+            filter.getId().ifPresent(id -> predicate.getExpressions().add(cb.equal(root.get("id"), id)));
+            filter.getNote().ifPresent(note -> predicate.getExpressions().add(cb.like(root.get("note"), toLike(note))));
+            filter.getStatus().ifPresent(status -> predicate.getExpressions().add(cb.like(root.get("status"), toLike(status))));
+            filter.getSocialType().ifPresent(type -> predicate.getExpressions().add(cb.like(root.get("socialType"), toLike(type))));
+            filter.getPassword().ifPresent(pass -> predicate.getExpressions().add(cb.like(root.get("password"), toLike(pass))));
+            filter.getLogin().ifPresent(login -> predicate.getExpressions().add(cb.like(root.get("login"), toLike(login))));
+            filter.getPhoneId().ifPresent(pId -> predicate.getExpressions().add(cb.equal(root.get("phoneId"), pId)));
+            filter.getVdsId().ifPresent(vId -> predicate.getExpressions().add(cb.equal(root.get("vdsId"), vId)));
+            if (filter.getFrom().isPresent() && filter.getTo().isPresent()) {
+                predicate.getExpressions().add(cb.between(root.get("regDate"), filter.getFrom().get(), filter.getTo().get()));
             }
             return predicate;
         }
@@ -102,5 +85,45 @@ public interface SocialAccountRepository extends JpaRepository<SocialAccount, In
         private Integer phoneId;
 
         private Integer vdsId;
+
+        public Optional<Integer> getId() {
+            return Optional.ofNullable(id);
+        }
+
+        public Optional<String> getNote() {
+            return Optional.ofNullable(note);
+        }
+
+        public Optional<String> getStatus() {
+            return Optional.ofNullable(status);
+        }
+
+        public Optional<String> getSocialType() {
+            return Optional.ofNullable(socialType);
+        }
+
+        public Optional<String> getLogin() {
+            return Optional.ofNullable(login);
+        }
+
+        public Optional<String> getPassword() {
+            return Optional.ofNullable(password);
+        }
+
+        public Optional<Timestamp> getFrom() {
+            return Optional.ofNullable(from);
+        }
+
+        public Optional<Timestamp> getTo() {
+            return Optional.ofNullable(to);
+        }
+
+        public Optional<Integer> getPhoneId() {
+            return Optional.ofNullable(phoneId);
+        }
+
+        public Optional<Integer> getVdsId() {
+            return Optional.ofNullable(vdsId);
+        }
     }
 }
