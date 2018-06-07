@@ -48,7 +48,7 @@ public class VdsController {
      * Support pagination.
      *
      * @param pageSize        max amount element in result list.
-     * @param pageNumber      offset of page from, start from 0.
+     * @param pageNumber      offset of page. Value 0 is 1 page.
      * @param ip              filter value which must contains for match.
      * @param id              filter value which must contains for match.
      * @param note            filter value which must contains for match.
