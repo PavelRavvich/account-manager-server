@@ -19,23 +19,48 @@ import java.util.stream.Collectors;
 import static java.util.Objects.nonNull;
 
 /**
+ * Controller for Vds entities.
+ *
  * @author Pavel Ravvich.
  */
 @RestApi
 @RestController
 @RequestMapping("/vds")
 public class VdsController {
-
+    /**
+     * Service for Vds.
+     */
     @NonNull
     private final VdsService vdsService;
 
+    /**
+     * Default constructor.
+     *
+     * @param vdsService injection service layer.
+     */
     @Autowired
     public VdsController(@NonNull VdsService vdsService) {
         this.vdsService = vdsService;
     }
 
+    /**
+     * Get list of vds.
+     * Support pagination.
+     *
+     * @param pageSize        max amount element in result list.
+     * @param pageNumber      offset of page from, start from 0.
+     * @param ip              filter value which must contains for match.
+     * @param id              filter value which must contains for match.
+     * @param note            filter value which must contains for match.
+     * @param login           filter value which must contains for match.
+     * @param password        filter value which must contains for match.
+     * @param isActivatedDate filter parameter specify date filter. Con be by activated date or deactivated date.
+     * @param from            start range (inclusive)
+     * @param to              end range (inclusive)
+     * @return list of vds by filter params.
+     */
     @GetMapping("/list")
-    public RestList list(
+    public RestList<VdsRest> list(
             @RequestParam(name = "pageSize") Integer pageSize,
             @RequestParam(name = "pageNumber") Integer pageNumber,
             @RequestParam(name = "ip", required = false) String ip,
@@ -63,11 +88,23 @@ public class VdsController {
         return new RestList<>(pageNumber, pageSize, page.getTotalPages(), vds);
     }
 
+    /**
+     * Get vds By id.
+     *
+     * @param id for select.
+     * @return vds with corresponding id.
+     */
     @GetMapping("/get")
     public VdsRest get(@RequestParam(name = "id") int id) {
         return toRest(vdsService.get(id));
     }
 
+    /**
+     * Save new vds.
+     *
+     * @param vds for save.
+     * @return saved vds with generated id.
+     */
     @PostMapping("/save")
     public VdsRest save(@RequestBody() VdsRest vds) {
         Vds entity = toEntity(vds);
@@ -75,6 +112,12 @@ public class VdsController {
         return toRest(saved);
     }
 
+    /**
+     * Update existed vds.
+     *
+     * @param vds for update.
+     * @return updated version.
+     */
     @PostMapping("/update")
     public VdsRest update(@RequestBody() VdsRest vds) {
         Vds entity = toEntity(vds);
@@ -82,15 +125,32 @@ public class VdsController {
         return toRest(update);
     }
 
+    /**
+     * Delete vds bu id.
+     *
+     * @param id of vds for deleting.
+     */
     @PostMapping("/delete")
     public void delete(@RequestBody() int id) {
         vdsService.delete(id);
     }
 
-    private Collection<VdsRest> toRest(@NonNull Collection<Vds> vds) {
-        return vds.stream().map(this::toRest).collect(Collectors.toList());
+    /**
+     * Convert from collection Vds entity to collection of VdsRest.
+     *
+     * @param entity for convert.
+     * @return converted for rest api.
+     */
+    private Collection<VdsRest> toRest(@NonNull Collection<Vds> entity) {
+        return entity.stream().map(this::toRest).collect(Collectors.toList());
     }
 
+    /**
+     * Convert from Vds entity to VdsRest.
+     *
+     * @param entity for convert.
+     * @return converted for rest api.
+     */
     private VdsRest toRest(@NonNull Vds entity) {
         VdsRest rest = new VdsRest();
         rest.setId(entity.getId());
@@ -103,6 +163,12 @@ public class VdsController {
         return rest;
     }
 
+    /**
+     * Convert from VdsRest to Vds entity .
+     *
+     * @param rest for convert.
+     * @return converted for db.
+     */
     private Vds toEntity(@NonNull VdsRest rest) {
         Vds entity = new Vds();
         entity.setId(rest.getId());
