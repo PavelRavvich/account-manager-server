@@ -55,8 +55,8 @@ public class VdsController {
      * @param login           filter value which must contains for match.
      * @param password        filter value which must contains for match.
      * @param isActivatedDate filter parameter specify date filter. Con be by activated date or deactivated date.
-     * @param from            start range (inclusive)
-     * @param to              end range (inclusive)
+     * @param from            filter start range (inclusive)
+     * @param to              filter end range (inclusive)
      * @return list of vds by filter params.
      */
     @GetMapping("/list")
