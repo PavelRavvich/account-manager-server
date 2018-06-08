@@ -46,19 +46,21 @@ public class PhoneController {
     }
 
     /**
+     * Get list of phone.
+     * Support pagination.
      *
-     * @param pageSize
-     * @param pageNumber
-     * @param id
-     * @param note
-     * @param number
-     * @param opLogin
-     * @param opPassword
-     * @param opName
-     * @param status
-     * @param from
-     * @param to
-     * @return
+     * @param pageSize   max amount element in result list.
+     * @param pageNumber offset of page. Value 0 is 1 page.
+     * @param id         filter value which must contains for match.
+     * @param note       filter value which must contains for match.
+     * @param number     filter value which must contains for match.
+     * @param opLogin    filter value which must contains for match.
+     * @param opPassword filter value which must contains for match.
+     * @param opName     filter value which must contains for match.
+     * @param status     filter value which must contains for equal.
+     * @param from       filter start range (inclusive)
+     * @param to         filter end range (inclusive)
+     * @return list of phones by filter params.
      */
     @GetMapping("/list")
     public RestList list(
@@ -166,8 +168,8 @@ public class PhoneController {
         rest.setOpLogin(entity.getOperatorAccLogin());
         rest.setOpPassword(entity.getOperatorAccPassword());
         rest.setSocialAccIds(nonNull(entity.getAccounts())
-                        ? entity.getAccounts().stream().map(SocialAccount::getId).collect(Collectors.toList())
-                        : Lists.newArrayList());
+                ? entity.getAccounts().stream().map(SocialAccount::getId).collect(Collectors.toList())
+                : Lists.newArrayList());
         return rest;
     }
 
