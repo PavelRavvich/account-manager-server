@@ -21,21 +21,45 @@ import static java.util.Objects.nonNull;
 import static ru.pravvich.repository.PhoneRepository.PhoneFilter;
 
 /**
+ * Controller for Phone entities.
+ *
  * @author Pavel Ravvich.
  */
 @RestApi
 @RestController
 @RequestMapping("/phone")
 public class PhoneController {
-
+    /**
+     * Service for Phone.
+     */
     @NonNull
     private final PhoneService phoneService;
 
+    /**
+     * Default constructor.
+     *
+     * @param phoneService injection service layer.
+     */
     @Autowired
     public PhoneController(@NonNull PhoneService phoneService) {
         this.phoneService = phoneService;
     }
 
+    /**
+     *
+     * @param pageSize
+     * @param pageNumber
+     * @param id
+     * @param note
+     * @param number
+     * @param opLogin
+     * @param opPassword
+     * @param opName
+     * @param status
+     * @param from
+     * @param to
+     * @return
+     */
     @GetMapping("/list")
     public RestList list(
             @RequestParam(name = "pageSize") Integer pageSize,
@@ -67,11 +91,23 @@ public class PhoneController {
         return new RestList<>(pageNumber, pageSize, page.getTotalPages(), phones);
     }
 
+    /**
+     * Get phone By id.
+     *
+     * @param id for select.
+     * @return phone with corresponding id.
+     */
     @GetMapping("/get")
     public PhoneRest get(@RequestParam(name = "id") int id) {
         return toRest(phoneService.get(id));
     }
 
+    /**
+     * Save new phone.
+     *
+     * @param phone for save.
+     * @return saved vds with generated id.
+     */
     @PostMapping("/save")
     public PhoneRest save(@RequestBody() PhoneRest phone) {
         Phone entity = toEntity(phone);
@@ -79,6 +115,12 @@ public class PhoneController {
         return toRest(saved);
     }
 
+    /**
+     * Update existed phone.
+     *
+     * @param phone for update.
+     * @return updated version.
+     */
     @PostMapping("/update")
     public PhoneRest update(@RequestBody() PhoneRest phone) {
         Phone entity = toEntity(phone);
@@ -86,15 +128,32 @@ public class PhoneController {
         return toRest(update);
     }
 
+    /**
+     * Delete phone by id.
+     *
+     * @param id of phone for deleting.
+     */
     @PostMapping("/delete")
     public void delete(@RequestBody() int id) {
         phoneService.delete(id);
     }
 
-    private Collection<PhoneRest> toRest(@NonNull Collection<Phone> phones) {
-        return phones.stream().map(this::toRest).collect(Collectors.toList());
+    /**
+     * Convert from collection Phone entity to collection of PhoneRest.
+     *
+     * @param entity for convert.
+     * @return converted for rest api.
+     */
+    private Collection<PhoneRest> toRest(@NonNull Collection<Phone> entity) {
+        return entity.stream().map(this::toRest).collect(Collectors.toList());
     }
 
+    /**
+     * Convert from Phone entity to PhoneRest.
+     *
+     * @param entity for convert.
+     * @return converted for rest api.
+     */
     private PhoneRest toRest(@NonNull Phone entity) {
         PhoneRest rest = new PhoneRest();
         rest.setId(entity.getId());
@@ -112,6 +171,12 @@ public class PhoneController {
         return rest;
     }
 
+    /**
+     * Convert from PhoneRest to Phone entity .
+     *
+     * @param rest for convert.
+     * @return converted for db.
+     */
     private Phone toEntity(@NonNull PhoneRest rest) {
         Phone entity = new Phone();
         entity.setId(rest.getId());
