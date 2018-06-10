@@ -50,7 +50,7 @@ public class VdsController {
      * @param pageSize        max amount element in result list.
      * @param pageNumber      offset of page. Value 0 is 1 page.
      * @param ip              filter value which must contains for match.
-     * @param id              filter value which must contains for match.
+     * @param id              filter value which must contains for equal.
      * @param note            filter value which must contains for match.
      * @param login           filter value which must contains for match.
      * @param password        filter value which must contains for match.

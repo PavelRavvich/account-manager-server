@@ -20,26 +20,48 @@ import java.util.stream.Collectors;
 import static java.util.Objects.nonNull;
 
 /**
+ * Controller for SocialAccount entities.
+ *
  * @author Pavel Ravvich.
  */
 @RestApi
 @RestController
 @RequestMapping("/social_account")
 public class SocialAccountController {
-
+    /**
+     * Service for SocialAccount.
+     */
     @NonNull
     private final SocialAccountService socialAccountService;
 
+    /**
+     * Default constructor.
+     *
+     * @param socialAccountService injection service layer.
+     */
     @Autowired
     public SocialAccountController(@NonNull SocialAccountService socialAccountService) {
         this.socialAccountService = socialAccountService;
     }
 
-    @GetMapping("/get")
-    public SocialAccountRest get(@RequestParam(name = "id") int id) {
-        return toRest(socialAccountService.get(id));
-    }
-
+    /**
+     * Get list of SocialAccount.
+     * Support pagination.
+     *
+     * @param pageSize   max amount element in result list.
+     * @param pageNumber offset of page. Value 0 is 1 page.
+     * @param id         filter value which must contains for equal.
+     * @param note       filter value which must contains for match.
+     * @param login      filter value which must contains for match.
+     * @param status     filter value which must contains for equal.
+     * @param password   filter value which must contains for match.
+     * @param socialType filter value which must contains for equal.
+     * @param phoneId    filter value which must contains for equal.
+     * @param vdsId      filter value which must contains for equal.
+     * @param from       filter start range (inclusive)
+     * @param to         filter start range (inclusive)
+     * @return list of SocialAccounts by filter params.
+     */
     @GetMapping("/list")
     public RestList list(
             @RequestParam(name = "pageSize") Integer pageSize,
@@ -73,6 +95,23 @@ public class SocialAccountController {
         return new RestList<>(pageNumber, pageSize, page.getTotalPages(), accounts);
     }
 
+    /**
+     * Get SocialAccount By id.
+     *
+     * @param id for select.
+     * @return SocialAccount with corresponding id.
+     */
+    @GetMapping("/get")
+    public SocialAccountRest get(@RequestParam(name = "id") int id) {
+        return toRest(socialAccountService.get(id));
+    }
+
+    /**
+     * Save new SocialAccount.
+     *
+     * @param account for save.
+     * @return saved vds with generated id.
+     */
     @PostMapping("/save")
     public SocialAccountRest save(@RequestBody() SocialAccountRest account) {
         SocialAccount entity = toEntity(account);
@@ -80,6 +119,12 @@ public class SocialAccountController {
         return toRest(save);
     }
 
+    /**
+     * Update existed SocialAccount.
+     *
+     * @param account for update.
+     * @return updated version.
+     */
     @PostMapping("/update")
     public SocialAccountRest update(@RequestBody() SocialAccountRest account) {
         SocialAccount entity = toEntity(account);
@@ -87,15 +132,32 @@ public class SocialAccountController {
         return toRest(update);
     }
 
+    /**
+     * Delete SocialAccount by id.
+     *
+     * @param id of SocialAccount for deleting.
+     */
     @PostMapping("/delete")
     public void delete(@RequestBody int id) {
         socialAccountService.delete(id);
     }
 
-    private List<SocialAccountRest> toRest(@NonNull Collection<SocialAccount> vdsSet) {
-        return vdsSet.stream().map(this::toRest).collect(Collectors.toList());
+    /**
+     * Convert from collection SocialAccount entity to collection of SocialAccountRest.
+     *
+     * @param entity for convert.
+     * @return converted for rest api.
+     */
+    private List<SocialAccountRest> toRest(@NonNull Collection<SocialAccount> entity) {
+        return entity.stream().map(this::toRest).collect(Collectors.toList());
     }
 
+    /**
+     * Convert from SocialAccount entity to SocialAccountRest.
+     *
+     * @param entity for convert.
+     * @return converted for rest api.
+     */
     private SocialAccountRest toRest(@NonNull SocialAccount entity) {
         SocialAccountRest rest = new SocialAccountRest();
         rest.setSocialType(entity.getSocialType());
@@ -111,6 +173,12 @@ public class SocialAccountController {
         return rest;
     }
 
+    /**
+     * Convert from SocialAccountRest to SocialAccount entity .
+     *
+     * @param rest for convert.
+     * @return converted for db.
+     */
     private SocialAccount toEntity(@NonNull SocialAccountRest rest) {
         SocialAccount entity = new SocialAccount();
         entity.setSocialType(rest.getSocialType());
