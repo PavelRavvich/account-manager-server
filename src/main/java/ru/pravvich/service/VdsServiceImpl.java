@@ -15,7 +15,7 @@ import static org.springframework.data.jpa.domain.Specifications.where;
 
 /**
  * @author Pavel Ravvich.
- *
+ * <p>
  * Service layer for Vds entity.
  */
 @Service
@@ -33,7 +33,7 @@ public class VdsServiceImpl implements VdsService {
      * Default constructor.
      * Injection repository layer.
      *
-     * @param vdsRepository repo Vds.
+     * @param vdsRepository           repo Vds.
      * @param socialAccountRepository repo SocialAccount.
      */
     @Autowired
@@ -43,10 +43,10 @@ public class VdsServiceImpl implements VdsService {
     }
 
     /**
-     * Get Vds list by filter.
+     * Get Vds Page by filter.
      *
      * @param filter from UI for select by criteria.
-     * @return list of Vds corresponding filter state.
+     * @return Page of Vds corresponding filter state.
      */
     @Override
     public Page<Vds> list(@NonNull final VdsFilter filter) {

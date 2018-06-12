@@ -8,7 +8,7 @@ import ru.pravvich.repository.UserRepository;
 
 /**
  * @author Pavel Ravvich.
- *
+ * <p>
  * Service for User entity.
  */
 @Service
