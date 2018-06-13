@@ -20,16 +20,30 @@ import static ru.pravvich.util.QueryValFormatter.toLike;
 
 /**
  * @author Pavel Ravvich.
+ *
+ * Repository for Ohone entity.
  */
 @Repository
 public interface PhoneRepository extends JpaRepository<Phone, Integer>, JpaSpecificationExecutor<Phone> {
-
+    /**
+     * Specification wrapper for PhoneFilter.
+     */
     @EqualsAndHashCode
     @AllArgsConstructor
     class PhoneSpecification implements Specification<Phone> {
-
+        /**
+         * Filter for select Phones.
+         */
         private final @NonNull PhoneFilter filter;
 
+        /**
+         * Creates a WHERE clause for a query of the referenced entity in form of a {@link Predicate} for the given
+         * {@link Root} and {@link CriteriaQuery}.
+         *
+         * @param root specify mapping entity fields regTo filter fields.
+         * @param cb specify type of select condition (like, equal, etc)
+         * @return a {@link Predicate}, may be {@literal null}.
+         */
         @Override
         public Predicate toPredicate(Root<Phone> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
             Predicate predicate = cb.conjunction();
@@ -41,47 +55,70 @@ public interface PhoneRepository extends JpaRepository<Phone, Integer>, JpaSpeci
             filter.getOpName().ifPresent(opName -> expressions.add(cb.like(root.get("operatorName"), toLike(opName))));
             filter.getLogin().ifPresent(login -> expressions.add(cb.like(root.get("operatorAccLogin"), toLike(login))));
             filter.getPassword().ifPresent(pass -> expressions.add(cb.like(root.get("operatorAccPassword"), toLike(pass))));
-            if (filter.getFrom().isPresent() && filter.getTo().isPresent()) {
-                expressions.add(cb.between(root.get("regDate"), filter.getFrom().get(), filter.getTo().get()));
+            if (filter.getRegFrom().isPresent() && filter.getRegTo().isPresent()) {
+                expressions.add(cb.between(root.get("regDate"), filter.getRegFrom().get(), filter.getRegTo().get()));
             }
             return predicate;
         }
     }
 
+    /**
+     * Filter for Phone entity.
+     */
     @Data
     @EqualsAndHashCode
     class PhoneFilter {
-
+        /**
+         * Specify page number and page size.
+         */
         private @NonNull Pageable pageable;
-
+        /**
+         * Phone id.
+         */
         private Integer id;
-
-        private Timestamp from;
-
-        private Timestamp to;
-
+        /**
+         * Start range of reg date.
+         */
+        private Timestamp regFrom;
+        /**
+         * End range of reg date.
+         */
+        private Timestamp regTo;
+        /**
+         * Phone number.
+         */
         private String number;
-
+        /**
+         * Login in operator account.
+         */
         private String login;
-
+        /**
+         * Password in operator account.
+         */
         private String password;
-
+        /**
+         * Operation name.
+         */
         private String opName;
-
+        /**
+         * Current status of phone number.
+         */
         private String status;
-
+        /**
+         * Note about billing state.
+         */
         private String note;
 
         public Optional<Integer> getId() {
             return Optional.ofNullable(id);
         }
 
-        public Optional<Timestamp> getFrom() {
-            return Optional.ofNullable(from);
+        public Optional<Timestamp> getRegFrom() {
+            return Optional.ofNullable(regFrom);
         }
 
-        public Optional<Timestamp> getTo() {
-            return Optional.ofNullable(to);
+        public Optional<Timestamp> getRegTo() {
+            return Optional.ofNullable(regTo);
         }
 
         public Optional<String> getNumber() {

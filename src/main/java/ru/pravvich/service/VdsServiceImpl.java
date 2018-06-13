@@ -45,7 +45,7 @@ public class VdsServiceImpl implements VdsService {
     /**
      * Get Vds Page by filter.
      *
-     * @param filter from UI for select by criteria.
+     * @param filter regFrom UI for select by criteria.
      * @return Page of Vds corresponding filter state.
      */
     @Override
@@ -69,7 +69,7 @@ public class VdsServiceImpl implements VdsService {
     /**
      * Save new Vds or update if vds.getId() already exist.
      *
-     * @param vds actual state for save to db.
+     * @param vds actual state for save regTo db.
      * @return created or updated Vds.
      */
     @Override

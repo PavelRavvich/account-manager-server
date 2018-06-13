@@ -69,7 +69,7 @@ public class PhoneServiceImpl implements PhoneService {
     /**
      * Save new Phone or update if Phone.getId() already exist.
      *
-     * @param phone actual state for save to db.
+     * @param phone actual state for save regTo db.
      * @return created or updated Phone.
      */
     @Override

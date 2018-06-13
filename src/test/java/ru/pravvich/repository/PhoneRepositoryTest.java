@@ -46,8 +46,8 @@ public class PhoneRepositoryTest {
         filter.setOpName(test);
         filter.setLogin(test);
         filter.setPassword(test);
-        filter.setFrom(new Timestamp(System.currentTimeMillis()));
-        filter.setTo(new Timestamp(System.currentTimeMillis()));
+        filter.setRegFrom(new Timestamp(System.currentTimeMillis()));
+        filter.setRegTo(new Timestamp(System.currentTimeMillis()));
 
         Specification<Phone> spec = new PhoneRepository.PhoneSpecification(filter);
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();

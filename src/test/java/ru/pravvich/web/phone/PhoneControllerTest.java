@@ -68,8 +68,8 @@ public class PhoneControllerTest {
     @Test
     public void whenCallListWithRegDateNonNullThenReturnData() {
         long date = System.currentTimeMillis();
-        filter.setFrom(new Timestamp(date));
-        filter.setTo(new Timestamp(date));
+        filter.setRegFrom(new Timestamp(date));
+        filter.setRegTo(new Timestamp(date));
         given(phoneService.list(filter)).willReturn(new PageImpl<>(Lists.newArrayList(phone)));
         RestList result = phoneController.list(1, 0, null, null, null, null, null, null, null, date, date);
         assertThat(result.getData().size(), is(1));

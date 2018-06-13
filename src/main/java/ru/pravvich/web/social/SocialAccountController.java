@@ -74,8 +74,8 @@ public class SocialAccountController {
             @RequestParam(name = "socialType", required = false) String socialType,
             @RequestParam(name = "phoneId", required = false) Integer phoneId,
             @RequestParam(name = "vdsId", required = false) Integer vdsId,
-            @RequestParam(name = "from", required = false) Long from,
-            @RequestParam(name = "to", required = false) Long to) {
+            @RequestParam(name = "regFrom", required = false) Long from,
+            @RequestParam(name = "regTo", required = false) Long to) {
 
         Pageable pageable = new PageRequest(pageNumber, pageSize);
         SocialAccountFilter filter = new SocialAccountFilter(pageable);
@@ -143,7 +143,7 @@ public class SocialAccountController {
     }
 
     /**
-     * Convert from collection SocialAccount entity to collection of SocialAccountRest.
+     * Convert regFrom collection SocialAccount entity regTo collection of SocialAccountRest.
      *
      * @param entity for convert.
      * @return converted for rest api.
@@ -153,7 +153,7 @@ public class SocialAccountController {
     }
 
     /**
-     * Convert from SocialAccount entity to SocialAccountRest.
+     * Convert regFrom SocialAccount entity regTo SocialAccountRest.
      *
      * @param entity for convert.
      * @return converted for rest api.
@@ -174,7 +174,7 @@ public class SocialAccountController {
     }
 
     /**
-     * Convert from SocialAccountRest to SocialAccount entity .
+     * Convert regFrom SocialAccountRest regTo SocialAccount entity .
      *
      * @param rest for convert.
      * @return converted for db.

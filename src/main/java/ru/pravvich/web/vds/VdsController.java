@@ -69,8 +69,8 @@ public class VdsController {
             @RequestParam(name = "login", required = false) String login,
             @RequestParam(name = "password", required = false) String password,
             @RequestParam(name = "isActivatedDate", required = false) Boolean isActivatedDate,
-            @RequestParam(name = "from", required = false) Long from,
-            @RequestParam(name = "to", required = false) Long to) {
+            @RequestParam(name = "regFrom", required = false) Long from,
+            @RequestParam(name = "regTo", required = false) Long to) {
 
         Pageable pageable = new PageRequest(pageNumber, pageSize);
         VdsFilter filter = new VdsFilter(pageable);
@@ -136,7 +136,7 @@ public class VdsController {
     }
 
     /**
-     * Convert from collection Vds entity to collection of VdsRest.
+     * Convert regFrom collection Vds entity regTo collection of VdsRest.
      *
      * @param entity for convert.
      * @return converted for rest api.
@@ -146,7 +146,7 @@ public class VdsController {
     }
 
     /**
-     * Convert from Vds entity to VdsRest.
+     * Convert regFrom Vds entity regTo VdsRest.
      *
      * @param entity for convert.
      * @return converted for rest api.
@@ -164,7 +164,7 @@ public class VdsController {
     }
 
     /**
-     * Convert from VdsRest to Vds entity .
+     * Convert regFrom VdsRest regTo Vds entity .
      *
      * @param rest for convert.
      * @return converted for db.
