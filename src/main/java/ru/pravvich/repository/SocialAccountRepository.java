@@ -22,25 +22,53 @@ import static ru.pravvich.util.QueryValFormatter.toLike;
 
 /**
  * @author Pavel Ravvich.
+ * <p>
+ * Repository for SocialAccount entity.
  */
 @Repository
 public interface SocialAccountRepository extends JpaRepository<SocialAccount, Integer>, JpaSpecificationExecutor<SocialAccount> {
 
+    /**
+     * Update phone id.
+     *
+     * @param actual value.
+     * @param old    value.
+     */
     @Modifying
     @Transactional
     @Query("UPDATE SocialAccount acc set acc.phoneId = ?1 WHERE acc.phoneId = ?2")
     void setPhone(@NonNull Integer actual, @NonNull Integer old);
 
+    /**
+     * Update Vds id.
+     *
+     * @param actual value.
+     * @param old    value.
+     */
     @Modifying
     @Transactional
     @Query("UPDATE SocialAccount acc set acc.vdsId = ?1 WHERE acc.vdsId = ?2")
     void setVds(@NonNull Integer actual, @NonNull Integer old);
 
+    /**
+     * Specification wrapper for SocialAccount.
+     */
     @AllArgsConstructor
     class SocialAccountSpecification implements Specification<SocialAccount> {
+        /**
+         * Filter for select SocialAccount.
+         */
+        private final @NonNull
+        SocialAccountFilter filter;
 
-        private final @NonNull SocialAccountFilter filter;
-
+        /**
+         * Creates a WHERE clause for a query of the referenced entity in form of a {@link Predicate} for the given
+         * {@link Root} and {@link CriteriaQuery}.
+         *
+         * @param root specify mapping entity fields regTo filter fields.
+         * @param cb   specify type of select condition (like, equal, etc)
+         * @return a {@link Predicate}, may be {@literal null}.
+         */
         @Override
         public Predicate toPredicate(Root<SocialAccount> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
             Predicate predicate = cb.conjunction();
@@ -60,29 +88,53 @@ public interface SocialAccountRepository extends JpaRepository<SocialAccount, In
         }
     }
 
+    /**
+     * Filter for SocialAccount entity.
+     */
     @Data
     class SocialAccountFilter {
-
-        private @NonNull Pageable pageable;
-
+        /**
+         * Specify page number and page size.
+         */
+        private @NonNull
+        Pageable pageable;
+        /**
+         * SocialAccount id.
+         */
         private Integer id;
 
         private String note;
-
+        /**
+         * Status of account like active, ban, etc.
+         */
         private String status;
-
+        /**
+         * Type of social network.
+         */
         private String socialType;
-
+        /**
+         * Account login.
+         */
         private String login;
-
+        /**
+         * Account password.
+         */
         private String password;
-
+        /**
+         * Start range of reg date.
+         */
         private Timestamp from;
-
+        /**
+         * End range of reg date.
+         */
         private Timestamp to;
-
+        /**
+         * Id of phone of account.
+         */
         private Integer phoneId;
-
+        /**
+         * Id of vds.
+         */
         private Integer vdsId;
 
         public Optional<Integer> getId() {

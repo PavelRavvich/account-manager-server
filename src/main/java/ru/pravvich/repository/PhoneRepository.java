@@ -21,7 +21,7 @@ import static ru.pravvich.util.QueryValFormatter.toLike;
 /**
  * @author Pavel Ravvich.
  *
- * Repository for Ohone entity.
+ * Repository for Phone entity.
  */
 @Repository
 public interface PhoneRepository extends JpaRepository<Phone, Integer>, JpaSpecificationExecutor<Phone> {
