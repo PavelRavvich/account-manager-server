@@ -102,7 +102,9 @@ public interface SocialAccountRepository extends JpaRepository<SocialAccount, In
          * SocialAccount id.
          */
         private Integer id;
-
+        /**
+         * None about SocialAccount.
+         */
         private String note;
         /**
          * Status of account like active, ban, etc.

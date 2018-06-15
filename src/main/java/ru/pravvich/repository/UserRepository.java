@@ -7,6 +7,8 @@ import ru.pravvich.domain.User;
 
 /**
  * @author Pavel Ravvich.
+ * <p>
+ * Repository for User entity.
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {

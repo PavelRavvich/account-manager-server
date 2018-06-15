@@ -19,15 +19,31 @@ import static ru.pravvich.util.QueryValFormatter.toLike;
 
 /**
  * @author Pavel Ravvich.
+ * <p>
+ * Repository for User entity.
  */
 @Repository
 public interface VdsRepository extends JpaRepository<Vds, Integer>, JpaSpecificationExecutor<Vds> {
 
+    /**
+     * Specification wrapper for Vds.
+     */
     @AllArgsConstructor
     class VdsSpecification implements Specification<Vds> {
+        /**
+         * Filter for select Vds.
+         */
+        private final @NonNull
+        VdsFilter filter;
 
-        private final @NonNull VdsFilter filter;
-
+        /**
+         * Creates a WHERE clause for a query of the referenced entity in form of a {@link Predicate} for the given
+         * {@link Root} and {@link CriteriaQuery}.
+         *
+         * @param root specify mapping entity fields regTo filter fields.
+         * @param cb   specify type of select condition (like, equal, etc)
+         * @return a {@link Predicate}, may be {@literal null}.
+         */
         @Override
         public Predicate toPredicate(Root<Vds> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
             Predicate predicate = cb.conjunction();
@@ -45,25 +61,47 @@ public interface VdsRepository extends JpaRepository<Vds, Integer>, JpaSpecifica
         }
     }
 
+    /**
+     * Filter for Vds entity.
+     */
     @Data
     class VdsFilter {
-
-        private @NonNull Pageable pageable;
-
+        /**
+         * Specify page number and page size.
+         */
+        private @NonNull
+        Pageable pageable;
+        /**
+         * Vds id.
+         */
         private Integer id;
-
+        /**
+         * Vds ip address.
+         */
         private String ip;
-
+        /**
+         * None about Vds.
+         */
         private String note;
-
+        /**
+         * Vds login.
+         */
         private String login;
-
+        /**
+         * Vds password.
+         */
         private String password;
-
+        /**
+         * Specify date range. Search by activated date or deactivated date.
+         */
         private Boolean isActivatedDate;
-
+        /**
+         * Start range of activated date.
+         */
         private Timestamp from;
-
+        /**
+         * End range of activated date.
+         */
         private Timestamp to;
 
         public Optional<Integer> getId() {
